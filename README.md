@@ -16,7 +16,7 @@ By utilizing the powerful `adb` commands, I created this software that allows yo
 - **Kill ADB Server**: A dedicated button to kill the ADB server.
 
 ### Software Iterations
-- **First Iteration**: [Old-Wireless-Debugging-Devices-Manager](#) which used a JSON file to store device information.
+- **First Iteration**: [Old-Wireless-Debugging-Devices-Manager](https://github.com/ilCONDORA/Old-Wireless-Debugging-Devices-Manager) which used a JSON file to store device information.
 - **Second Iteration**: Never completed due to the complexity of using `provider` and `flutter_secure_storage`.
 - **Third Iteration (Current)**: Built using BLoC for state management and storage.
 
