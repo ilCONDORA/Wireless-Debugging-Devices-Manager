@@ -1,0 +1,35 @@
+name: wireless_debugging_devices_manager
+description: "Software to manage the wireless connection to android devices by using adb commands."
+publish_to: "none"
+version: 0.1.0
+
+environment:
+  sdk: ">=3.3.4 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_bloc: ^8.1.6
+  hydrated_bloc: ^9.1.5 # hydrated_bloc is built on top of Hive for persistence so I don't use Hive packages directly
+  path_provider: ^2.1.4
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+  rename: ^3.0.2
+  icons_launcher: ^2.1.7
+
+# execute in the terminal 'dart run icons_launcher:create' to generate icons
+icons_launcher:
+  image_path: assets/WDDM_logo.png
+  platforms:
+    windows:
+      enable: true
+    macos:
+      enable: true
+    linux:
+      enable: true
+
+flutter:
+  uses-material-design: true
