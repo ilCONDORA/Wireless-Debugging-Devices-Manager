@@ -40,6 +40,18 @@ class CondorAppTheme {
             ),
           ),
         ),
+        snackBarTheme: SnackBarThemeData(
+          behavior: SnackBarBehavior.floating,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10.0),
+          ),
+          actionBackgroundColor: Colors.amber,
+          actionTextColor: Colors.black,
+          contentTextStyle: const TextStyle(
+            fontSize: 20,
+            color: Colors.white,
+          ),
+        ),
       );
 
   /// Light theme
