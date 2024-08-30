@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wireless_debugging_devices_manager/services/adb_commands.dart';
 import 'package:wireless_debugging_devices_manager/widgets/condor_switch_theme_mode.dart';
 
 class CondorButtonsRow extends StatelessWidget {
@@ -23,7 +24,7 @@ class CondorButtonsRow extends StatelessWidget {
           width: 33,
         ),
         ElevatedButton(
-          onPressed: () {},
+          onPressed: () => condorAdbCommands.killServer(),
           style: ButtonStyle(
             backgroundColor: MaterialStateProperty.all(Colors.deepOrange),
           ),
