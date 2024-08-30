@@ -7,19 +7,20 @@ import 'package:window_manager/window_manager.dart';
 import 'package:wireless_debugging_devices_manager/bloc/theme_bloc.dart';
 import 'package:wireless_debugging_devices_manager/config/app_theme.dart';
 import 'package:wireless_debugging_devices_manager/screens/home_screen.dart';
+import 'package:wireless_debugging_devices_manager/services/condor_snackbar_service.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  /// Initialize Hydrated Bloc Storage dynamically
+  /// Initialize Hydrated Bloc Storage dynamically.
   HydratedBloc.storage = await HydratedStorage.build(
     storageDirectory: kIsWeb
         ? HydratedStorage
-            .webStorageDirectory // Web storage which is not used for this software
+            .webStorageDirectory // Web storage which is not used for this software.
         : await getApplicationSupportDirectory(), // Store data in the \AppData\Roaming\ilCONDORA folder in Windows and /.local/share in Linux, idk for MacOS.
   );
 
-  /// Set the minimum size of the window
+  /// Set the minimum size of the window.
   await windowManager.ensureInitialized();
   WindowOptions windowOptions = const WindowOptions(
     minimumSize: Size(999, 777),
@@ -41,7 +42,7 @@ class MainApp extends StatelessWidget {
     return BlocProvider(
       create: (context) => ThemeBloc(),
       child: BlocBuilder<ThemeBloc, ThemeState>(
-        /// rebuild this widget only when user changes theme
+        /// rebuild this widget only when user changes theme.
         buildWhen: (previous, current) =>
             previous.themeMode != current.themeMode,
         builder: (context, state) {
@@ -51,7 +52,11 @@ class MainApp extends StatelessWidget {
             theme: CondorAppTheme.lightTheme,
             darkTheme: CondorAppTheme.darkTheme,
             themeMode: state.themeMode,
-            home: const HomeScreen(),
+            home: Builder(builder: (context) {
+              /// Initialize the service that manages the SnackBar.
+              condorSnackBar.init(context);
+              return const HomeScreen();
+            }),
           );
         },
       ),
