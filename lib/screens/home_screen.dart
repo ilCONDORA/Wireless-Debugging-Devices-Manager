@@ -27,7 +27,7 @@ class HomeScreen extends StatelessWidget {
                     controller: scroolController,
                     children: [
                       Padding(
-                        /// this padding is used to make the scrollbar a bit more visible by giving it some space
+                        /// this padding is used to make the scrollbar a bit more visible by giving it some space.
                         padding: const EdgeInsets.symmetric(
                             horizontal: 18, vertical: 9),
                         child: Wrap(
