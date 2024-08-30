@@ -11,6 +11,7 @@ class CondorAppTheme {
           backgroundColor: Colors.transparent,
           centerTitle: true,
           titleTextStyle: TextStyle(fontSize: 30),
+          scrolledUnderElevation: 0,
         ),
         textTheme: const TextTheme(
           bodyLarge: TextStyle(fontSize: 20),
@@ -22,6 +23,7 @@ class CondorAppTheme {
             textStyle: MaterialStatePropertyAll(
               TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
             ),
+            backgroundColor: MaterialStatePropertyAll(Colors.white),
             foregroundColor: MaterialStatePropertyAll(Colors.black),
             shape: MaterialStatePropertyAll(
               RoundedRectangleBorder(
