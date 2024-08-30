@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 
-class CondorSnackBarMessage {
+/// Deprecated: use [CondorSnackBarService] instead.
+class DeprecatedCondorSnackBarMessage {
   static void show(
       {required BuildContext context,
       required String message,
       required bool isSuccess}) {
-    /// Close any open snackbar
+    /// Close any open snackbar.
     ScaffoldMessenger.of(context).clearSnackBars();
 
-    /// Show snackbar with message and with color of success or error
+    /// Show snackbar with message and with color of success or error.
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: SelectableText(
