@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:desktop_window/desktop_window.dart';
+import 'package:window_manager/window_manager.dart';
 import 'package:wireless_debugging_devices_manager/bloc/theme_bloc.dart';
 import 'package:wireless_debugging_devices_manager/config/app_theme.dart';
 import 'package:wireless_debugging_devices_manager/screens/home_screen.dart';
@@ -21,7 +21,15 @@ Future<void> main() async {
   );
 
   /// Set the minimum size of the window.
-  await DesktopWindow.setMinWindowSize(const Size(999, 777));
+  await windowManager.ensureInitialized();
+  WindowOptions windowOptions = const WindowOptions(
+    minimumSize: Size(999, 777),
+    center: kDebugMode ? false : true,
+  );
+  windowManager.waitUntilReadyToShow(windowOptions, () async {
+    await windowManager.show();
+    await windowManager.focus();
+  });
 
   runApp(const MainApp());
 }
