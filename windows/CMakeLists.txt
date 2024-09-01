@@ -4,7 +4,7 @@ project(wireless_debugging_devices_manager LANGUAGES CXX)
 
 # The name of the executable created for the application. Change this to change
 # the on-disk name of your application.
-set(BINARY_NAME "wireless_debugging_devices_manager")
+set(BINARY_NAME "wddm-win64")
 
 # Explicitly opt in to modern CMake behaviors to avoid warnings with recent
 # versions of CMake.

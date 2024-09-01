@@ -93,8 +93,8 @@ BEGIN
             VALUE "FileDescription", "Wireless Debugging Devices Manager" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
             VALUE "InternalName", "Wireless Debugging Devices Manager" "\0"
-            VALUE "LegalCopyright", "Copyright (C) 2024 com.example. All rights reserved." "\0"
-            VALUE "OriginalFilename", "Wireless Debugging Devices Manager.exe" "\0"
+            VALUE "LegalCopyright", "Copyright ©️ 2024 ilCONDORA. All rights reserved." "\0"
+            VALUE "OriginalFilename", "wddm-win64.exe" "\0"
             VALUE "ProductName", "Wireless Debugging Devices Manager" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END

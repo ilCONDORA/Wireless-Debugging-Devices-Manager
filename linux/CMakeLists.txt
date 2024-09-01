@@ -4,10 +4,10 @@ project(runner LANGUAGES CXX)
 
 # The name of the executable created for the application. Change this to change
 # the on-disk name of your application.
-set(BINARY_NAME "Wireless Debugging Devices Manager")
+set(BINARY_NAME "wddm-linux-x64")
 # The unique GTK application identifier for this application. See:
 # https://wiki.gnome.org/HowDoI/ChooseApplicationID
-set(APPLICATION_ID "com.example.wireless_debugging_devices_manager")
+set(APPLICATION_ID "it.ilcondora.wirelessdebuggingdevicesmanager")
 
 # Explicitly opt in to modern CMake behaviors to avoid warnings with recent
 # versions of CMake.

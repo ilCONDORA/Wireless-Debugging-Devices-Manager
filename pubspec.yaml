@@ -18,7 +18,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^4.0.0
-  rename: ^3.0.2
+  package_rename: ^1.7.1
   icons_launcher: ^2.1.7
 
 # execute in the terminal 'dart run icons_launcher:create' to generate icons
@@ -31,6 +31,24 @@ icons_launcher:
       enable: true
     linux:
       enable: true
+
+# execute in the terminal 'dart run package_rename' to change packages informations
+package_rename_config:
+  linux:
+    app_name: Wireless Debugging Devices Manager # (String) The window title of the linux app
+    package_name: it.ilcondora.wirelessdebuggingdevicesmanager # (String) The application id of the linux app
+    exe_name: wddm-linux-x64 # (String) The executable name (binary name) of the linux app
+
+  macos:
+    app_name: Wireless Debugging Devices Manager # (String) The product name of the macos app
+    package_name: it.ilcondora.wirelessdebuggingdevicesmanager # (String) The product bundle identifier of the macos app
+    copyright_notice: Copyright ©️ 2024 ilCONDORA. All rights reserved. # (String) The product copyright of the macos app
+
+  windows:
+    app_name: Wireless Debugging Devices Manager # (String) The window title & software name of the windows app
+    organization: ilCONDORA # (String) The organization name (company name) of the windows app
+    copyright_notice: Copyright ©️ 2024 ilCONDORA. All rights reserved. # (String) The legal copyright of the windows app
+    exe_name: wddm-win64 # (String) The executable name (binary name) of the windows app
 
 flutter:
   uses-material-design: true
