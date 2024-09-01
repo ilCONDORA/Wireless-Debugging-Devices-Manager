@@ -20,19 +20,19 @@ class CondorAppTheme {
         ),
         elevatedButtonTheme: const ElevatedButtonThemeData(
           style: ButtonStyle(
-            textStyle: MaterialStatePropertyAll(
+            textStyle: WidgetStatePropertyAll(
               TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
             ),
-            backgroundColor: MaterialStatePropertyAll(Colors.white),
-            foregroundColor: MaterialStatePropertyAll(Colors.black),
-            shape: MaterialStatePropertyAll(
+            backgroundColor: WidgetStatePropertyAll(Colors.white),
+            foregroundColor: WidgetStatePropertyAll(Colors.black),
+            shape: WidgetStatePropertyAll(
               RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(
                   Radius.circular(8),
                 ),
               ),
             ),
-            padding: MaterialStatePropertyAll(
+            padding: WidgetStatePropertyAll(
               EdgeInsets.symmetric(
                 vertical: 14,
                 horizontal: 18,

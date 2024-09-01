@@ -16,7 +16,7 @@ class CondorButtonsRow extends StatelessWidget {
           onPressed: () {},
           style: ButtonStyle(
             backgroundColor:
-                MaterialStateProperty.all(Colors.lightBlue.shade300),
+                WidgetStateProperty.all(Colors.lightBlue.shade300),
           ),
           child: const Text('Add Device'),
         ),
@@ -26,7 +26,7 @@ class CondorButtonsRow extends StatelessWidget {
         ElevatedButton(
           onPressed: () => condorAdbCommands.killServer(),
           style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all(Colors.deepOrange),
+            backgroundColor: WidgetStateProperty.all(Colors.deepOrange),
           ),
           child: const Text('Kill Adb Server'),
         ),
@@ -36,7 +36,7 @@ class CondorButtonsRow extends StatelessWidget {
         ElevatedButton(
           onPressed: () {},
           style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all(Colors.lime),
+            backgroundColor: WidgetStateProperty.all(Colors.lime),
           ),
           child: const Text('Info Page'),
         ),
