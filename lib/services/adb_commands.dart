@@ -52,7 +52,7 @@ Exit code: '${result.exitCode}'.
   }
 
   /// Method to retrieve the IP address of a connected device based on its serial number.
-  /// 
+  ///
   /// It shows a snackbar with the result of the command execution.
   Future<String?> getDeviceIPAddress({required String serialNumber}) async {
     final List<String> arguments = [
@@ -88,6 +88,132 @@ Exit code: '${result.exitCode}'.
           isSuccess: false,
         );
         return null;
+    }
+  }
+
+  /// Method to run the 'adb tcpip' command to open a port for a connection with a device.
+  ///
+  /// The parameters [serialNumber] and [tcpipPort] are required, duh.
+  /// It shows a snackbar with the result of the command execution.
+  Future<bool> runTcpip(
+      {required String serialNumber, required int tcpipPort}) async {
+    final List<String> arguments = ['-s', serialNumber, 'tcpip', '$tcpipPort'];
+
+    var result = await Process.run(executable, arguments);
+
+    printCommandDetails(commandArguments: arguments, result: result);
+
+    switch (result.exitCode) {
+      case 0:
+        condorSnackBar.show(
+          message:
+              'Successfully ran tcpip on $serialNumber. New port is -> $tcpipPort.',
+          isSuccess: true,
+        );
+        return true;
+      case 1:
+        condorSnackBar.show(
+          message:
+              'Could not set new port for $serialNumber. Check if the new port is fine or the device is connected or the serial number is correct and retry from the start.',
+          isSuccess: false,
+        );
+        return false;
+      default:
+        condorSnackBar.show(
+          message:
+              "Unknown error while setting new port for $serialNumber with 'adb tcpip' command.",
+          isSuccess: false,
+        );
+        return false;
+    }
+  }
+
+  /// Method to connect to a device based on its IP address.
+  ///
+  /// It shows a snackbar with the result of the command execution.
+  Future<bool> connectToDevice({required String completeIp}) async {
+    final List<String> arguments = ['connect', completeIp];
+
+    var result = await Process.run(executable, arguments);
+
+    printCommandDetails(commandArguments: arguments, result: result);
+
+    switch (result.exitCode) {
+      case 0:
+        // Split the output into lines.
+        List<String> lines = result.stdout.trim().split('\n');
+        // Find the index where the true message starts.
+        // the 'connect' is present in all the correct output.
+        int startIndex = lines.indexWhere((line) => line.contains('connect'));
+        // Extract the relevant message.
+        String message = lines[startIndex];
+        // Determine the connection status, if there is a 'connected' in the message the device is connected.
+        bool connected = message.contains('connected');
+
+        if (connected) {
+          condorSnackBar.show(
+            message: 'Successfully connected to $completeIp.',
+            isSuccess: true,
+          );
+          return true;
+        } else {
+          condorSnackBar.show(
+            message:
+                'Could not connect to $completeIp. Check if the IP address is correct and retry.',
+            isSuccess: false,
+          );
+          return false;
+        }
+      case 1:
+        // This error should never occur because of the nature of the 'adb connect', I think, but I don't know though.
+        condorSnackBar.show(
+          message:
+              'Could not connect to $completeIp. Check if the IP address is correct and retry.',
+          isSuccess: false,
+        );
+        return false;
+      default:
+        condorSnackBar.show(
+          message:
+              "Unknown error while connecting to $completeIp with 'adb connect' command.",
+          isSuccess: false,
+        );
+        return false;
+    }
+  }
+
+  /// Method to disconnect from a device based on its IP address.
+  ///
+  /// It doesn't return a boolean like the connectToDevice method because it always returns true anyway.
+  /// It shows a snackbar with the result of the command execution.
+  Future<void> disconnectFromDevice({required String completeIp}) async {
+    final List<String> arguments = ['disconnect', completeIp];
+
+    var result = await Process.run(executable, arguments);
+
+    printCommandDetails(commandArguments: arguments, result: result);
+
+    switch (result.exitCode) {
+      case 0:
+        condorSnackBar.show(
+          message: 'Successfully disconnected from $completeIp.',
+          isSuccess: true,
+        );
+        break;
+      case 1:
+        condorSnackBar.show(
+          message:
+              'Error while disconnecting from $completeIp. Maybe the device is already disconnected. I will updated the connection status anyways.',
+          isSuccess: false,
+        );
+        break;
+      default:
+        condorSnackBar.show(
+          message:
+              "Unknown error while disconnecting from $completeIp with 'adb disconnect' command. I will updated the connection status anyways.",
+          isSuccess: false,
+        );
+        break;
     }
   }
 
