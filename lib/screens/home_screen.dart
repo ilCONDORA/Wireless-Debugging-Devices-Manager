@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wireless_debugging_devices_manager/widgets/condor_buttons_row.dart';
+import 'package:wireless_debugging_devices_manager/widgets/condor_device_card.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -25,52 +26,22 @@ class HomeScreen extends StatelessWidget {
                   thumbVisibility: true,
                   child: ListView(
                     controller: scroolController,
-                    children: [
+                    children: const [
                       Padding(
                         /// this padding is used to make the scrollbar a bit more visible by giving it some space.
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 18, vertical: 9),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 18,
+                          vertical: 9,
+                        ),
                         child: Wrap(
                           alignment: WrapAlignment.spaceEvenly,
                           spacing: 77,
                           runSpacing: 77,
                           children: [
-                            Container(
-                              height: 444,
-                              width: 444,
-                              color: Colors.grey.shade400,
-                              child: const Text('Device 1'),
-                            ),
-                            Container(
-                              height: 444,
-                              width: 444,
-                              color: Colors.grey.shade400,
-                              child: const Text('Device 2'),
-                            ),
-                            Container(
-                              height: 444,
-                              width: 444,
-                              color: Colors.grey.shade400,
-                              child: const Text('Device 3'),
-                            ),
-                            Container(
-                              height: 444,
-                              width: 444,
-                              color: Colors.grey.shade400,
-                              child: const Text('Device 4'),
-                            ),
-                            Container(
-                              height: 444,
-                              width: 444,
-                              color: Colors.grey.shade400,
-                              child: const Text('Device 5'),
-                            ),
-                            Container(
-                              height: 444,
-                              width: 444,
-                              color: Colors.grey.shade400,
-                              child: const Text('Device 6'),
-                            ),
+                            CondorDeviceCard(),
+                            CondorDeviceCard(),
+                            CondorDeviceCard(),
+                            CondorDeviceCard(),
                           ],
                         ),
                       ),
