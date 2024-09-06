@@ -23,7 +23,12 @@ class CondorSwitchThemeMode extends StatelessWidget {
               color: isDarkMode ? Colors.grey.shade300 : Colors.orange.shade400,
             ),
             const SizedBox(width: 8),
-            Text(isDarkMode ? 'Dark Mode Enabled' : 'Light Mode Enabled'),
+            Text(
+              isDarkMode ? 'Dark Mode Enabled' : 'Light Mode Enabled',
+              style: TextStyle(
+                color: isDarkMode ? Colors.white : Colors.black,
+              ),
+            ),
             const SizedBox(width: 8),
             Switch(
               value: isDarkMode,

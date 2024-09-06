@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 
 class CondorAppTheme {
-  static ThemeData _baseTheme(Brightness brightness) => ThemeData(
+  static ThemeData _baseTheme() => ThemeData(
         colorScheme: ColorScheme.fromSeed(
           seedColor: Colors.blue,
-          brightness: brightness,
         ),
         visualDensity: VisualDensity.compact,
         appBarTheme: const AppBarTheme(
@@ -55,27 +54,28 @@ class CondorAppTheme {
       );
 
   /// Light theme
-  static ThemeData get lightTheme => _baseTheme(Brightness.light).copyWith(
+  static ThemeData get lightTheme => _baseTheme().copyWith(
         scaffoldBackgroundColor: Colors.grey.shade300,
-        appBarTheme: _baseTheme(Brightness.light).appBarTheme.copyWith(
-              titleTextStyle: _baseTheme(Brightness.light)
-                  .appBarTheme
-                  .titleTextStyle
-                  ?.copyWith(
+        appBarTheme: _baseTheme().appBarTheme.copyWith(
+              titleTextStyle: _baseTheme().appBarTheme.titleTextStyle?.copyWith(
                     color: Colors.black,
                   ),
             ),
+        scrollbarTheme: ScrollbarThemeData(
+          thumbColor: WidgetStatePropertyAll(Colors.grey.shade600),
+        ),
       );
 
   /// Dark theme
-  static ThemeData get darkTheme => _baseTheme(Brightness.dark).copyWith(
-        appBarTheme: _baseTheme(Brightness.dark).appBarTheme.copyWith(
-              titleTextStyle: _baseTheme(Brightness.dark)
-                  .appBarTheme
-                  .titleTextStyle
-                  ?.copyWith(
+  static ThemeData get darkTheme => _baseTheme().copyWith(
+        scaffoldBackgroundColor: Colors.grey.shade900,
+        appBarTheme: _baseTheme().appBarTheme.copyWith(
+              titleTextStyle: _baseTheme().appBarTheme.titleTextStyle?.copyWith(
                     color: Colors.white,
                   ),
             ),
+        scrollbarTheme: const ScrollbarThemeData(
+          thumbColor: WidgetStatePropertyAll(Colors.white),
+        ),
       );
 }
