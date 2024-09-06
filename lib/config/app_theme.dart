@@ -17,21 +17,25 @@ class CondorAppTheme {
           bodyMedium: TextStyle(fontSize: 20),
           bodySmall: TextStyle(fontSize: 18),
         ),
-        elevatedButtonTheme: const ElevatedButtonThemeData(
+        elevatedButtonTheme: ElevatedButtonThemeData(
           style: ButtonStyle(
-            textStyle: WidgetStatePropertyAll(
+            textStyle: const WidgetStatePropertyAll(
               TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
             ),
-            backgroundColor: WidgetStatePropertyAll(Colors.white),
-            foregroundColor: WidgetStatePropertyAll(Colors.black),
-            shape: WidgetStatePropertyAll(
+            backgroundColor: WidgetStateColor.resolveWith(
+              (states) => states.contains(WidgetState.disabled)
+                  ? Colors.white.withOpacity(0.3)
+                  : Colors.white,
+            ),
+            foregroundColor: const WidgetStatePropertyAll(Colors.black),
+            shape: const WidgetStatePropertyAll(
               RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(
                   Radius.circular(8),
                 ),
               ),
             ),
-            padding: WidgetStatePropertyAll(
+            padding: const WidgetStatePropertyAll(
               EdgeInsets.symmetric(
                 vertical: 14,
                 horizontal: 18,
@@ -50,6 +54,18 @@ class CondorAppTheme {
             fontSize: 20,
             color: Colors.white,
           ),
+        ),
+        inputDecorationTheme: InputDecorationTheme(
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.grey.shade900, width: 1.5),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.blue.shade600, width: 1.5),
+          ),
+          disabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.grey.shade600, width: 1.5),
+          ),
+          labelStyle: const TextStyle(color: Colors.black, fontSize: 26),
         ),
       );
 
