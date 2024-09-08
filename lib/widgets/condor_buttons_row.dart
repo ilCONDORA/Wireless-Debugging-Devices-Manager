@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:wireless_debugging_devices_manager/services/adb_commands.dart';
+import 'package:wireless_debugging_devices_manager/services/condor_snackbar_service.dart';
 import 'package:wireless_debugging_devices_manager/widgets/condor_switch_theme_mode.dart';
 
 class CondorButtonsRow extends StatelessWidget {
@@ -9,19 +11,16 @@ class CondorButtonsRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
+    return Wrap(
+      spacing: 28,
+      runSpacing: 8,
       children: [
         ElevatedButton(
           onPressed: () {},
           style: ButtonStyle(
-            backgroundColor:
-                WidgetStateProperty.all(Colors.lightBlue.shade300),
+            backgroundColor: WidgetStateProperty.all(Colors.lightBlue.shade300),
           ),
           child: const Text('Add Device'),
-        ),
-        const SizedBox(
-          width: 33,
         ),
         ElevatedButton(
           onPressed: () => condorAdbCommands.killServer(),
@@ -30,9 +29,6 @@ class CondorButtonsRow extends StatelessWidget {
           ),
           child: const Text('Kill Adb Server'),
         ),
-        const SizedBox(
-          width: 33,
-        ),
         ElevatedButton(
           onPressed: () {},
           style: ButtonStyle(
@@ -40,10 +36,23 @@ class CondorButtonsRow extends StatelessWidget {
           ),
           child: const Text('Info Page'),
         ),
-        const SizedBox(
-          width: 33,
-        ),
         const CondorSwitchThemeMode(),
+        ElevatedButton(
+          onPressed: () async {
+            final Uri url = Uri.parse('https://ko-fi.com/ilcondora');
+            if (!await launchUrl(url)) {
+              condorSnackBar.show(
+                message: 'Could not launch $url',
+                isSuccess: false,
+              );
+            }
+          },
+          style: ButtonStyle(
+            backgroundColor:
+                WidgetStateProperty.all(Colors.tealAccent.shade400),
+          ),
+          child: const Text('Buy me a Tea'),
+        ),
       ],
     );
   }
