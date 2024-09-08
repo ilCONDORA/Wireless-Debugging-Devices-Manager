@@ -23,7 +23,7 @@ Future<void> main() async {
   /// Set the minimum size of the window.
   await windowManager.ensureInitialized();
   WindowOptions windowOptions = const WindowOptions(
-    minimumSize: Size(999, 777),
+    minimumSize: Size(876, 654),
     center: kDebugMode ? false : true,
   );
   windowManager.waitUntilReadyToShow(windowOptions, () async {
