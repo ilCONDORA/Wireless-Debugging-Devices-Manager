@@ -16,9 +16,14 @@ class AppSettingsBloc extends HydratedBloc<AppSettingsEvent, AppSettingsState> {
     });
   }
 
-  /// Converts a JSON object into an [AppSettingsState] object.
-  /// If the JSON is valid, it returns an [AppSettingsChanged] state with the
-  /// new settings. If the conversion fails, it returns the initial state.
+  /// Converts a JSON object into an instance of [AppSettingsState].
+  ///
+  /// Called by `HydratedBloc` when reopening the app to restore the saved state
+  /// from a persisted instance. If the JSON is valid, it returns the state
+  /// [AppSettingsChanged] with the new settings. If the conversion
+  /// fails (e.g., due to corrupted or invalid data), it returns the initial state
+  /// [AppSettingsInitial], which means there is no valid data
+  /// to restore.
   @override
   AppSettingsState? fromJson(Map<String, dynamic> json) {
     try {
@@ -30,8 +35,12 @@ class AppSettingsBloc extends HydratedBloc<AppSettingsEvent, AppSettingsState> {
   }
 
   /// Converts the current [AppSettingsState] into a JSON object for persistence.
-  /// If the state is [AppSettingsChanged], it serializes the settings model to JSON.
-  /// If the state is the initial state, it returns null (no state to persist).
+  ///
+  /// This function is called by `HydratedBloc` to save the current state
+  /// when there are changes. If the state is [AppSettingsChanged], it serializes
+  /// the settings model into JSON and saves it. If the state is the initial state
+  /// [AppSettingsInitial], it returns `null`, which indicates that there is no state
+  /// to persist (e.g., the default state of the app).
   @override
   Map<String, dynamic>? toJson(AppSettingsState state) {
     if (state is AppSettingsChanged) {
