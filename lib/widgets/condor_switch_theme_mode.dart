@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:wireless_debugging_devices_manager/bloc/theme_bloc.dart';
+import 'package:wireless_debugging_devices_manager/bloc/app_settings_bloc/app_settings_bloc.dart';
 
+/// CondorSwitchThemeMode is a stateless widget that allows users to toggle between light and dark modes.
+/// It listens to the AppSettingsBloc to check the current theme mode and updates the UI accordingly.
 class CondorSwitchThemeMode extends StatelessWidget {
   const CondorSwitchThemeMode({
     super.key,
@@ -9,11 +11,14 @@ class CondorSwitchThemeMode extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ThemeBloc, ThemeState>(
-      /// rebuild this widget only when user changes theme
-      buildWhen: (previous, current) => previous.themeMode != current.themeMode,
+    return BlocBuilder<AppSettingsBloc, AppSettingsState>(
+      /// Rebuilds this widget only when the user changes the theme mode.
+      buildWhen: (previous, current) =>
+          previous.appSettingsModel.themeMode !=
+          current.appSettingsModel.themeMode,
       builder: (context, state) {
-        final isDarkMode = state.themeMode == ThemeMode.dark;
+        /// Determines if the current theme mode is dark.
+        final isDarkMode = state.appSettingsModel.themeMode == ThemeMode.dark;
         return Row(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -30,12 +35,17 @@ class CondorSwitchThemeMode extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 8),
+
+            /// Switch widget that allows the user to toggle between light and dark modes.
             Switch(
               value: isDarkMode,
               onChanged: (bool value) {
-                context.read<ThemeBloc>().add(
-                      ChangeTheme(
-                        themeMode: value ? ThemeMode.dark : ThemeMode.light,
+                /// Updates the app settings by dispatching the ChangeAppSettings event to the BLoC.
+                context.read<AppSettingsBloc>().add(
+                      ChangeAppSettings(
+                        appSettingsModel: state.appSettingsModel.copyWith(
+                          themeMode: value ? ThemeMode.dark : ThemeMode.light,
+                        ),
                       ),
                     );
               },
