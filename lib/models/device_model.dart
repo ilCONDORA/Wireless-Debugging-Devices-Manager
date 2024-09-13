@@ -1,7 +1,6 @@
 /// Model for the device.
 class DeviceModel {
-  final String ipAddress;
-  final int port;
+  final String completeIpAddress;
   final String customName;
   final String serialNumber;
   final String model;
@@ -11,8 +10,7 @@ class DeviceModel {
 
   /// Constructor for creating a Device instance.
   DeviceModel({
-    required this.ipAddress,
-    required this.port,
+    required this.completeIpAddress,
     required this.customName,
     required this.serialNumber,
     required this.model,
@@ -24,8 +22,7 @@ class DeviceModel {
   /// Create a Device instance from a JSON map.
   factory DeviceModel.fromJson(Map<String, dynamic> json) {
     return DeviceModel(
-      ipAddress: json['ipAddress'] as String,
-      port: json['port'] as int,
+      completeIpAddress: json['completeIpAddress'] as String,
       customName: json['customName'] as String,
       serialNumber: json['serialNumber'] as String,
       model: json['model'] as String,
@@ -38,8 +35,7 @@ class DeviceModel {
   /// Converts a Device instance to a JSON map.
   Map<String, dynamic> toJson() {
     return {
-      'ipAddress': ipAddress,
-      'port': port,
+      'completeIpAddress': completeIpAddress,
       'customName': customName,
       'serialNumber': serialNumber,
       'model': model,
@@ -53,19 +49,18 @@ class DeviceModel {
   /// If a property is not provided, the current value is retained.
   /// This method is used to create a new instance of DeviceModel with modified properties.
   DeviceModel copyWith({
-    String? ipAddress,
-    int? port,
+    String? completeIpAddress,
     String? customName,
+    bool? isConnected,
   }) {
     return DeviceModel(
-      ipAddress: ipAddress ?? this.ipAddress,
-      port: port ?? this.port,
+      completeIpAddress: completeIpAddress ?? this.completeIpAddress,
       customName: customName ?? this.customName,
       serialNumber: serialNumber,
       model: model,
       manufacturer: manufacturer,
       androidVersion: androidVersion,
-      isConnected: isConnected,
+      isConnected: isConnected ?? this.isConnected,
     );
   }
 }
