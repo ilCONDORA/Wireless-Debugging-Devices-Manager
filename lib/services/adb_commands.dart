@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:wireless_debugging_devices_manager/services/condor_localization_service.dart';
 import 'package:wireless_debugging_devices_manager/services/condor_snackbar_service.dart';
 
 /// Service to execute adb commands.
@@ -33,19 +34,19 @@ Exit code: '${result.exitCode}'.
     switch (result.exitCode) {
       case 0:
         condorSnackBar.show(
-          message: 'ADB server killed successfully.',
+          message: condorLocalization.l10n.adbServerKilledSuccess,
           isSuccess: true,
         );
       case 1:
         // This error should never occur because of the nature of the 'adb kill-server' command.
         condorSnackBar.show(
-          message: 'Cannot kill ADB server.',
+          message: condorLocalization.l10n.adbServerKilledError,
           isSuccess: false,
         );
       default:
         // This error should never occur because of the nature of the 'adb kill-server' command.
         condorSnackBar.show(
-          message: 'Unknown error while killing ADB server.',
+          message: condorLocalization.l10n.adbServerUnknownError,
           isSuccess: false,
         );
     }
@@ -70,21 +71,22 @@ Exit code: '${result.exitCode}'.
       case 0:
         final String deviceIPAddress = result.stdout.toString().trim();
         condorSnackBar.show(
-          message:
-              'Successfully retrieved device IP address of $serialNumber, here it is -> $deviceIPAddress.',
+          message: condorLocalization.l10n
+              .getDeviceIpAddressSuccess(serialNumber, deviceIPAddress),
           isSuccess: true,
         );
         return deviceIPAddress;
       case 1:
         condorSnackBar.show(
           message:
-              'Cannot retrieve device IP address of $serialNumber. Check if the device is connected or the serial number is correct and retry from the start.',
+              condorLocalization.l10n.getDeviceIpAddressError(serialNumber),
           isSuccess: false,
         );
         return null;
       default:
         condorSnackBar.show(
-          message: 'Unknown error while getting device IP address.',
+          message: condorLocalization.l10n
+              .getDeviceIpAddressUnknownError(serialNumber),
           isSuccess: false,
         );
         return null;
@@ -107,21 +109,19 @@ Exit code: '${result.exitCode}'.
       case 0:
         condorSnackBar.show(
           message:
-              'Successfully ran tcpip on $serialNumber. New port is -> $tcpipPort.',
+              condorLocalization.l10n.runTcpipSuccess(serialNumber, tcpipPort),
           isSuccess: true,
         );
         return true;
       case 1:
         condorSnackBar.show(
-          message:
-              'Could not set new port for $serialNumber. Check if the new port is fine or the device is connected or the serial number is correct and retry from the start.',
+          message: condorLocalization.l10n.runTcpipError(serialNumber),
           isSuccess: false,
         );
         return false;
       default:
         condorSnackBar.show(
-          message:
-              "Unknown error while setting new port for $serialNumber with 'adb tcpip' command.",
+          message: condorLocalization.l10n.runTcpipUnknownError(serialNumber),
           isSuccess: false,
         );
         return false;
@@ -131,8 +131,8 @@ Exit code: '${result.exitCode}'.
   /// Method to connect to a device based on its IP address.
   ///
   /// It shows a snackbar with the result of the command execution.
-  Future<bool> connectToDevice({required String completeIp}) async {
-    final List<String> arguments = ['connect', completeIp];
+  Future<bool> connectToDevice({required String completeIpAddress}) async {
+    final List<String> arguments = ['connect', completeIpAddress];
 
     var result = await Process.run(executable, arguments);
 
@@ -152,14 +152,15 @@ Exit code: '${result.exitCode}'.
 
         if (connected) {
           condorSnackBar.show(
-            message: 'Successfully connected to $completeIp.',
+            message: condorLocalization.l10n
+                .connectToDeviceSuccess(completeIpAddress),
             isSuccess: true,
           );
           return true;
         } else {
           condorSnackBar.show(
             message:
-                'Could not connect to $completeIp. Check if the IP address is correct and retry.',
+                condorLocalization.l10n.connectToDeviceError(completeIpAddress),
             isSuccess: false,
           );
           return false;
@@ -168,14 +169,14 @@ Exit code: '${result.exitCode}'.
         // This error should never occur because of the nature of the 'adb connect', I think, but I don't know though.
         condorSnackBar.show(
           message:
-              'Could not connect to $completeIp. Check if the IP address is correct and retry.',
+              condorLocalization.l10n.connectToDeviceError(completeIpAddress),
           isSuccess: false,
         );
         return false;
       default:
         condorSnackBar.show(
-          message:
-              "Unknown error while connecting to $completeIp with 'adb connect' command.",
+          message: condorLocalization.l10n
+              .connectToDeviceUnknownError(completeIpAddress),
           isSuccess: false,
         );
         return false;
@@ -186,8 +187,8 @@ Exit code: '${result.exitCode}'.
   ///
   /// It doesn't return a boolean like the connectToDevice method because it always returns true anyway.
   /// It shows a snackbar with the result of the command execution.
-  Future<void> disconnectFromDevice({required String completeIp}) async {
-    final List<String> arguments = ['disconnect', completeIp];
+  Future<void> disconnectFromDevice({required String completeIpAddress}) async {
+    final List<String> arguments = ['disconnect', completeIpAddress];
 
     var result = await Process.run(executable, arguments);
 
@@ -196,21 +197,22 @@ Exit code: '${result.exitCode}'.
     switch (result.exitCode) {
       case 0:
         condorSnackBar.show(
-          message: 'Successfully disconnected from $completeIp.',
+          message: condorLocalization.l10n
+              .disconnectFromDeviceSuccess(completeIpAddress),
           isSuccess: true,
         );
         break;
       case 1:
         condorSnackBar.show(
-          message:
-              'Error while disconnecting from $completeIp. Maybe the device is already disconnected. I will updated the connection status anyways.',
+          message: condorLocalization.l10n
+              .disconnectFromDeviceError(completeIpAddress),
           isSuccess: false,
         );
         break;
       default:
         condorSnackBar.show(
-          message:
-              "Unknown error while disconnecting from $completeIp with 'adb disconnect' command. I will updated the connection status anyways.",
+          message: condorLocalization.l10n
+              .disconnectFromDeviceUnknownError(completeIpAddress),
           isSuccess: false,
         );
         break;
