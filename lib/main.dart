@@ -9,6 +9,7 @@ import 'package:wireless_debugging_devices_manager/bloc/devices_bloc/devices_blo
 import 'package:wireless_debugging_devices_manager/config/app_theme.dart';
 import 'package:wireless_debugging_devices_manager/l10n/l10n.dart';
 import 'package:wireless_debugging_devices_manager/screens/home_screen.dart';
+import 'package:wireless_debugging_devices_manager/services/condor_localization_service.dart';
 import 'package:wireless_debugging_devices_manager/services/condor_snackbar_service.dart';
 
 Future<void> main() async {
@@ -70,6 +71,8 @@ class MainApp extends StatelessWidget {
             home: Builder(builder: (context) {
               /// Initialize the service that manages the SnackBar.
               condorSnackBar.init(context);
+              /// Initialize the service that manages the localization.
+              condorLocalization.init(context);
               return const HomeScreen();
             }),
           );
