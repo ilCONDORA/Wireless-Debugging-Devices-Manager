@@ -15,8 +15,11 @@ dependencies:
   flutter_bloc: ^8.1.6
   hydrated_bloc: ^9.1.5 # hydrated_bloc is built on top of Hive for persistence so I don't use Hive packages directly
   path_provider: ^2.1.4
+  intl: ^0.19.0
   url_launcher: ^6.3.0
   window_manager: ^0.4.2
+  flutter_localizations:
+    sdk: flutter
 
 dev_dependencies:
   flutter_test:
@@ -55,4 +58,5 @@ package_rename_config:
     exe_name: wddm-win64 # (String) The executable name (binary name) of the windows app
 
 flutter:
+  generate: true # useful to generate locales
   uses-material-design: true

@@ -1,0 +1,189 @@
+{
+  "@@locale": "en",
+  "addDeviceButton": "Add Device",
+  "@addDeviceButton": {
+    "description": "Button on the principal row that allows you to add a new device."
+  },
+  "killAdbServerButton": "Kill Adb Server",
+  "@killAdbServerButton": {
+    "description": "Button on the principal row that allows you to kill the adb server."
+  },
+  "infoPageButton": "Info Page",
+  "@infoPageButton": {
+    "description": "Button on the principal row that allows you to go to the info page."
+  },
+  "buyMeATeaButton": "Buy Me A Tea",
+  "@buyMeATeaButton": {
+    "description": "Button on the principal row that allows you to buy me a tea through Ko-fi."
+  },
+  "connectDeviceButton": "Connect",
+  "@connectDeviceButton": {
+    "description": "Button on the device card that allows you to connect the device."
+  },
+  "disconnectDeviceButton": "Disconnect",
+  "@disconnectDeviceButton": {
+    "description": "Button on the device card that allows you to disconnect the device."
+  },
+  "runTcpipButton": "Run Tcpip",
+  "@runTcpipButton": {
+    "description": "Button on the device card that allows you to run the tcpip command."
+  },
+  "mirrorScreenButton": "Mirror Screen",
+  "@mirrorScreenButton": {
+    "description": "Button on the device card that allows you to mirror the screen."
+  },
+  "completeIpAddressLabel": "Complete IP Address",
+  "@completeIpAddressLabel": {
+    "description": "Label on the device card that shows the complete IP address."
+  },
+  "customNameLabel": "Custom Name",
+  "@customNameLabel": {
+    "description": "Label on the device card that shows the custom name."
+  },
+  "serialNumberLabel": "Serial Number",
+  "@serialNumberLabel": {
+    "description": "Label on the device card that shows the serial number."
+  },
+  "modelLabel": "Model",
+  "@modelLabel": {
+    "description": "Label on the device card that shows the model."
+  },
+  "manufacturerLabel": "Manufacturer",
+  "@manufacturerLabel": {
+    "description": "Label on the device card that shows the manufacturer."
+  },
+  "androidVersionLabel": "Android Version",
+  "@androidVersionLabel": {
+    "description": "Label on the device card that shows the android version."
+  },
+  "couldNotLaunchUrl": "Could not launch.",
+  "@couldNotLaunchUrl": {
+    "description": "Error message when the url could not be launched."
+  },
+  "adbServerKilledSuccess": "Adb server killed successfully.",
+  "@adbServerKilledSuccess": {
+    "description": "Success message when the adb server is killed successfully."
+  },
+  "adbServerKilledError": "Cannot kill ADB server.",
+  "@adbServerKilledError": {
+    "description": "Error message when the adb server cannot be killed."
+  },
+  "adbServerUnknownError": "Unknown error while killing ADB server.",
+  "@adbServerUnknownError": {
+    "description": "Error message when an unknown error occurs while killing the adb server."
+  },
+  "getDeviceIpAddressSuccess": "Successfully retrieved device IP address of {serialNumber}, here it is -> {deviceIPAddress}.",
+  "@getDeviceIpAddressSuccess": {
+    "description": "Success message when the device IP address is retrieved successfully.",
+    "placeholders": {
+      "serialNumber": {
+        "description": "Serial number"
+      },
+      "deviceIPAddress": {
+        "description": "Device IP address"
+      }
+    }
+  },
+  "getDeviceIpAddressError": "Cannot retrieve device IP address of {serialNumber}. Check if the device is connected or the serial number is correct and retry from the start.",
+  "@getDeviceIpAddressError": {
+    "description": "Error message when the device IP address cannot be retrieved.",
+    "placeholders": {
+      "serialNumber": {
+        "description": "Serial number"
+      }
+    }
+  },
+  "getDeviceIpAddressUnknownError": "Unknown error while retrieving device IP address of {serialNumber}.",
+  "@getDeviceIpAddressUnknownError": {
+    "description": "Error message when an unknown error occurs while retrieving the device IP address.",
+    "placeholders": {
+      "serialNumber": {
+        "description": "Serial number"
+      }
+    }
+  },
+  "runTcpipSuccess": "Successfully ran tcpip on {serialNumber}. New port is -> {tcpipPort}.",
+  "@runTcpipSuccess": {
+    "description": "Success message when the tcpip command is ran successfully.",
+    "placeholders": {
+      "serialNumber": {
+        "description": "Serial number"
+      },
+      "tcpipPort": {
+        "description": "Tcpip port"
+      }
+    }
+  },
+  "runTcpipError": "Could not set new port for {serialNumber}. Check if the new port is fine or the device is connected or the serial number is correct and retry from the start.",
+  "@runTcpipError": {
+    "description": "Error message when the tcpip command cannot be ran.",
+    "placeholders": {
+      "serialNumber": {
+        "description": "Serial number"
+      }
+    }
+  },
+  "runTcpipUnknownError": "Unknown error while setting new port for {serialNumber} with 'adb tcpip' command.",
+  "@runTcpipUnknownError": {
+    "description": "Error message when an unknown error occurs while running the tcpip command.",
+    "placeholders": {
+      "serialNumber": {
+        "description": "Serial number"
+      }
+    }
+  },
+  "connectToDeviceSuccess": "Successfully connected to {completeIpAddress}.",
+  "@connectToDeviceSuccess": {
+    "description": "Success message when the device is connected successfully.",
+    "placeholders": {
+      "completeIpAddress": {
+        "description": "Complete IP address"
+      }
+    }
+  },
+  "connectToDeviceError": "Could not connect to {completeIpAddress}. Check if the IP address is correct and retry.",
+  "@connectToDeviceError": {
+    "description": "Error message when the device cannot be connected.",
+    "placeholders": {
+      "completeIpAddress": {
+        "description": "Complete IP address"
+      }
+    }
+  },
+  "connectToDeviceUnknownError": "Unknown error while connecting to {completeIpAddress} with 'adb connect' command.",
+  "@connectToDeviceUnknownError": {
+    "description": "Error message when an unknown error occurs while connecting to the device.",
+    "placeholders": {
+      "completeIpAddress": {
+        "description": "Complete IP address"
+      }
+    }
+  },
+  "disconnectFromDeviceSuccess": "Successfully disconnected from {completeIpAddress}.",
+  "@disconnectFromDeviceSuccess": {
+    "description": "Success message when the device is disconnected successfully.",
+    "placeholders": {
+      "completeIpAddress": {
+        "description": "Complete IP address"
+      }
+    }
+  },
+  "disconnectFromDeviceError": "Error while disconnecting from {completeIpAddress}. Maybe the device is already disconnected. I will updated the connection status anyways.",
+  "@disconnectFromDeviceError": {
+    "description": "Error message when the device cannot be disconnected.",
+    "placeholders": {
+      "completeIpAddress": {
+        "description": "Complete IP address"
+      }
+    }
+  },
+  "disconnectFromDeviceUnknownError": "Unknown error while disconnecting from {completeIpAddress} with 'adb disconnect' command. I will updated the connection status anyways.",
+  "@disconnectFromDeviceUnknownError": {
+    "description": "Error message when an unknown error occurs while disconnecting from the device.",
+    "placeholders": {
+      "completeIpAddress": {
+        "description": "Complete IP address"
+      }
+    }
+  }
+}

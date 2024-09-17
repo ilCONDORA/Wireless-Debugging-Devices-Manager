@@ -1,0 +1,189 @@
+{
+  "@@locale": "it",
+  "addDeviceButton": "Aggiungi Dispositivo",
+  "@addDeviceButton": {
+    "description": "Pulsante nella riga principale che permette di aggiungere un nuovo dispositivo."
+  },
+  "killAdbServerButton": "Termina Server Adb",
+  "@killAdbServerButton": {
+    "description": "Pulsante nella riga principale che permette di terminare il server adb."
+  },
+  "infoPageButton": "Pagina Informazioni",
+  "@infoPageButton": {
+    "description": "Pulsante nella riga principale che permette di andare alla pagina delle informazioni."
+  },
+  "buyMeATeaButton": "Offrimi un Tè",
+  "@buyMeATeaButton": {
+    "description": "Pulsante nella riga principale che permette di offrire un tè attraverso Ko-fi."
+  },
+  "connectDeviceButton": "Connetti",
+  "@connectDeviceButton": {
+    "description": "Pulsante sulla scheda del dispositivo che permette di connettere il dispositivo."
+  },
+  "disconnectDeviceButton": "Disconnetti",
+  "@disconnectDeviceButton": {
+    "description": "Pulsante sulla scheda del dispositivo che permette di disconnettere il dispositivo."
+  },
+  "runTcpipButton": "Esegui Tcpip",
+  "@runTcpipButton": {
+    "description": "Pulsante sulla scheda del dispositivo che permette di eseguire il comando tcpip."
+  },
+  "mirrorScreenButton": "Replica Schermo",
+  "@mirrorScreenButton": {
+    "description": "Pulsante sulla scheda del dispositivo che permette di replicare lo schermo."
+  },
+  "completeIpAddressLabel": "Indirizzo IP Completo",
+  "@completeIpAddressLabel": {
+    "description": "Etichetta sulla scheda del dispositivo che mostra l'indirizzo IP completo."
+  },
+  "customNameLabel": "Nome Personalizzato",
+  "@customNameLabel": {
+    "description": "Etichetta sulla scheda del dispositivo che mostra il nome personalizzato."
+  },
+  "serialNumberLabel": "Numero di Serie",
+  "@serialNumberLabel": {
+    "description": "Etichetta sulla scheda del dispositivo che mostra il numero di serie."
+  },
+  "modelLabel": "Modello",
+  "@modelLabel": {
+    "description": "Etichetta sulla scheda del dispositivo che mostra il modello."
+  },
+  "manufacturerLabel": "Produttore",
+  "@manufacturerLabel": {
+    "description": "Etichetta sulla scheda del dispositivo che mostra il produttore."
+  },
+  "androidVersionLabel": "Versione Android",
+  "@androidVersionLabel": {
+    "description": "Etichetta sulla scheda del dispositivo che mostra la versione di Android."
+  },
+  "couldNotLaunchUrl": "Impossibile avviare.",
+  "@couldNotLaunchUrl": {
+    "description": "Messaggio di errore quando non è possibile avviare l'URL."
+  },
+  "adbServerKilledSuccess": "Server Adb terminato con successo.",
+  "@adbServerKilledSuccess": {
+    "description": "Messaggio di successo quando il server adb viene terminato con successo."
+  },
+  "adbServerKilledError": "Impossibile terminare il server ADB.",
+  "@adbServerKilledError": {
+    "description": "Messaggio di errore quando non è possibile terminare il server adb."
+  },
+  "adbServerUnknownError": "Errore sconosciuto durante la terminazione del server ADB.",
+  "@adbServerUnknownError": {
+    "description": "Messaggio di errore quando si verifica un errore sconosciuto durante la terminazione del server adb."
+  },
+  "getDeviceIpAddressSuccess": "Indirizzo IP del dispositivo {serialNumber} recuperato con successo, eccolo -> {deviceIPAddress}.",
+  "@getDeviceIpAddressSuccess": {
+    "description": "Messaggio di successo quando l'indirizzo IP del dispositivo viene recuperato con successo.",
+    "placeholders": {
+      "serialNumber": {
+        "description": "Numero di serie"
+      },
+      "deviceIPAddress": {
+        "description": "Indirizzo IP del dispositivo"
+      }
+    }
+  },
+  "getDeviceIpAddressError": "Impossibile recuperare l''indirizzo IP del dispositivo {serialNumber}. Verifica che il dispositivo sia connesso o che il numero di serie sia corretto e riprova dall''inizio.",
+  "@getDeviceIpAddressError": {
+    "description": "Messaggio di errore quando non è possibile recuperare l'indirizzo IP del dispositivo.",
+    "placeholders": {
+      "serialNumber": {
+        "description": "Numero di serie"
+      }
+    }
+  },
+  "getDeviceIpAddressUnknownError": "Errore sconosciuto durante il recupero dell''indirizzo IP del dispositivo {serialNumber}.",
+  "@getDeviceIpAddressUnknownError": {
+    "description": "Messaggio di errore quando si verifica un errore sconosciuto durante il recupero dell'indirizzo IP del dispositivo.",
+    "placeholders": {
+      "serialNumber": {
+        "description": "Numero di serie"
+      }
+    }
+  },
+  "runTcpipSuccess": "Tcpip eseguito con successo su {serialNumber}. La nuova porta è -> {tcpipPort}.",
+  "@runTcpipSuccess": {
+    "description": "Messaggio di successo quando il comando tcpip viene eseguito con successo.",
+    "placeholders": {
+      "serialNumber": {
+        "description": "Numero di serie"
+      },
+      "tcpipPort": {
+        "description": "Porta Tcpip"
+      }
+    }
+  },
+  "runTcpipError": "Impossibile impostare la nuova porta per {serialNumber}. Verifica che la nuova porta sia corretta o che il dispositivo sia connesso o che il numero di serie sia corretto e riprova dall''inizio.",
+  "@runTcpipError": {
+    "description": "Messaggio di errore quando non è possibile eseguire il comando tcpip.",
+    "placeholders": {
+      "serialNumber": {
+        "description": "Numero di serie"
+      }
+    }
+  },
+  "runTcpipUnknownError": "Errore sconosciuto durante l''impostazione della nuova porta per {serialNumber} con il comando 'adb tcpip'.",
+  "@runTcpipUnknownError": {
+    "description": "Messaggio di errore quando si verifica un errore sconosciuto durante l'esecuzione del comando tcpip.",
+    "placeholders": {
+      "serialNumber": {
+        "description": "Numero di serie"
+      }
+    }
+  },
+  "connectToDeviceSuccess": "Connessione riuscita a {completeIpAddress}.",
+  "@connectToDeviceSuccess": {
+    "description": "Messaggio di successo quando il dispositivo viene connesso con successo.",
+    "placeholders": {
+      "completeIpAddress": {
+        "description": "Indirizzo IP completo"
+      }
+    }
+  },
+  "connectToDeviceError": "Impossibile connettersi a {completeIpAddress}. Verifica che l''indirizzo IP sia corretto e riprova.",
+  "@connectToDeviceError": {
+    "description": "Messaggio di errore quando non è possibile connettersi al dispositivo.",
+    "placeholders": {
+      "completeIpAddress": {
+        "description": "Indirizzo IP completo"
+      }
+    }
+  },
+  "connectToDeviceUnknownError": "Errore sconosciuto durante la connessione a {completeIpAddress} con il comando 'adb connect'.",
+  "@connectToDeviceUnknownError": {
+    "description": "Messaggio di errore quando si verifica un errore sconosciuto durante la connessione al dispositivo.",
+    "placeholders": {
+      "completeIpAddress": {
+        "description": "Indirizzo IP completo"
+      }
+    }
+  },
+  "disconnectFromDeviceSuccess": "Disconnessione riuscita da {completeIpAddress}.",
+  "@disconnectFromDeviceSuccess": {
+    "description": "Messaggio di successo quando il dispositivo viene disconnesso con successo.",
+    "placeholders": {
+      "completeIpAddress": {
+        "description": "Indirizzo IP completo"
+      }
+    }
+  },
+  "disconnectFromDeviceError": "Errore durante la disconnessione da {completeIpAddress}. Forse il dispositivo è già disconnesso. Aggiornerò comunque lo stato della connessione.",
+  "@disconnectFromDeviceError": {
+    "description": "Messaggio di errore quando non è possibile disconnettere il dispositivo.",
+    "placeholders": {
+      "completeIpAddress": {
+        "description": "Indirizzo IP completo"
+      }
+    }
+  },
+  "disconnectFromDeviceUnknownError": "Errore sconosciuto durante la disconnessione da {completeIpAddress} con il comando 'adb disconnect'. Aggiornerò comunque lo stato della connessione.",
+  "@disconnectFromDeviceUnknownError": {
+    "description": "Messaggio di errore quando si verifica un errore sconosciuto durante la disconnessione dal dispositivo.",
+    "placeholders": {
+      "completeIpAddress": {
+        "description": "Indirizzo IP completo"
+      }
+    }
+  }
+}
