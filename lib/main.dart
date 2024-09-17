@@ -5,7 +5,9 @@ import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:window_manager/window_manager.dart';
 import 'package:wireless_debugging_devices_manager/bloc/app_settings_bloc/app_settings_bloc.dart';
+import 'package:wireless_debugging_devices_manager/bloc/devices_bloc/devices_bloc.dart';
 import 'package:wireless_debugging_devices_manager/config/app_theme.dart';
+import 'package:wireless_debugging_devices_manager/l10n/l10n.dart';
 import 'package:wireless_debugging_devices_manager/screens/home_screen.dart';
 import 'package:wireless_debugging_devices_manager/services/condor_snackbar_service.dart';
 
@@ -39,9 +41,16 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      /// Provides the AppSettingsBloc to the widget tree.
-      create: (context) => AppSettingsBloc(),
+    return MultiBlocProvider(
+      /// Provides the AppSettingsBloc and DevicesBloc to the widget tree.
+      providers: [
+        BlocProvider(
+          create: (context) => AppSettingsBloc(),
+        ),
+        BlocProvider(
+          create: (context) => DevicesBloc(),
+        ),
+      ],
       child: BlocBuilder<AppSettingsBloc, AppSettingsState>(
         /// Rebuilds this widget only when the theme mode changes in the settings.
         buildWhen: (previous, current) =>
@@ -51,6 +60,9 @@ class MainApp extends StatelessWidget {
           return MaterialApp(
             title: 'Wireless Debugging Devices Manager',
             debugShowCheckedModeBanner: false,
+            locale: state.appSettingsModel.locale,
+            supportedLocales: L10n.supportedLocales,
+            localizationsDelegates: L10n.localizationsDelegates,
             theme: CondorAppTheme.lightTheme,
             darkTheme: CondorAppTheme.darkTheme,
             /// The theme is determined by the current settings in the app's state.
