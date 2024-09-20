@@ -222,18 +222,18 @@ Exit code: '${result.exitCode}'.
   /// Method to display screen of a connected device based on its IP address.
   /// I don't think I will use it but it's here just in case.
   /// Powered by scrcpy.
-  Future<void> displayScreen({required String deviceIPAddress}) async {
-    final List<String> arguments = ['--tcpip=$deviceIPAddress'];
+  Future<void> mirrorScreen({required String completeIPAddress}) async {
+    final List<String> arguments = ['-s', completeIPAddress];
 
     var process = await Process.run('scrcpy', arguments);
 
-    // Manage the process output asynchronously.
+    /* // Manage the process output asynchronously.
     process.stdout.transform(const SystemEncoding().decoder).listen((data) {
       print('scrcpy output: $data');
     });
     process.stderr.transform(const SystemEncoding().decoder).listen((data) {
       print('scrcpy error: $data');
-    });
+    }); */
   }
 }
 
