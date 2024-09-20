@@ -35,7 +35,6 @@ class CondorButtonsRow extends StatelessWidget {
                 ElevatedButton(
                   /// When the user clicks on this button the ADB server is killed and
                   /// subsequently all devices connection statuses are registered as disconnected.
-                  //TODO: to try after implementing device card
                   onPressed: () => condorAdbCommands.killServer().then((_) {
                     if (context.mounted) {
                       context.read<DevicesBloc>().add(DisconnectAllDevices());
