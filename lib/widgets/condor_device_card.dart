@@ -18,6 +18,7 @@ class CondorDeviceCard extends StatelessWidget {
             horizontal: 11,
           ),
           child: BlocBuilder<AppSettingsBloc, AppSettingsState>(
+            /// Rebuilds the widget when only the locale changes, because appSettings has theme and locale.
             buildWhen: (previous, current) =>
                 previous.appSettingsModel.locale !=
                 current.appSettingsModel.locale,

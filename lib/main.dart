@@ -53,10 +53,6 @@ class MainApp extends StatelessWidget {
         ),
       ],
       child: BlocBuilder<AppSettingsBloc, AppSettingsState>(
-        /// Rebuilds this widget only when the theme mode changes in the settings.
-        buildWhen: (previous, current) =>
-            previous.appSettingsModel.themeMode !=
-            current.appSettingsModel.themeMode,
         builder: (context, state) {
           return MaterialApp(
             title: 'Wireless Debugging Devices Manager',
@@ -66,11 +62,13 @@ class MainApp extends StatelessWidget {
             localizationsDelegates: L10n.localizationsDelegates,
             theme: CondorAppTheme.lightTheme,
             darkTheme: CondorAppTheme.darkTheme,
+
             /// The theme is determined by the current settings in the app's state.
             themeMode: state.appSettingsModel.themeMode,
             home: Builder(builder: (context) {
               /// Initialize the service that manages the SnackBar.
               condorSnackBar.init(context);
+
               /// Initialize the service that manages the localization.
               condorLocalization.init(context);
               return const HomeScreen();

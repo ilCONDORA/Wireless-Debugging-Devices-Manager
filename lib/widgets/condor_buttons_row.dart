@@ -6,6 +6,7 @@ import 'package:wireless_debugging_devices_manager/bloc/devices_bloc/devices_blo
 import 'package:wireless_debugging_devices_manager/services/adb_commands.dart';
 import 'package:wireless_debugging_devices_manager/services/condor_localization_service.dart';
 import 'package:wireless_debugging_devices_manager/services/condor_snackbar_service.dart';
+import 'package:wireless_debugging_devices_manager/widgets/condor_dropdown_menu_locale.dart';
 import 'package:wireless_debugging_devices_manager/widgets/condor_switch_theme_mode.dart';
 
 class CondorButtonsRow extends StatelessWidget {
@@ -16,8 +17,6 @@ class CondorButtonsRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AppSettingsBloc, AppSettingsState>(
-      buildWhen: (previous, current) =>
-          previous.appSettingsModel.locale != current.appSettingsModel.locale,
       builder: (context, state) {
         return BlocBuilder<DevicesBloc, DevicesState>(
           builder: (context, state) {
@@ -55,6 +54,7 @@ class CondorButtonsRow extends StatelessWidget {
                   child: Text(condorLocalization.l10n.infoPageButton),
                 ),
                 const CondorSwitchThemeMode(),
+                const CondorDropdownMenuLocale(),
                 ElevatedButton(
                   onPressed: () async {
                     final Uri url = Uri.parse('https://ko-fi.com/ilcondora');
@@ -69,7 +69,7 @@ class CondorButtonsRow extends StatelessWidget {
                     backgroundColor:
                         WidgetStateProperty.all(Colors.tealAccent.shade400),
                   ),
-                  child:  Text(condorLocalization.l10n.buyMeATeaButton),
+                  child: Text(condorLocalization.l10n.buyMeATeaButton),
                 ),
               ],
             );

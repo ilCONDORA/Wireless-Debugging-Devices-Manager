@@ -12,10 +12,6 @@ class CondorSwitchThemeMode extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AppSettingsBloc, AppSettingsState>(
-      /// Rebuilds this widget only when the user changes the theme mode.
-      buildWhen: (previous, current) =>
-          previous.appSettingsModel.themeMode !=
-          current.appSettingsModel.themeMode,
       builder: (context, state) {
         /// Determines if the current theme mode is dark.
         final isDarkMode = state.appSettingsModel.themeMode == ThemeMode.dark;
