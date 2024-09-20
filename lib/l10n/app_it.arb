@@ -16,6 +16,10 @@
   "@buyMeATeaButton": {
     "description": "Pulsante nella riga principale che permette di offrire un tè attraverso Ko-fi."
   },
+  "noDevicesRegistered": "Nessun Dispositivo Registrato",
+  "@noDevicesRegistered": {
+    "description": "Messaggio che viene visualizzato quando non sono stati trovati dispositivi registrati."
+  },
   "connectDeviceButton": "Connetti",
   "@connectDeviceButton": {
     "description": "Pulsante sulla scheda del dispositivo che permette di connettere il dispositivo."

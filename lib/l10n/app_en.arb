@@ -16,6 +16,10 @@
   "@buyMeATeaButton": {
     "description": "Button on the principal row that allows you to buy me a tea through Ko-fi."
   },
+  "noDevicesRegistered": "No Devices Registered",
+  "@noDevicesRegistered": {
+    "description": "Message that is shown when no devices are registered."
+  },
   "connectDeviceButton": "Connect",
   "@connectDeviceButton": {
     "description": "Button on the device card that allows you to connect the device."
