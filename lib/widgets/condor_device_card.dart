@@ -1,10 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wireless_debugging_devices_manager/bloc/app_settings_bloc/app_settings_bloc.dart';
+import 'package:wireless_debugging_devices_manager/models/device_model.dart';
+import 'package:wireless_debugging_devices_manager/services/adb_commands.dart';
 import 'package:wireless_debugging_devices_manager/services/condor_localization_service.dart';
+import 'package:wireless_debugging_devices_manager/bloc/devices_bloc/devices_bloc.dart';
 
+/// A widget that displays detailed information about a device in a card format.
 class CondorDeviceCard extends StatelessWidget {
-  const CondorDeviceCard({super.key});
+  /// Creates a CondorDeviceCard.
+  ///
+  /// The [device] parameter must not be null and contains the data to be displayed.
+  const CondorDeviceCard({super.key, required this.device});
+
+  /// The device model containing the data to be displayed in the card.
+  final DeviceModel device;
 
   @override
   Widget build(BuildContext context) {
@@ -18,20 +28,19 @@ class CondorDeviceCard extends StatelessWidget {
             horizontal: 11,
           ),
           child: BlocBuilder<AppSettingsBloc, AppSettingsState>(
-            /// Rebuilds the widget when only the locale changes, because appSettings has theme and locale.
             buildWhen: (previous, current) =>
                 previous.appSettingsModel.locale !=
                 current.appSettingsModel.locale,
             builder: (context, state) {
-              // ignore: prefer_const_constructors
-              return Row(
-                // ignore: prefer_const_literals_to_create_immutables
-                children: [
-                  // ignore: prefer_const_constructors
-                  CondorDeviceInfos(),
-                  // ignore: prefer_const_constructors
-                  CondorColumnButtons(),
-                ],
+              return BlocBuilder<DevicesBloc, DevicesState>(
+                builder: (context, state) {
+                  return Row(
+                    children: [
+                      CondorDeviceInfos(device: device),
+                      CondorColumnButtons(device: device),
+                    ],
+                  );
+                },
               );
             },
           ),
@@ -41,10 +50,18 @@ class CondorDeviceCard extends StatelessWidget {
   }
 }
 
+/// A widget that displays the detailed information of a device.
 class CondorDeviceInfos extends StatelessWidget {
+  /// Creates a CondorDeviceInfos widget.
+  ///
+  /// The [device] parameter must not be null and contains the data to be displayed.
   const CondorDeviceInfos({
     super.key,
+    required this.device,
   });
+
+  /// The device model containing the data to be displayed.
+  final DeviceModel device;
 
   @override
   Widget build(BuildContext context) {
@@ -52,93 +69,92 @@ class CondorDeviceInfos extends StatelessWidget {
       width: 333,
       child: Column(
         children: [
-          Row(
-            children: [
-              Expanded(
-                child: TextField(
-                  readOnly: true,
-                  decoration: InputDecoration(
-                    labelText: condorLocalization.l10n.completeIpAddressLabel,
-                  ),
-                ),
-              ),
-              const SizedBox(
-                width: 6,
-              ),
-              IconButton(
-                onPressed: () {},
-                icon: const Icon(Icons.edit),
-              ),
-            ],
+          _buildTextField(
+            label: condorLocalization.l10n.completeIpAddressLabel,
+            value: device.completeIpAddress,
+            onEdit: () {
+              // TODO: Implement IP address editing functionality
+            },
+            isConnected: device.isConnected,
           ),
-          const SizedBox(
-            height: 14,
+          const SizedBox(height: 14),
+          _buildTextField(
+            label: condorLocalization.l10n.customNameLabel,
+            value: device.customName,
+            onEdit: () {
+              // TODO: Implement custom name editing functionality
+            },
+            isConnected: device.isConnected,
           ),
-          Row(
-            children: [
-              Expanded(
-                child: TextField(
-                  readOnly: true,
-                  decoration: InputDecoration(
-                    labelText: condorLocalization.l10n.customNameLabel,
-                  ),
-                ),
-              ),
-              const SizedBox(
-                width: 6,
-              ),
-              IconButton(
-                onPressed: () {},
-                icon: const Icon(Icons.edit),
-              ),
-            ],
+          const SizedBox(height: 14),
+          _buildTextField(
+            label: condorLocalization.l10n.serialNumberLabel,
+            value: device.serialNumber,
           ),
-          const SizedBox(
-            height: 14,
+          const SizedBox(height: 14),
+          _buildTextField(
+            label: condorLocalization.l10n.modelLabel,
+            value: device.model,
           ),
-          TextField(
-            readOnly: true,
-            decoration: InputDecoration(
-              labelText: condorLocalization.l10n.serialNumberLabel,
-            ),
+          const SizedBox(height: 14),
+          _buildTextField(
+            label: condorLocalization.l10n.manufacturerLabel,
+            value: device.manufacturer,
           ),
-          const SizedBox(
-            height: 14,
-          ),
-          TextField(
-            readOnly: true,
-            decoration: InputDecoration(
-              labelText: condorLocalization.l10n.modelLabel,
-            ),
-          ),
-          const SizedBox(
-            height: 14,
-          ),
-          TextField(
-            readOnly: true,
-            decoration: InputDecoration(
-              labelText: condorLocalization.l10n.manufacturerLabel,
-            ),
-          ),
-          const SizedBox(
-            height: 14,
-          ),
-          TextField(
-            readOnly: true,
-            decoration: InputDecoration(
-              labelText: condorLocalization.l10n.androidVersionLabel,
-            ),
+          const SizedBox(height: 14),
+          _buildTextField(
+            label: condorLocalization.l10n.androidVersionLabel,
+            value: device.androidVersion,
           ),
         ],
       ),
     );
   }
+
+  /// Builds a text field with the given label and value.
+  ///
+  /// If [onEdit] is provided, an edit button will be displayed next to the field.
+  Widget _buildTextField({
+    required String label,
+    required String value,
+    VoidCallback? onEdit,
+    bool isConnected = false,
+  }) {
+    return Row(
+      children: [
+        Expanded(
+          child: TextField(
+            readOnly: true,
+            controller: TextEditingController(text: value),
+            decoration: InputDecoration(
+              labelText: label,
+            ),
+          ),
+        ),
+        if (onEdit != null && isConnected == false) ...[
+          const SizedBox(width: 6),
+          IconButton(
+            onPressed: onEdit,
+            icon: const Icon(Icons.edit),
+          ),
+        ],
+      ],
+    );
+  }
 }
 
+/// A widget that displays action buttons for a device.
 class CondorColumnButtons extends StatelessWidget {
+  /// Creates a CondorColumnButtons widget.
+  ///
+  /// The [device] parameter must not be null and is used to determine the state of the buttons.
   const CondorColumnButtons({
     super.key,
+    required this.device,
   });
+
+  /// The device model used to determine the state of the buttons.
+  final DeviceModel device;
 
   @override
   Widget build(BuildContext context) {
@@ -149,66 +165,156 @@ class CondorColumnButtons extends StatelessWidget {
         crossAxisAlignment: WrapCrossAlignment.end,
         spacing: 36,
         children: [
-          Row(
-            children: [
-              const SizedBox(
-                width: 24,
-                height: 24,
-                child: Visibility(
-                  visible: true,
-                  child: CircularProgressIndicator(
-                    strokeWidth: 2.5,
-                  ),
-                ),
-              ),
-              const SizedBox(
-                width: 14,
-              ),
-              ElevatedButton(
-                onPressed: () {},
-                child: Text(condorLocalization.l10n.connectDeviceButton),
-              ),
-            ],
-          ),
-          Row(
-            children: [
-              const SizedBox(
-                width: 24,
-                height: 24,
-                child: Visibility(
-                  visible: false,
-                  child: CircularProgressIndicator(
-                    strokeWidth: 2.5,
-                  ),
-                ),
-              ),
-              const SizedBox(
-                width: 14,
-              ),
-              ElevatedButton(
-                onPressed: null,
-                child: Text(condorLocalization.l10n.disconnectDeviceButton),
-              ),
-            ],
-          ),
+          ConnectButton(device: device),
+          DisconnectButton(device: device),
           ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              // TODO: Implement TCP/IP functionality
+            },
             child: Text(condorLocalization.l10n.runTcpipButton),
           ),
           ElevatedButton(
-            onPressed: () {},
+            onPressed: device.isConnected
+                ? () {
+                    condorAdbCommands.mirrorScreen(
+                        completeIPAddress: device.completeIpAddress);
+                  }
+                : null,
             child: Text(condorLocalization.l10n.mirrorScreenButton),
           ),
           IconButton(
-            onPressed: () {},
+            onPressed: device.isConnected
+                ? null
+                : () {
+                    context
+                        .read<DevicesBloc>()
+                        .add(RemoveDevice(serialNumber: device.serialNumber));
+                  },
             icon: Icon(
               Icons.delete,
-              color: Colors.red.shade600,
+              color: device.isConnected ? Colors.grey : Colors.red.shade600,
               size: 44,
             ),
           ),
         ],
       ),
+    );
+  }
+}
+
+/// Builds the connect button with appropriate visibility for the loading indicator.
+class ConnectButton extends StatefulWidget {
+  const ConnectButton({
+    super.key,
+    required this.device,
+  });
+
+  final DeviceModel device;
+
+  @override
+  State<ConnectButton> createState() => _ConnectButtonState();
+}
+
+class _ConnectButtonState extends State<ConnectButton> {
+  bool itsDoingSomething = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        SizedBox(
+          width: 24,
+          height: 24,
+          child: Visibility(
+            visible: itsDoingSomething,
+            child: const CircularProgressIndicator(
+              strokeWidth: 2.5,
+            ),
+          ),
+        ),
+        const SizedBox(width: 14),
+        ElevatedButton(
+          onPressed: widget.device.isConnected
+              ? null
+              : () async {
+                  setState(() {
+                    itsDoingSomething = true;
+                  });
+                  final isSuccess = await condorAdbCommands.connectToDevice(
+                      completeIpAddress: widget.device.completeIpAddress);
+                  if (isSuccess && context.mounted) {
+                    context.read<DevicesBloc>().add(
+                        UpdateDeviceConnectionStatus(
+                            serialNumber: widget.device.serialNumber,
+                            isConnected: true));
+                  }
+                  setState(() {
+                    itsDoingSomething = false;
+                  });
+                },
+          child: Text(condorLocalization.l10n.connectDeviceButton),
+        ),
+      ],
+    );
+  }
+}
+
+/// Builds the disconnect button with appropriate visibility for the loading indicator.
+class DisconnectButton extends StatefulWidget {
+  const DisconnectButton({
+    super.key,
+    required this.device,
+  });
+
+  final DeviceModel device;
+
+  @override
+  State<DisconnectButton> createState() => _DisconnectButtonState();
+}
+
+class _DisconnectButtonState extends State<DisconnectButton> {
+  bool itsDoingSomething = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        SizedBox(
+          width: 24,
+          height: 24,
+          child: Visibility(
+            visible: itsDoingSomething,
+            child: const CircularProgressIndicator(
+              strokeWidth: 2.5,
+            ),
+          ),
+        ),
+        const SizedBox(width: 14),
+        ElevatedButton(
+          onPressed: widget.device.isConnected
+              ? () async {
+                  setState(() {
+                    itsDoingSomething = true;
+                  });
+                  await condorAdbCommands
+                      .disconnectFromDevice(
+                          completeIpAddress: widget.device.completeIpAddress)
+                      .then((_) {
+                    if (context.mounted) {
+                      context.read<DevicesBloc>().add(
+                          UpdateDeviceConnectionStatus(
+                              serialNumber: widget.device.serialNumber,
+                              isConnected: false));
+                    }
+                  });
+                  setState(() {
+                    itsDoingSomething = false;
+                  });
+                }
+              : null,
+          child: Text(condorLocalization.l10n.disconnectDeviceButton),
+        ),
+      ],
     );
   }
 }
