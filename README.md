@@ -13,6 +13,7 @@ By utilizing the powerful `adb` commands, I created this software that allows yo
   - Execute the `tcpip` command
   - Delete the device
   - Edit the device name and full IP address
+  - Mirror device screen, powered by [scrcpy](https://github.com/Genymobile/scrcpy)
 - **Kill ADB Server**: A dedicated button to kill the ADB server.
 
 ### Software Iterations
