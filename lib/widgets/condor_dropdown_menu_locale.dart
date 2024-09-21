@@ -12,27 +12,34 @@ class CondorDropdownMenuLocale extends StatelessWidget {
       builder: (context, state) {
         /// Determines if the current theme mode is dark.
         final isDarkMode = state.appSettingsModel.themeMode == ThemeMode.dark;
-        return DropdownButton<Locale>(
-          focusColor: isDarkMode ? Colors.grey.shade200 : Colors.grey.shade400,
-          value: state.appSettingsModel.locale,
-          items: L10n.supportedLocales.map((iterableLocale) {
-            return DropdownMenuItem(
-              value: iterableLocale,
-              child: Text(
-                iterableLocale.languageCode.toUpperCase(),
-              ),
-            );
-          }).toList(),
-          onChanged: (newLocale) {
-            /// Updates the app settings by dispatching the ChangeAppSettings event to the BLoC.
-            context.read<AppSettingsBloc>().add(
-                  ChangeAppSettings(
-                    appSettingsModel: state.appSettingsModel.copyWith(
-                      locale: newLocale,
+        return Container(
+          decoration: BoxDecoration(
+            color: isDarkMode ? Colors.grey.shade300 : Colors.transparent,
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: DropdownButton<Locale>(
+            borderRadius: BorderRadius.circular(8),
+            focusColor: Colors.transparent,
+            value: state.appSettingsModel.locale,
+            items: L10n.supportedLocales.map((iterableLocale) {
+              return DropdownMenuItem(
+                value: iterableLocale,
+                child: Text(
+                  iterableLocale.languageCode.toUpperCase(),
+                ),
+              );
+            }).toList(),
+            onChanged: (newLocale) {
+              /// Updates the app settings by dispatching the ChangeAppSettings event to the BLoC.
+              context.read<AppSettingsBloc>().add(
+                    ChangeAppSettings(
+                      appSettingsModel: state.appSettingsModel.copyWith(
+                        locale: newLocale,
+                      ),
                     ),
-                  ),
-                );
-          },
+                  );
+            },
+          ),
         );
       },
     );
