@@ -76,8 +76,8 @@ class CondorDeviceInfos extends StatelessWidget {
               // TODO: Implement IP address editing functionality
             },
             isConnected: device.isConnected,
+            addUpperSpacing: false,
           ),
-          const SizedBox(height: 14),
           _buildTextField(
             label: condorLocalization.l10n.customNameLabel,
             value: device.customName,
@@ -86,22 +86,18 @@ class CondorDeviceInfos extends StatelessWidget {
             },
             isConnected: device.isConnected,
           ),
-          const SizedBox(height: 14),
           _buildTextField(
             label: condorLocalization.l10n.serialNumberLabel,
             value: device.serialNumber,
           ),
-          const SizedBox(height: 14),
           _buildTextField(
             label: condorLocalization.l10n.modelLabel,
             value: device.model,
           ),
-          const SizedBox(height: 14),
           _buildTextField(
             label: condorLocalization.l10n.manufacturerLabel,
             value: device.manufacturer,
           ),
-          const SizedBox(height: 14),
           _buildTextField(
             label: condorLocalization.l10n.androidVersionLabel,
             value: device.androidVersion,
@@ -119,25 +115,32 @@ class CondorDeviceInfos extends StatelessWidget {
     required String value,
     VoidCallback? onEdit,
     bool isConnected = false,
+    bool addUpperSpacing = true,
   }) {
-    return Row(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Expanded(
-          child: TextField(
-            readOnly: true,
-            controller: TextEditingController(text: value),
-            decoration: InputDecoration(
-              labelText: label,
+        if (addUpperSpacing) const SizedBox(height: 14),
+        Row(
+          children: [
+            Expanded(
+              child: TextField(
+                readOnly: true,
+                controller: TextEditingController(text: value),
+                decoration: InputDecoration(
+                  labelText: label,
+                ),
+              ),
             ),
-          ),
+            if (onEdit != null && isConnected == false) ...[
+              const SizedBox(width: 6),
+              IconButton(
+                onPressed: onEdit,
+                icon: const Icon(Icons.edit),
+              ),
+            ],
+          ],
         ),
-        if (onEdit != null && isConnected == false) ...[
-          const SizedBox(width: 6),
-          IconButton(
-            onPressed: onEdit,
-            icon: const Icon(Icons.edit),
-          ),
-        ],
       ],
     );
   }
