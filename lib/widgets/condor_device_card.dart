@@ -72,18 +72,38 @@ class CondorDeviceInfos extends StatelessWidget {
           _buildTextField(
             label: condorLocalization.l10n.completeIpAddressLabel,
             value: device.completeIpAddress,
-            onEdit: () {
-              // TODO: Implement IP address editing functionality
-            },
+            onEdit: () => _showEditDialog(
+              context: context,
+              title: condorLocalization.l10n.editIpAddressTitle,
+              initialValue: device.completeIpAddress,
+              onSave: (newValue) {
+                context.read<DevicesBloc>().add(
+                      UpdateDeviceIpAddress(
+                        serialNumber: device.serialNumber,
+                        newCompleteIpAddress: newValue,
+                      ),
+                    );
+              },
+            ),
             isConnected: device.isConnected,
             addUpperSpacing: false,
           ),
           _buildTextField(
             label: condorLocalization.l10n.customNameLabel,
             value: device.customName,
-            onEdit: () {
-              // TODO: Implement custom name editing functionality
-            },
+            onEdit: () => _showEditDialog(
+              context: context,
+              title: condorLocalization.l10n.editCustomNameTitle,
+              initialValue: device.customName,
+              onSave: (newValue) {
+                context.read<DevicesBloc>().add(
+                      UpdateDeviceName(
+                        serialNumber: device.serialNumber,
+                        newName: newValue,
+                      ),
+                    );
+              },
+            ),
             isConnected: device.isConnected,
           ),
           _buildTextField(
@@ -142,6 +162,43 @@ class CondorDeviceInfos extends StatelessWidget {
           ],
         ),
       ],
+    );
+  }
+  
+  /// Shows an edit dialog with the given title and initial value.
+  Future<void> _showEditDialog({
+    required BuildContext context,
+    required String title,
+    required String initialValue,
+    required Function(String) onSave,
+  }) async {
+    final controller = TextEditingController(text: initialValue);
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(title),
+          content: TextField(
+            controller: controller,
+            decoration: InputDecoration(hintText: initialValue),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text(condorLocalization.l10n.cancelButton),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: Text(condorLocalization.l10n.saveButton),
+              onPressed: () {
+                onSave(controller.text);
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }

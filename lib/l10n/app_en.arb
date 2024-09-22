@@ -40,9 +40,25 @@
   "@completeIpAddressLabel": {
     "description": "Label on the device card that shows the complete IP address."
   },
+  "editIpAddressTitle": "Edit IP Address",
+  "@editIpAddressTitle": {
+    "description": "Title of the dialog that allows you to edit the complete IP address."
+  },
   "customNameLabel": "Custom Name",
   "@customNameLabel": {
     "description": "Label on the device card that shows the custom name."
+  },
+  "editCustomNameTitle": "Edit Custom Name",
+  "@editCustomNameTitle": {
+    "description": "Title of the dialog that allows you to edit the custom name."
+  },
+  "cancelButton": "Cancel",
+  "@cancelButton": {
+    "description": "Button on the dialog that allows you to cancel the dialog."
+  },
+  "saveButton": "Save",
+  "@saveButton": {
+    "description": "Button on the dialog that allows you to save the dialog."
   },
   "serialNumberLabel": "Serial Number",
   "@serialNumberLabel": {

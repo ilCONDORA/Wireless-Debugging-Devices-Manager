@@ -40,9 +40,25 @@
   "@completeIpAddressLabel": {
     "description": "Etichetta sulla scheda del dispositivo che mostra l'indirizzo IP completo."
   },
+  "editIpAddressTitle": "Modifica Indirizzo IP",
+  "@editIpAddressTitle": {
+    "description": "Titolo della finestra che permette di modificare l'indirizzo IP."
+  },
   "customNameLabel": "Nome Personalizzato",
   "@customNameLabel": {
     "description": "Etichetta sulla scheda del dispositivo che mostra il nome personalizzato."
+  },
+  "editCustomNameTitle": "Modifica Nome Personalizzato",
+  "@editCustomNameTitle": {
+    "description": "Titolo della finestra che permette di modificare il nome personalizzato."
+  },
+  "cancelButton": "Annulla",
+  "@cancelButton": {
+    "description": "Pulsante che permette di annullare la modifica."
+  },
+  "saveButton": "Salva",
+  "@saveButton": {
+    "description": "Pulsante che permette di salvare la modifica."
   },
   "serialNumberLabel": "Numero di Serie",
   "@serialNumberLabel": {
