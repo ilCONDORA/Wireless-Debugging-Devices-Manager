@@ -32,6 +32,10 @@
   "@runTcpipButton": {
     "description": "Button on the device card that allows you to run the tcpip command."
   },
+  "runTcpipDialogTitle": "New device connection port",
+  "@runTcpipDialogTitle": {
+    "description": "Title of the dialog that allows you to run the tcpip command."
+  },
   "mirrorScreenButton": "Mirror Screen",
   "@mirrorScreenButton": {
     "description": "Button on the device card that allows you to mirror the screen."

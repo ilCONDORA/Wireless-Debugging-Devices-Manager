@@ -32,6 +32,10 @@
   "@runTcpipButton": {
     "description": "Pulsante sulla scheda del dispositivo che permette di eseguire il comando tcpip."
   },
+  "runTcpipDialogTitle": "Nuova porta di connessione del dispositivo",
+  "@runTcpipDialogTitle": {
+    "description": "Titolo della finestra di dialogo che consente di eseguire il comando tcpip."
+  },
   "mirrorScreenButton": "Replica Schermo",
   "@mirrorScreenButton": {
     "description": "Pulsante sulla scheda del dispositivo che permette di replicare lo schermo."

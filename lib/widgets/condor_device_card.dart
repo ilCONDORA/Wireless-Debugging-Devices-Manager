@@ -164,7 +164,7 @@ class CondorDeviceInfos extends StatelessWidget {
       ],
     );
   }
-  
+
   /// Shows an edit dialog with the given title and initial value.
   Future<void> _showEditDialog({
     required BuildContext context,
@@ -228,9 +228,11 @@ class CondorColumnButtons extends StatelessWidget {
           ConnectButton(device: device),
           DisconnectButton(device: device),
           ElevatedButton(
-            onPressed: () {
-              // TODO: Implement TCP/IP functionality
-            },
+            onPressed: device.isConnected
+                ? null
+                : () {
+                    _showTcpipDialog(context, device);
+                  },
             child: Text(condorLocalization.l10n.runTcpipButton),
           ),
           ElevatedButton(
@@ -258,6 +260,61 @@ class CondorColumnButtons extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+
+  Future<void> _showTcpipDialog(
+      BuildContext context, DeviceModel device) async {
+    final portRegex =
+        RegExp(r':(\d+)$'); // Extracts the port number from the IP address
+    final match = portRegex.firstMatch(device.completeIpAddress); //
+    final initialPort = match != null ? match.group(1) : '5555';
+
+    final controller = TextEditingController(text: initialPort);
+
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text(condorLocalization.l10n.runTcpipDialogTitle),
+          content: TextField(
+            controller: controller,
+            decoration: InputDecoration(hintText: initialPort),
+            keyboardType: TextInputType.number,
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text(condorLocalization.l10n.cancelButton),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: Text(condorLocalization.l10n.runTcpipButton),
+              onPressed: () async {
+                final int port = int.tryParse(controller.text) ?? 5555;
+                final isSuccess = await condorAdbCommands.runTcpip(
+                  serialNumber: device.serialNumber,
+                  tcpipPort: port,
+                );
+                if (isSuccess && context.mounted) {
+                  final newIpAddress = device.completeIpAddress
+                      .replaceFirst(RegExp(r':\d+$'), ':$port');
+                  context.read<DevicesBloc>().add(
+                        UpdateDeviceIpAddress(
+                          serialNumber: device.serialNumber,
+                          newCompleteIpAddress: newIpAddress,
+                        ),
+                      );
+                }
+                if (context.mounted) {
+                  Navigator.of(context).pop();
+                }
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }
