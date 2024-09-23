@@ -3,7 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wireless_debugging_devices_manager/bloc/app_settings_bloc/app_settings_bloc.dart';
 import 'package:wireless_debugging_devices_manager/l10n/l10n.dart';
 
+/// A widget that displays a dropdown menu for selecting the app's locale.
+///
+/// This widget listens to the AppSettingsBloc to get the current locale
+/// and provides options to change it.
 class CondorDropdownMenuLocale extends StatelessWidget {
+  /// Creates a CondorDropdownMenuLocale widget.
   const CondorDropdownMenuLocale({super.key});
 
   @override

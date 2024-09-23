@@ -9,7 +9,12 @@ import 'package:wireless_debugging_devices_manager/services/condor_snackbar_serv
 import 'package:wireless_debugging_devices_manager/widgets/condor_dropdown_menu_locale.dart';
 import 'package:wireless_debugging_devices_manager/widgets/condor_switch_theme_mode.dart';
 
+/// A widget that displays a row of buttons for various actions in the Condor app.
+///
+/// This widget includes buttons for adding a device, killing the ADB server,
+/// showing info, switching theme mode, changing locale, and a donation link.
 class CondorButtonsRow extends StatelessWidget {
+  /// Creates a CondorButtonsRow widget.
   const CondorButtonsRow({
     super.key,
   });
@@ -24,6 +29,7 @@ class CondorButtonsRow extends StatelessWidget {
               spacing: 28,
               runSpacing: 8,
               children: [
+                // Button to add a device
                 ElevatedButton(
                   onPressed: () {},
                   style: ButtonStyle(
@@ -32,6 +38,7 @@ class CondorButtonsRow extends StatelessWidget {
                   ),
                   child: Text(condorLocalization.l10n.addDeviceButton),
                 ),
+                // Button to kill the ADB server
                 ElevatedButton(
                   /// When the user clicks on this button the ADB server is killed and
                   /// subsequently all devices connection statuses are registered as disconnected.
@@ -45,6 +52,7 @@ class CondorButtonsRow extends StatelessWidget {
                   ),
                   child: Text(condorLocalization.l10n.killAdbServerButton),
                 ),
+                // Button to show info page
                 ElevatedButton(
                   onPressed: () {},
                   style: ButtonStyle(
@@ -52,8 +60,11 @@ class CondorButtonsRow extends StatelessWidget {
                   ),
                   child: Text(condorLocalization.l10n.infoPageButton),
                 ),
+                // Widget to switch theme mode
                 const CondorSwitchThemeMode(),
+                // Widget to change locale
                 const CondorDropdownMenuLocale(),
+                // Button for donation link
                 ElevatedButton(
                   onPressed: () async {
                     final Uri url = Uri.parse('https://ko-fi.com/ilcondora');
