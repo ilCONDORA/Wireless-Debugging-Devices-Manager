@@ -7,6 +7,9 @@ import 'package:wireless_debugging_devices_manager/services/condor_localization_
 import 'package:wireless_debugging_devices_manager/bloc/devices_bloc/devices_bloc.dart';
 
 /// A widget that displays detailed information about a device in a card format.
+///
+/// This widget is responsible for creating the overall structure of the device card,
+/// including the device information and action buttons.
 class CondorDeviceCard extends StatelessWidget {
   /// Creates a CondorDeviceCard.
   ///
@@ -28,6 +31,7 @@ class CondorDeviceCard extends StatelessWidget {
             horizontal: 11,
           ),
           child: BlocBuilder<AppSettingsBloc, AppSettingsState>(
+            // Rebuild only when the locale changes
             buildWhen: (previous, current) =>
                 previous.appSettingsModel.locale !=
                 current.appSettingsModel.locale,
@@ -51,6 +55,9 @@ class CondorDeviceCard extends StatelessWidget {
 }
 
 /// A widget that displays the detailed information of a device.
+///
+/// This widget creates a column of text fields displaying various device properties
+/// such as complete IP address, custom name, serial number, model, manufacturer, and Android version.
 class CondorDeviceInfos extends StatelessWidget {
   /// Creates a CondorDeviceInfos widget.
   ///
@@ -130,6 +137,8 @@ class CondorDeviceInfos extends StatelessWidget {
   /// Builds a text field with the given label and value.
   ///
   /// If [onEdit] is provided, an edit button will be displayed next to the field.
+  /// [isConnected] determines if the edit button should be enabled.
+  /// [addUpperSpacing] adds vertical spacing above the field if true.
   Widget _buildTextField({
     required String label,
     required String value,
@@ -166,6 +175,9 @@ class CondorDeviceInfos extends StatelessWidget {
   }
 
   /// Shows an edit dialog with the given title and initial value.
+  ///
+  /// This function creates and displays an AlertDialog for editing a device property.
+  /// [onSave] is called with the new value when the user confirms the edit.
   Future<void> _showEditDialog({
     required BuildContext context,
     required String title,
@@ -204,6 +216,9 @@ class CondorDeviceInfos extends StatelessWidget {
 }
 
 /// A widget that displays action buttons for a device.
+///
+/// This widget creates a column of buttons for various device actions
+/// such as connect, disconnect, run tcpip, mirror screen, and delete.
 class CondorColumnButtons extends StatelessWidget {
   /// Creates a CondorColumnButtons widget.
   ///
@@ -263,11 +278,19 @@ class CondorColumnButtons extends StatelessWidget {
     );
   }
 
+  /// Shows a dialog for running tcpip command on the device.
+  ///
+  /// This function extracts the current port from the device's IP address,
+  /// allows the user to edit it, and then runs the tcpip command with the new port.
   Future<void> _showTcpipDialog(
       BuildContext context, DeviceModel device) async {
-    final portRegex =
-        RegExp(r':(\d+)$'); // Extracts the port number from the IP address
-    final match = portRegex.firstMatch(device.completeIpAddress); //
+    // Regular expression to extract the port number from the IP address
+    final portRegex = RegExp(r':(\d+)$');
+
+    // Attempt to match the regex against the device's IP address
+    final match = portRegex.firstMatch(device.completeIpAddress);
+
+    // If a match is found, use the captured group (port number), otherwise use '5555' as default
     final initialPort = match != null ? match.group(1) : '5555';
 
     final controller = TextEditingController(text: initialPort);
@@ -320,6 +343,8 @@ class CondorColumnButtons extends StatelessWidget {
 }
 
 /// Builds the connect button with appropriate visibility for the loading indicator.
+///
+/// This widget manages its own state to show a loading indicator while connecting.
 class ConnectButton extends StatefulWidget {
   const ConnectButton({
     super.key,
@@ -377,6 +402,8 @@ class _ConnectButtonState extends State<ConnectButton> {
 }
 
 /// Builds the disconnect button with appropriate visibility for the loading indicator.
+///
+/// This widget manages its own state to show a loading indicator while disconnecting.
 class DisconnectButton extends StatefulWidget {
   const DisconnectButton({
     super.key,
