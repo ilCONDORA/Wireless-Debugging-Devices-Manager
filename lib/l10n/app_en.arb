@@ -4,6 +4,10 @@
   "@addDeviceButton": {
     "description": "Button on the principal row that allows you to add a new device."
   },
+  "noDevicesFound": "No Devices Found",
+  "@noDevicesFound": {
+    "description": "Message that is shown when no devices are found."
+  },
   "killAdbServerButton": "Kill Adb Server",
   "@killAdbServerButton": {
     "description": "Button on the principal row that allows you to kill the adb server."
@@ -96,35 +100,17 @@
   "@adbServerUnknownError": {
     "description": "Error message when an unknown error occurs while killing the adb server."
   },
-  "getDeviceIpAddressSuccess": "Successfully retrieved device IP address of {serialNumber}, here it is -> {deviceIPAddress}.",
-  "@getDeviceIpAddressSuccess": {
-    "description": "Success message when the device IP address is retrieved successfully.",
-    "placeholders": {
-      "serialNumber": {
-        "description": "Serial number"
-      },
-      "deviceIPAddress": {
-        "description": "Device IP address"
-      }
-    }
+  "getDeviceInformationError": "There was and error while trying to get information about the device. Maybe you don''t have the right permissions.",
+  "@getDeviceInformationError": {
+    "description": "Error message when there was an error while trying to get information about the device."
   },
-  "getDeviceIpAddressError": "Cannot retrieve device IP address of {serialNumber}. Check if the device is connected or the serial number is correct and retry from the start.",
-  "@getDeviceIpAddressError": {
-    "description": "Error message when the device IP address cannot be retrieved.",
-    "placeholders": {
-      "serialNumber": {
-        "description": "Serial number"
-      }
-    }
+  "getConnectedDevicesListError": "There was and error while trying to get the list of devices.",
+  "@getConnectedDevicesListError": {
+    "description": "Error message when there was an error while trying to get the list of devices."
   },
-  "getDeviceIpAddressUnknownError": "Unknown error while retrieving device IP address of {serialNumber}.",
-  "@getDeviceIpAddressUnknownError": {
-    "description": "Error message when an unknown error occurs while retrieving the device IP address.",
-    "placeholders": {
-      "serialNumber": {
-        "description": "Serial number"
-      }
-    }
+  "getConnectedDevicesListUnknownError": "Unknown error while trying to get the list of devices.",
+  "@getConnectedDevicesListUnknownError": {
+    "description": "Error message when an unknown error occurs while trying to get the list of devices."
   },
   "runTcpipSuccess": "Successfully ran tcpip on {serialNumber}. New port is -> {tcpipPort}.",
   "@runTcpipSuccess": {

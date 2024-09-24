@@ -4,6 +4,10 @@
   "@addDeviceButton": {
     "description": "Pulsante nella riga principale che permette di aggiungere un nuovo dispositivo."
   },
+  "noDevicesFound": "Nessun dispositivo trovato",
+  "@noDevicesFound": {
+    "description": "Messaggio che viene mostrato quando non vengono trovati dispositivi."
+  },
   "killAdbServerButton": "Termina Server Adb",
   "@killAdbServerButton": {
     "description": "Pulsante nella riga principale che permette di terminare il server adb."
@@ -96,35 +100,17 @@
   "@adbServerUnknownError": {
     "description": "Messaggio di errore quando si verifica un errore sconosciuto durante la terminazione del server adb."
   },
-  "getDeviceIpAddressSuccess": "Indirizzo IP del dispositivo {serialNumber} recuperato con successo, eccolo -> {deviceIPAddress}.",
-  "@getDeviceIpAddressSuccess": {
-    "description": "Messaggio di successo quando l'indirizzo IP del dispositivo viene recuperato con successo.",
-    "placeholders": {
-      "serialNumber": {
-        "description": "Numero di serie"
-      },
-      "deviceIPAddress": {
-        "description": "Indirizzo IP del dispositivo"
-      }
-    }
+  "getDeviceInformationError": "Si è verificato un errore durante il tentativo di ottenere informazioni sul dispositivo. Forse non hai le autorizzazioni necessarie.",
+  "@getDeviceInformationError": {
+    "description": "Messaggio di errore quando si verifica un errore durante il tentativo di ottenere informazioni sul dispositivo."
   },
-  "getDeviceIpAddressError": "Impossibile recuperare l''indirizzo IP del dispositivo {serialNumber}. Verifica che il dispositivo sia connesso o che il numero di serie sia corretto e riprova dall''inizio.",
-  "@getDeviceIpAddressError": {
-    "description": "Messaggio di errore quando non è possibile recuperare l'indirizzo IP del dispositivo.",
-    "placeholders": {
-      "serialNumber": {
-        "description": "Numero di serie"
-      }
-    }
+  "getConnectedDevicesListError": "Si è verificato un errore durante il tentativo di ottenere l''elenco dei dispositivi.",
+  "@getConnectedDevicesListError": {
+    "description": "Messaggio di errore quando si verifica un errore durante il tentativo di ottenere l'elenco dei dispositivi."
   },
-  "getDeviceIpAddressUnknownError": "Errore sconosciuto durante il recupero dell''indirizzo IP del dispositivo {serialNumber}.",
-  "@getDeviceIpAddressUnknownError": {
-    "description": "Messaggio di errore quando si verifica un errore sconosciuto durante il recupero dell'indirizzo IP del dispositivo.",
-    "placeholders": {
-      "serialNumber": {
-        "description": "Numero di serie"
-      }
-    }
+  "getConnectedDevicesListUnknownError": "Errore sconosciuto durante il tentativo di ottenere l''elenco dei dispositivi.",
+  "@getConnectedDevicesListUnknownError": {
+    "description": "Messaggio di errore quando si verifica un errore sconosciuto durante il tentativo di ottenere l'elenco dei dispositivi."
   },
   "runTcpipSuccess": "Tcpip eseguito con successo su {serialNumber}. La nuova porta è -> {tcpipPort}.",
   "@runTcpipSuccess": {
