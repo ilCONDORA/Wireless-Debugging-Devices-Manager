@@ -151,6 +151,15 @@
       }
     }
   },
+  "connectToDeviceAuthError": "Autenticazione fallita per {completeIpAddress}.",
+  "@connectToDeviceAuthError": {
+    "description": "Messaggio di errore quando il dispositivo non può essere autenticato.",
+    "placeholders": {
+      "completeIpAddress": {
+        "description": "Indirizzo IP completo"
+      }
+    }
+  },
   "connectToDeviceError": "Impossibile connettersi a {completeIpAddress}. Verifica che l''indirizzo IP sia corretto e riprova.",
   "@connectToDeviceError": {
     "description": "Messaggio di errore quando non è possibile connettersi al dispositivo.",
@@ -195,5 +204,9 @@
         "description": "Indirizzo IP completo"
       }
     }
+  },
+  "mirrorScreenPathError": "Impossibile avviare il processo di mirroring. Si prega di verificare se SCRCPY è installato e se il percorso nel PATH è corretto.",
+  "@mirrorScreenPathError": {
+    "description": "Messaggio di errore quando il processo di mirroring non può essere avviato perché SCRCPY non è installato o il percorso nel PATH è errato."
   }
 }

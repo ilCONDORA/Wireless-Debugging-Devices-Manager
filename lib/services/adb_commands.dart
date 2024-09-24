@@ -266,8 +266,19 @@ Exit code: '${result.exitCode}'.
         // Split the output into lines.
         List<String> lines = result.stdout.trim().split('\n');
         // Find the index where the true message starts.
-        // the 'connect' is present in all the correct output.
+        // the 'connect' is present in almost all the correct output.
         int startIndex = lines.indexWhere((line) => line.contains('connect'));
+
+        // Handles the failed to authenticate correct ouput error.
+        if (startIndex == -1) {
+          condorSnackBar.show(
+            message: condorLocalization.l10n
+                .connectToDeviceAuthError(completeIpAddress),
+            isSuccess: false,
+          );
+          return false;
+        }
+
         // Extract the relevant message.
         String message = lines[startIndex];
         // Determine the connection status, if there is a 'connected' in the message the device is connected.
@@ -348,16 +359,23 @@ Exit code: '${result.exitCode}'.
   Future<void> mirrorScreen({required String completeIPAddress}) async {
     final List<String> arguments = ['-s', completeIPAddress];
 
-    // ignore: unused_local_variable
-    var process = await Process.run('scrcpy', arguments);
+    try {
+      // ignore: unused_local_variable
+      var process = await Process.run('scrcpy', arguments);
 
-    /* // Manage the process output asynchronously.
-    process.stdout.transform(const SystemEncoding().decoder).listen((data) {
-      print('scrcpy output: $data');
-    });
-    process.stderr.transform(const SystemEncoding().decoder).listen((data) {
-      print('scrcpy error: $data');
-    }); */
+      /* // Manage the process output asynchronously.
+      process.stdout.transform(const SystemEncoding().decoder).listen((data) {
+        print('scrcpy output: $data');
+      });
+      process.stderr.transform(const SystemEncoding().decoder).listen((data) {
+        print('scrcpy error: $data');
+      }); */
+    } catch (e) {
+      condorSnackBar.show(
+        message: condorLocalization.l10n.mirrorScreenPathError,
+        isSuccess: false,
+      );
+    }
   }
 }
 
