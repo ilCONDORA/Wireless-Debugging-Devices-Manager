@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wireless_debugging_devices_manager/bloc/app_settings_bloc/app_settings_bloc.dart';
+import 'package:wireless_debugging_devices_manager/cubit/spinning_circle_cubit.dart';
 import 'package:wireless_debugging_devices_manager/models/device_model.dart';
 import 'package:wireless_debugging_devices_manager/services/adb_commands.dart';
 import 'package:wireless_debugging_devices_manager/services/condor_localization_service.dart';
@@ -344,8 +345,8 @@ class CondorColumnButtons extends StatelessWidget {
 
 /// Builds the connect button with appropriate visibility for the loading indicator.
 ///
-/// This widget manages its own state to show a loading indicator while connecting.
-class ConnectButton extends StatefulWidget {
+/// This widget uses a cubit to manage the state of the spinning circle.
+class ConnectButton extends StatelessWidget {
   const ConnectButton({
     super.key,
     required this.device,
@@ -354,57 +355,66 @@ class ConnectButton extends StatefulWidget {
   final DeviceModel device;
 
   @override
-  State<ConnectButton> createState() => _ConnectButtonState();
-}
-
-class _ConnectButtonState extends State<ConnectButton> {
-  bool itsDoingSomething = false;
-
-  @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        SizedBox(
-          width: 24,
-          height: 24,
-          child: Visibility(
-            visible: itsDoingSomething,
-            child: const CircularProgressIndicator(
-              strokeWidth: 2.5,
-            ),
-          ),
-        ),
-        const SizedBox(width: 14),
-        ElevatedButton(
-          onPressed: widget.device.isConnected
-              ? null
-              : () async {
-                  setState(() {
-                    itsDoingSomething = true;
-                  });
-                  final isSuccess = await condorAdbCommands.connectToDevice(
-                      completeIpAddress: widget.device.completeIpAddress);
-                  if (isSuccess && context.mounted) {
-                    context.read<DevicesBloc>().add(
-                        UpdateDeviceConnectionStatus(
-                            serialNumber: widget.device.serialNumber,
-                            isConnected: true));
-                  }
-                  setState(() {
-                    itsDoingSomething = false;
-                  });
-                },
-          child: Text(condorLocalization.l10n.connectDeviceButton),
-        ),
-      ],
+    return BlocProvider(
+      /// SpinningCircleCubit manages the state of the spinning circle.
+      create: (context) => SpinningCircleCubit(),
+      child: BlocBuilder<SpinningCircleCubit, SpinningCircleState>(
+        builder: (context, state) {
+          return Row(
+            children: [
+              SizedBox(
+                width: 24,
+                height: 24,
+                child: Visibility(
+                  /// Only show the loading indicator if the state is SpinningCircleSpinning.
+                  visible: state is SpinningCircleSpinning,
+                  child: const CircularProgressIndicator(
+                    strokeWidth: 2.5,
+                  ),
+                ),
+              ),
+              const SizedBox(width: 14),
+              ElevatedButton(
+                onPressed: device.isConnected
+                    ? null
+                    : () async {
+                        /// Create a reference to the SpinningCircleCubit so that the context can be accessed easily.
+                        final spinningCircleCubit =
+                            context.read<SpinningCircleCubit>();
+
+                        /// Invoke the startSpinning method, which will emit the SpinningCircleSpinning state.
+                        spinningCircleCubit.startSpinning();
+
+                        final isSuccess =
+                            await condorAdbCommands.connectToDevice(
+                                completeIpAddress: device.completeIpAddress);
+
+                        if (isSuccess && context.mounted) {
+                          context.read<DevicesBloc>().add(
+                                UpdateDeviceConnectionStatus(
+                                    serialNumber: device.serialNumber,
+                                    isConnected: true),
+                              );
+                        }
+
+                        /// Invoke the stopSpinning method, which will emit the SpinningCircleStopped state.
+                        spinningCircleCubit.stopSpinning();
+                      },
+                child: Text(condorLocalization.l10n.connectDeviceButton),
+              ),
+            ],
+          );
+        },
+      ),
     );
   }
 }
 
 /// Builds the disconnect button with appropriate visibility for the loading indicator.
 ///
-/// This widget manages its own state to show a loading indicator while disconnecting.
-class DisconnectButton extends StatefulWidget {
+/// This widget uses a cubit to manage the state of the spinning circle.
+class DisconnectButton extends StatelessWidget {
   const DisconnectButton({
     super.key,
     required this.device,
@@ -413,52 +423,61 @@ class DisconnectButton extends StatefulWidget {
   final DeviceModel device;
 
   @override
-  State<DisconnectButton> createState() => _DisconnectButtonState();
-}
-
-class _DisconnectButtonState extends State<DisconnectButton> {
-  bool itsDoingSomething = false;
-
-  @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        SizedBox(
-          width: 24,
-          height: 24,
-          child: Visibility(
-            visible: itsDoingSomething,
-            child: const CircularProgressIndicator(
-              strokeWidth: 2.5,
-            ),
-          ),
-        ),
-        const SizedBox(width: 14),
-        ElevatedButton(
-          onPressed: widget.device.isConnected
-              ? () async {
-                  setState(() {
-                    itsDoingSomething = true;
-                  });
-                  await condorAdbCommands
-                      .disconnectFromDevice(
-                          completeIpAddress: widget.device.completeIpAddress)
-                      .then((_) {
-                    if (context.mounted) {
-                      context.read<DevicesBloc>().add(
-                          UpdateDeviceConnectionStatus(
-                              serialNumber: widget.device.serialNumber,
-                              isConnected: false));
-                    }
-                  });
-                  setState(() {
-                    itsDoingSomething = false;
-                  });
-                }
-              : null,
-          child: Text(condorLocalization.l10n.disconnectDeviceButton),
-        ),
-      ],
+    return BlocProvider(
+      /// SpinningCircleCubit manages the state of the spinning circle.
+      create: (context) => SpinningCircleCubit(),
+      child: BlocBuilder<SpinningCircleCubit, SpinningCircleState>(
+        builder: (context, state) {
+          return Row(
+            children: [
+              SizedBox(
+                width: 24,
+                height: 24,
+                child: Visibility(
+                  /// Only show the loading indicator if the state is SpinningCircleSpinning.
+                  visible: state is SpinningCircleSpinning,
+                  child: const CircularProgressIndicator(
+                    strokeWidth: 2.5,
+                  ),
+                ),
+              ),
+              const SizedBox(width: 14),
+              ElevatedButton(
+                onPressed: device.isConnected
+                    ? () async {
+                        /// Create a reference to the SpinningCircleCubit so that the context can be accessed easily.
+                        final spinningCircleCubit =
+                            context.read<SpinningCircleCubit>();
+
+                        /// Invoke the startSpinning method, which will emit the SpinningCircleSpinning state.
+                        spinningCircleCubit.startSpinning();
+
+                        await condorAdbCommands
+                            .disconnectFromDevice(
+                                completeIpAddress: device.completeIpAddress)
+                            .then(
+                          (_) {
+                            if (context.mounted) {
+                              context.read<DevicesBloc>().add(
+                                    UpdateDeviceConnectionStatus(
+                                        serialNumber: device.serialNumber,
+                                        isConnected: false),
+                                  );
+                            }
+                          },
+                        );
+
+                        /// Invoke the stopSpinning method, which will emit the SpinningCircleStopped state.
+                        spinningCircleCubit.stopSpinning();
+                      }
+                    : null,
+                child: Text(condorLocalization.l10n.disconnectDeviceButton),
+              ),
+            ],
+          );
+        },
+      ),
     );
   }
 }
