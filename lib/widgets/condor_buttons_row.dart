@@ -6,6 +6,7 @@ import 'package:wireless_debugging_devices_manager/bloc/devices_bloc/devices_blo
 import 'package:wireless_debugging_devices_manager/services/adb_commands.dart';
 import 'package:wireless_debugging_devices_manager/services/condor_localization_service.dart';
 import 'package:wireless_debugging_devices_manager/services/condor_snackbar_service.dart';
+import 'package:wireless_debugging_devices_manager/widgets/condor_add_device_dialog.dart';
 import 'package:wireless_debugging_devices_manager/widgets/condor_dropdown_menu_locale.dart';
 import 'package:wireless_debugging_devices_manager/widgets/condor_switch_theme_mode.dart';
 
@@ -31,7 +32,12 @@ class CondorButtonsRow extends StatelessWidget {
               children: [
                 // Button to add a device
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () async {
+                    showDialog(
+                      context: context,
+                      builder: (context) => const CondorAddDeviceDialog(),
+                    );
+                  },
                   style: ButtonStyle(
                     backgroundColor:
                         WidgetStateProperty.all(Colors.lightBlue.shade300),
