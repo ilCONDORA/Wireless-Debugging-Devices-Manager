@@ -63,4 +63,17 @@ class DeviceModel {
       isConnected: isConnected ?? this.isConnected,
     );
   }
+
+  @override
+  String toString() => '''
+DeviceModel: {
+    completeIpAddress: $completeIpAddress,
+    customName: $customName,
+    serialNumber: $serialNumber,
+    model: $model,
+    manufacturer: $manufacturer,
+    androidVersion: $androidVersion,
+    isConnected: $isConnected
+  }
+''';
 }

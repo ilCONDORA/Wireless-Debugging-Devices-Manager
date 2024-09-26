@@ -45,4 +45,12 @@ class AppSettingsModel {
       locale: locale ?? this.locale,
     );
   }
+
+  @override
+  String toString() => '''
+AppSettingsModel: {
+    themeMode: $themeMode,
+    locale: $locale
+  }
+''';
 }
