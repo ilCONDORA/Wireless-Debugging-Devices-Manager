@@ -148,12 +148,19 @@ class CondorAddDeviceDialog extends StatelessWidget {
         onPressed: () => Navigator.pop(context),
         child: Text(condorLocalization.l10n.cancelButton),
       ),
-      ElevatedButton(
-        style: const ButtonStyle(
-          backgroundColor: WidgetStatePropertyAll(Colors.green),
-        ),
-        onPressed: () => _handleSaveButtonPressed(context),
-        child: Text(condorLocalization.l10n.saveButton),
+      BlocBuilder<SelectedNewDeviceCubit, SelectedNewDeviceState>(
+        builder: (context, state) {
+          return Visibility(
+            visible: state is SelectedNewDeviceSelected,
+            child: ElevatedButton(
+              style: const ButtonStyle(
+                backgroundColor: WidgetStatePropertyAll(Colors.green),
+              ),
+              onPressed: () => _handleSaveButtonPressed(context),
+              child: Text(condorLocalization.l10n.saveButton),
+            ),
+          );
+        },
       ),
     ];
   }
