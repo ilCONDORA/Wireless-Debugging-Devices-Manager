@@ -56,6 +56,14 @@
   "@customNameLabel": {
     "description": "Etichetta sulla scheda del dispositivo che mostra il nome personalizzato."
   },
+  "tcpipPortLabel": "Porta Tcpip",
+  "@tcpipPortLabel": {
+    "description": "Etichetta sulla assegnazione della porta Tcpip quando si aggiunge un dispositivo."
+  },
+  "titleDialogAddCustomNameTcpipPort": "Assegna un Nome Personalizzato e Porta Tcpip",
+  "@titleDialogAddCustomNameTcpipPort": {
+    "description": "Titolo della finestra che consente di inserire un nome personalizzato e la porta Tcpip."
+  },
   "editCustomNameTitle": "Modifica Nome Personalizzato",
   "@editCustomNameTitle": {
     "description": "Titolo della finestra che permette di modificare il nome personalizzato."
@@ -67,6 +75,14 @@
   "saveButton": "Salva",
   "@saveButton": {
     "description": "Pulsante che permette di salvare la modifica."
+  },
+  "backButton": "Indietro",
+  "@backButton": {
+    "description": "Pulsante che permette di tornare indietro."
+  },
+  "configureButton": "Configura",
+  "@configureButton": {
+    "description": "Pulsante che permette di configurare il dispositivo."
   },
   "serialNumberLabel": "Numero di Serie",
   "@serialNumberLabel": {

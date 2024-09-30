@@ -60,7 +60,9 @@ class CondorButtonsRow extends StatelessWidget {
                 ),
                 // Button to show info page
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () => condorSnackBar.show(
+                      message: "This page will be done later",
+                      isSuccess: false),
                   style: ButtonStyle(
                     backgroundColor: WidgetStateProperty.all(Colors.lime),
                   ),

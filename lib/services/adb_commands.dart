@@ -113,13 +113,13 @@ Exit code: '${result.exitCode}'.
             }
 
             connectedDevicesList.add({
-              'ip address': deviceInformations['ip address'].toString(),
-              'serial number': ipOrSerial,
+              'ipAddress': deviceInformations['ipAddress'].toString(),
+              'serialNumber': ipOrSerial,
               'model': model,
               'manufacturer':
                   deviceInformations['manufacturer'].toString().toUpperCase(),
-              'android version':
-                  deviceInformations['android version'].toString(),
+              'androidVersion':
+                  deviceInformations['androidVersion'].toString(),
             });
           }
         }
@@ -147,8 +147,8 @@ Exit code: '${result.exitCode}'.
       {required String serialNumber}) async {
     final Map<String, dynamic> deviceInformation = {
       'manufacturer': null,
-      'android version': null,
-      'ip address': null
+      'androidVersion': null,
+      'ipAddress': null
     };
 
     final List<String> commonArguments = ['-s', serialNumber, 'shell'];
@@ -180,14 +180,14 @@ Exit code: '${result.exitCode}'.
     }
     switch (androidResult.exitCode) {
       case 0:
-        deviceInformation['android version'] =
+        deviceInformation['androidVersion'] =
             androidResult.stdout.toString().trim();
       case 1:
       default:
         break;
     }
 
-    deviceInformation['ip address'] =
+    deviceInformation['ipAddress'] =
         await getDeviceIPAddress(serialNumber: serialNumber);
 
     return deviceInformation;

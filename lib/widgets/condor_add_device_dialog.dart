@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wireless_debugging_devices_manager/bloc/devices_bloc/devices_bloc.dart';
+import 'package:wireless_debugging_devices_manager/models/device_model.dart';
 import 'package:wireless_debugging_devices_manager/services/adb_commands.dart';
 import 'package:wireless_debugging_devices_manager/services/condor_localization_service.dart';
 import 'package:wireless_debugging_devices_manager/cubit/selected_new_device_cubit/selected_new_device_cubit.dart';
@@ -117,14 +119,14 @@ class CondorAddDeviceDialog extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(_formatIpAddressLabel(device['ip address'])),
+        Text(_formatIpAddressLabel(device['ipAddress'])),
         Text(
-            '${condorLocalization.l10n.serialNumberLabel}: ${device['serial number']}'),
+            '${condorLocalization.l10n.serialNumberLabel}: ${device['serialNumber']}'),
         Text('${condorLocalization.l10n.modelLabel}: ${device['model']}'),
         Text(
             '${condorLocalization.l10n.manufacturerLabel}: ${device['manufacturer']}'),
         Text(
-            '${condorLocalization.l10n.androidVersionLabel}: ${device['android version']}'),
+            '${condorLocalization.l10n.androidVersionLabel}: ${device['androidVersion']}'),
       ],
     );
   }
@@ -157,7 +159,7 @@ class CondorAddDeviceDialog extends StatelessWidget {
                 backgroundColor: WidgetStatePropertyAll(Colors.green),
               ),
               onPressed: () => _handleSaveButtonPressed(context),
-              child: Text(condorLocalization.l10n.saveButton),
+              child:  Text(condorLocalization.l10n.configureButton),
             ),
           );
         },
@@ -169,6 +171,90 @@ class CondorAddDeviceDialog extends StatelessWidget {
   void _handleSaveButtonPressed(BuildContext context) {
     final selectedDevice =
         context.read<SelectedNewDeviceCubit>().getSelectedDevice();
-    print(selectedDevice);
+    showDialog(
+      context: context,
+      builder: (context) => const CustomNamePortDialog(),
+    ).then((results) {
+      if (results != null) {
+        int correctTcpipPort = int.tryParse(results['tcpipPort']) ?? 5555;
+
+        condorAdbCommands.runTcpip(
+            serialNumber: selectedDevice['serialNumber'],
+            tcpipPort: correctTcpipPort);
+
+        if (context.mounted) {
+          context.read<DevicesBloc>().add(
+                AddDevice(
+                  device: DeviceModel(
+                    completeIpAddress:
+                        '${selectedDevice['ipAddress']}:$correctTcpipPort',
+                    customName: results['customName'],
+                    serialNumber: selectedDevice['serialNumber'],
+                    model: selectedDevice['model'],
+                    manufacturer: selectedDevice['manufacturer'],
+                    androidVersion: selectedDevice['androidVersion'],
+                    isConnected: false,
+                  ),
+                ),
+              );
+
+          Navigator.pop(context);
+        }
+      }
+    });
+  }
+}
+
+class CustomNamePortDialog extends StatelessWidget {
+  const CustomNamePortDialog({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final TextEditingController customNameController = TextEditingController();
+    final TextEditingController tcpipPortController = TextEditingController();
+
+    return AlertDialog(
+      title:  Text(condorLocalization.l10n.titleDialogAddCustomNameTcpipPort),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          TextField(
+            controller: customNameController,
+            decoration: InputDecoration(
+                labelText: condorLocalization.l10n.customNameLabel),
+          ),
+          const SizedBox(height: 12),
+          TextField(
+            controller: tcpipPortController,
+            decoration: InputDecoration(
+                labelText: condorLocalization.l10n.tcpipPortLabel),
+            keyboardType: TextInputType.number,
+          ),
+        ],
+      ),
+      actionsAlignment: MainAxisAlignment.spaceEvenly,
+      actions: [
+        ElevatedButton(
+          style: const ButtonStyle(
+              backgroundColor: WidgetStatePropertyAll(Colors.red)),
+          onPressed: () => Navigator.pop(context),
+          child: Text(condorLocalization.l10n.backButton),
+        ),
+        ElevatedButton(
+          style: const ButtonStyle(
+            backgroundColor: WidgetStatePropertyAll(Colors.green),
+          ),
+          onPressed: () {
+            Navigator.of(context).pop({
+              'customName': customNameController.text,
+              'tcpipPort': tcpipPortController.text,
+            });
+          },
+          child: Text(condorLocalization.l10n.saveButton),
+        ),
+      ],
+    );
   }
 }

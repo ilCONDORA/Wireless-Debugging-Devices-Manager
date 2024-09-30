@@ -56,6 +56,14 @@
   "@customNameLabel": {
     "description": "Label on the device card that shows the custom name."
   },
+  "tcpipPortLabel": "Tcpip Port",
+  "@tcpipPortLabel": {
+    "description": "Label for assigning the Tcpip port when adding a device."
+  },
+  "titleDialogAddCustomNameTcpipPort": "Assign a Custom Name and Tcpip Port",
+  "@titleDialogAddCustomNameTcpipPort": {
+    "description": "Title of the dialog that allows entering a custom name and Tcpip port."
+  },
   "editCustomNameTitle": "Edit Custom Name",
   "@editCustomNameTitle": {
     "description": "Title of the dialog that allows you to edit the custom name."
@@ -67,6 +75,14 @@
   "saveButton": "Save",
   "@saveButton": {
     "description": "Button on the dialog that allows you to save the dialog."
+  },
+  "backButton": "Back",
+  "@backButton": {
+    "description": "Button that allows going back."
+  },
+  "configureButton": "Configure",
+  "@configureButton": {
+    "description": "Button that allows configuring the device."
   },
   "serialNumberLabel": "Serial Number",
   "@serialNumberLabel": {
