@@ -22,7 +22,7 @@ final class DevicesInitial extends DevicesState {
       : super([
           DeviceModel(
             completeIpAddress: '192.168.1.1:5555',
-            customName: 'Samsung Galaxy S22+',
+            customName: 'Example Device',
             serialNumber: 'XJYPL678QWE',
             model: 'SM_S906B',
             manufacturer: 'Samsung',
