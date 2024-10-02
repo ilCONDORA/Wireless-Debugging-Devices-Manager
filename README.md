@@ -19,7 +19,7 @@ By utilizing the powerful `adb` commands, I created this software that allows yo
 ### Software Iterations
 - **First Iteration**: [Old-Wireless-Debugging-Devices-Manager](https://github.com/ilCONDORA/Old-Wireless-Debugging-Devices-Manager) which used a JSON file to store device information.
 - **Second Iteration**: Never completed due to the complexity of using `provider` and `flutter_secure_storage`.
-- **Third Iteration (Current)**: Built using BLoC for state management and Hydrated BLoC storage and persistance.
+- **Third Iteration (Current)**: Built using BLoC for state management and Hydrated BLoC for storage and persistance.
 
 ## Requirements
 - **ADB (Android Debug Bridge)** installed and configured in your PATH
