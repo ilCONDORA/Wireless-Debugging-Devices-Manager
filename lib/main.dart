@@ -20,7 +20,9 @@ Future<void> main() async {
     storageDirectory: kIsWeb
         ? HydratedStorage
             .webStorageDirectory // Web storage which is not used for this software.
-        : await getApplicationSupportDirectory(), // Store data in the \AppData\Roaming\ilCONDORA folder in Windows and /.local/share in Linux, idk for MacOS.
+        : kDebugMode
+            ? await getApplicationDocumentsDirectory() // Store data in the Documents folder in debug mode.
+            : await getApplicationSupportDirectory(), // Store data in the \AppData\Roaming\ilCONDORA folder in Windows and /.local/share in Linux, idk for MacOS.
   );
 
   /// Set the minimum size of the window.
