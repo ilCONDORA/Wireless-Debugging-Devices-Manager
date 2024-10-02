@@ -119,14 +119,16 @@ class CondorAddDeviceDialog extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(_formatIpAddressLabel(device['ipAddress'])),
+        Text(_formatIpAddressLabel(
+            device[DevicePropertiesKeys.ipAddress.toString()])),
         Text(
-            '${condorLocalization.l10n.serialNumberLabel}: ${device['serialNumber']}'),
-        Text('${condorLocalization.l10n.modelLabel}: ${device['model']}'),
+            '${condorLocalization.l10n.serialNumberLabel}: ${device[DevicePropertiesKeys.serialNumber.toString()]}'),
         Text(
-            '${condorLocalization.l10n.manufacturerLabel}: ${device['manufacturer']}'),
+            '${condorLocalization.l10n.modelLabel}: ${device[DevicePropertiesKeys.model.toString()]}'),
         Text(
-            '${condorLocalization.l10n.androidVersionLabel}: ${device['androidVersion']}'),
+            '${condorLocalization.l10n.manufacturerLabel}: ${device[DevicePropertiesKeys.manufacturer.toString()]}'),
+        Text(
+            '${condorLocalization.l10n.androidVersionLabel}: ${device[DevicePropertiesKeys.androidVersion.toString()]}'),
       ],
     );
   }
@@ -159,7 +161,7 @@ class CondorAddDeviceDialog extends StatelessWidget {
                 backgroundColor: WidgetStatePropertyAll(Colors.green),
               ),
               onPressed: () => _handleSaveButtonPressed(context),
-              child:  Text(condorLocalization.l10n.configureButton),
+              child: Text(condorLocalization.l10n.configureButton),
             ),
           );
         },
@@ -176,10 +178,13 @@ class CondorAddDeviceDialog extends StatelessWidget {
       builder: (context) => const CustomNamePortDialog(),
     ).then((results) {
       if (results != null) {
-        int correctTcpipPort = int.tryParse(results['tcpipPort']) ?? 5555;
+        int correctTcpipPort =
+            int.tryParse(results[DevicePropertiesKeys.tcpipPort.toString()]) ??
+                5555;
 
         condorAdbCommands.runTcpip(
-            serialNumber: selectedDevice['serialNumber'],
+            serialNumber:
+                selectedDevice[DevicePropertiesKeys.serialNumber.toString()],
             tcpipPort: correctTcpipPort);
 
         if (context.mounted) {
@@ -187,12 +192,17 @@ class CondorAddDeviceDialog extends StatelessWidget {
                 AddDevice(
                   device: DeviceModel(
                     completeIpAddress:
-                        '${selectedDevice['ipAddress']}:$correctTcpipPort',
-                    customName: results['customName'],
-                    serialNumber: selectedDevice['serialNumber'],
-                    model: selectedDevice['model'],
-                    manufacturer: selectedDevice['manufacturer'],
-                    androidVersion: selectedDevice['androidVersion'],
+                        '${selectedDevice[DevicePropertiesKeys.ipAddress.toString()]}:$correctTcpipPort',
+                    customName:
+                        results[DevicePropertiesKeys.customName.toString()],
+                    serialNumber: selectedDevice[
+                        DevicePropertiesKeys.serialNumber.toString()],
+                    model:
+                        selectedDevice[DevicePropertiesKeys.model.toString()],
+                    manufacturer: selectedDevice[
+                        DevicePropertiesKeys.manufacturer.toString()],
+                    androidVersion: selectedDevice[
+                        DevicePropertiesKeys.androidVersion.toString()],
                     isConnected: false,
                   ),
                 ),
@@ -216,7 +226,7 @@ class CustomNamePortDialog extends StatelessWidget {
     final TextEditingController tcpipPortController = TextEditingController();
 
     return AlertDialog(
-      title:  Text(condorLocalization.l10n.titleDialogAddCustomNameTcpipPort),
+      title: Text(condorLocalization.l10n.titleDialogAddCustomNameTcpipPort),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -248,8 +258,10 @@ class CustomNamePortDialog extends StatelessWidget {
           ),
           onPressed: () {
             Navigator.of(context).pop({
-              'customName': customNameController.text,
-              'tcpipPort': tcpipPortController.text,
+              DevicePropertiesKeys.customName.toString():
+                  customNameController.text,
+              DevicePropertiesKeys.tcpipPort.toString():
+                  tcpipPortController.text,
             });
           },
           child: Text(condorLocalization.l10n.saveButton),

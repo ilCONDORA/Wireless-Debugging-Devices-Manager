@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:wireless_debugging_devices_manager/models/device_model.dart';
 import 'package:wireless_debugging_devices_manager/services/condor_localization_service.dart';
 import 'package:wireless_debugging_devices_manager/services/condor_snackbar_service.dart';
 
@@ -113,13 +114,19 @@ Exit code: '${result.exitCode}'.
             }
 
             connectedDevicesList.add({
-              'ipAddress': deviceInformations['ipAddress'].toString(),
-              'serialNumber': ipOrSerial,
-              'model': model,
-              'manufacturer':
-                  deviceInformations['manufacturer'].toString().toUpperCase(),
-              'androidVersion':
-                  deviceInformations['androidVersion'].toString(),
+              DevicePropertiesKeys.ipAddress.toString():
+                  deviceInformations[DevicePropertiesKeys.ipAddress.toString()]
+                      .toString(),
+              DevicePropertiesKeys.serialNumber.toString(): ipOrSerial,
+              DevicePropertiesKeys.model.toString(): model,
+              DevicePropertiesKeys.manufacturer.toString(): deviceInformations[
+                      DevicePropertiesKeys.manufacturer.toString()]
+                  .toString()
+                  .toUpperCase(),
+              DevicePropertiesKeys.androidVersion.toString():
+                  deviceInformations[
+                          DevicePropertiesKeys.androidVersion.toString()]
+                      .toString(),
             });
           }
         }
@@ -146,9 +153,9 @@ Exit code: '${result.exitCode}'.
   Future<Map<String, dynamic>> getDeviceInformation(
       {required String serialNumber}) async {
     final Map<String, dynamic> deviceInformation = {
-      'manufacturer': null,
-      'androidVersion': null,
-      'ipAddress': null
+      DevicePropertiesKeys.manufacturer.toString(): null,
+      DevicePropertiesKeys.androidVersion.toString(): null,
+      DevicePropertiesKeys.ipAddress.toString(): null
     };
 
     final List<String> commonArguments = ['-s', serialNumber, 'shell'];
@@ -172,7 +179,7 @@ Exit code: '${result.exitCode}'.
 
     switch (manufacturerResult.exitCode) {
       case 0:
-        deviceInformation['manufacturer'] =
+        deviceInformation[DevicePropertiesKeys.manufacturer.toString()] =
             manufacturerResult.stdout.toString().trim();
       case 1:
       default:
@@ -180,14 +187,14 @@ Exit code: '${result.exitCode}'.
     }
     switch (androidResult.exitCode) {
       case 0:
-        deviceInformation['androidVersion'] =
+        deviceInformation[DevicePropertiesKeys.androidVersion.toString()] =
             androidResult.stdout.toString().trim();
       case 1:
       default:
         break;
     }
 
-    deviceInformation['ipAddress'] =
+    deviceInformation[DevicePropertiesKeys.ipAddress.toString()] =
         await getDeviceIPAddress(serialNumber: serialNumber);
 
     return deviceInformation;

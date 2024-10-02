@@ -1,3 +1,18 @@
+// Enumerations that represent the different names of the individual properties.
+enum DevicePropertiesKeys {
+  // These are the names of the properties for the Device model.
+  completeIpAddress,
+  customName,
+  serialNumber,
+  model,
+  manufacturer,
+  androidVersion,
+  isConnected,
+  // These are the names of the properties for other things.
+  ipAddress,
+  tcpipPort,
+}
+
 /// Model for the device.
 class DeviceModel {
   final String completeIpAddress;
@@ -22,26 +37,30 @@ class DeviceModel {
   /// Create a Device instance from a JSON map.
   factory DeviceModel.fromJson(Map<String, dynamic> json) {
     return DeviceModel(
-      completeIpAddress: json['completeIpAddress'] as String,
-      customName: json['customName'] as String,
-      serialNumber: json['serialNumber'] as String,
-      model: json['model'] as String,
-      manufacturer: json['manufacturer'] as String,
-      androidVersion: json['androidVersion'] as String,
-      isConnected: json['isConnected'] as bool,
+      completeIpAddress:
+          json[DevicePropertiesKeys.completeIpAddress.toString()] as String,
+      customName: json[DevicePropertiesKeys.customName.toString()] as String,
+      serialNumber:
+          json[DevicePropertiesKeys.serialNumber.toString()] as String,
+      model: json[DevicePropertiesKeys.model.toString()] as String,
+      manufacturer:
+          json[DevicePropertiesKeys.manufacturer.toString()] as String,
+      androidVersion:
+          json[DevicePropertiesKeys.androidVersion.toString()] as String,
+      isConnected: json[DevicePropertiesKeys.isConnected.toString()] as bool,
     );
   }
 
   /// Converts a Device instance to a JSON map.
   Map<String, dynamic> toJson() {
     return {
-      'completeIpAddress': completeIpAddress,
-      'customName': customName,
-      'serialNumber': serialNumber,
-      'model': model,
-      'manufacturer': manufacturer,
-      'androidVersion': androidVersion,
-      'isConnected': isConnected,
+      DevicePropertiesKeys.completeIpAddress.toString(): completeIpAddress,
+      DevicePropertiesKeys.customName.toString(): customName,
+      DevicePropertiesKeys.serialNumber.toString(): serialNumber,
+      DevicePropertiesKeys.model.toString(): model,
+      DevicePropertiesKeys.manufacturer.toString(): manufacturer,
+      DevicePropertiesKeys.androidVersion.toString(): androidVersion,
+      DevicePropertiesKeys.isConnected.toString(): isConnected,
     };
   }
 
@@ -67,13 +86,13 @@ class DeviceModel {
   @override
   String toString() => '''
 DeviceModel: {
-    completeIpAddress: $completeIpAddress,
-    customName: $customName,
-    serialNumber: $serialNumber,
-    model: $model,
-    manufacturer: $manufacturer,
-    androidVersion: $androidVersion,
-    isConnected: $isConnected
+    ${DevicePropertiesKeys.completeIpAddress.toString()}: $completeIpAddress,
+    ${DevicePropertiesKeys.customName.toString()}: $customName,
+    ${DevicePropertiesKeys.serialNumber.toString()}: $serialNumber,
+    ${DevicePropertiesKeys.model.toString()}: $model,
+    ${DevicePropertiesKeys.manufacturer.toString()}: $manufacturer,
+    ${DevicePropertiesKeys.androidVersion.toString()}: $androidVersion,
+    ${DevicePropertiesKeys.isConnected.toString()}: $isConnected
   }
 ''';
 }
