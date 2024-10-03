@@ -117,6 +117,7 @@ class CondorAddDeviceDialog extends StatelessWidget {
   /// Builds the detailed information for a single device.
   Widget _buildDeviceInfo(Map<String, dynamic> device) {
     return BlocBuilder<DevicesBloc, DevicesState>(
+      buildWhen: (previous, current) => false,
       builder: (context, state) {
         /// Extracts the serial numbers of all registered devices.
         Set<String> registeredSerialNumbers = state.devices
