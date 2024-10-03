@@ -116,20 +116,45 @@ class CondorAddDeviceDialog extends StatelessWidget {
 
   /// Builds the detailed information for a single device.
   Widget _buildDeviceInfo(Map<String, dynamic> device) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(_formatIpAddressLabel(
-            device[DevicePropertiesKeys.ipAddress.toString()])),
-        Text(
-            '${condorLocalization.l10n.serialNumberLabel}: ${device[DevicePropertiesKeys.serialNumber.toString()]}'),
-        Text(
-            '${condorLocalization.l10n.modelLabel}: ${device[DevicePropertiesKeys.model.toString()]}'),
-        Text(
-            '${condorLocalization.l10n.manufacturerLabel}: ${device[DevicePropertiesKeys.manufacturer.toString()]}'),
-        Text(
-            '${condorLocalization.l10n.androidVersionLabel}: ${device[DevicePropertiesKeys.androidVersion.toString()]}'),
-      ],
+    return BlocBuilder<DevicesBloc, DevicesState>(
+      builder: (context, state) {
+        /// Extracts the serial numbers of all registered devices.
+        Set<String> registeredSerialNumbers = state.devices
+            .map(
+                (singleRegisteredDevice) => singleRegisteredDevice.serialNumber)
+            .toSet();
+
+        /// Checks if the device is already registered.
+        bool alreadyRegistered = registeredSerialNumbers
+            .contains(device[DevicePropertiesKeys.serialNumber.toString()]);
+
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(_formatIpAddressLabel(
+                device[DevicePropertiesKeys.ipAddress.toString()])),
+            Text(
+                '${condorLocalization.l10n.serialNumberLabel}: ${device[DevicePropertiesKeys.serialNumber.toString()]}'),
+            Text(
+                '${condorLocalization.l10n.modelLabel}: ${device[DevicePropertiesKeys.model.toString()]}'),
+            Text(
+                '${condorLocalization.l10n.manufacturerLabel}: ${device[DevicePropertiesKeys.manufacturer.toString()]}'),
+            Text(
+                '${condorLocalization.l10n.androidVersionLabel}: ${device[DevicePropertiesKeys.androidVersion.toString()]}'),
+            alreadyRegistered
+                ? Text(
+                    condorLocalization.l10n.alreadyRegistered,
+                    style: const TextStyle(
+                        color: Colors.red, fontWeight: FontWeight.bold),
+                  )
+                : Text(
+                    condorLocalization.l10n.notYetRegistered,
+                    style: const TextStyle(
+                        color: Colors.green, fontWeight: FontWeight.bold),
+                  ),
+          ],
+        );
+      },
     );
   }
 

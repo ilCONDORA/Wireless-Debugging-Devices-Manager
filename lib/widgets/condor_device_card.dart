@@ -195,14 +195,21 @@ class CondorDeviceInfos extends StatelessWidget {
             controller: controller,
             decoration: InputDecoration(hintText: initialValue),
           ),
+          actionsAlignment: MainAxisAlignment.spaceEvenly,
           actions: <Widget>[
-            TextButton(
+            ElevatedButton(
+              style: const ButtonStyle(
+                backgroundColor: WidgetStatePropertyAll(Colors.red),
+              ),
               child: Text(condorLocalization.l10n.cancelButton),
               onPressed: () {
                 Navigator.of(context).pop();
               },
             ),
-            TextButton(
+            ElevatedButton(
+              style: const ButtonStyle(
+                backgroundColor: WidgetStatePropertyAll(Colors.green),
+              ),
               child: Text(condorLocalization.l10n.saveButton),
               onPressed: () {
                 onSave(controller.text);
@@ -306,14 +313,21 @@ class CondorColumnButtons extends StatelessWidget {
             decoration: InputDecoration(hintText: initialPort),
             keyboardType: TextInputType.number,
           ),
+          actionsAlignment: MainAxisAlignment.spaceEvenly,
           actions: <Widget>[
-            TextButton(
+            ElevatedButton(
+              style: const ButtonStyle(
+                backgroundColor: WidgetStatePropertyAll(Colors.red),
+              ),
               child: Text(condorLocalization.l10n.cancelButton),
               onPressed: () {
                 Navigator.of(context).pop();
               },
             ),
-            TextButton(
+            ElevatedButton(
+              style: const ButtonStyle(
+                backgroundColor: WidgetStatePropertyAll(Colors.green),
+              ),
               child: Text(condorLocalization.l10n.runTcpipButton),
               onPressed: () async {
                 final int port = int.tryParse(controller.text) ?? 5555;

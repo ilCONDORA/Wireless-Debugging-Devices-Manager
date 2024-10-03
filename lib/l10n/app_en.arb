@@ -100,6 +100,14 @@
   "@androidVersionLabel": {
     "description": "Label on the device card that shows the android version."
   },
+  "alreadyRegistered": "This device is already registered!",
+  "@alreadyRegistered": {
+    "description": "Message that appears when a device is already registered when adding a device."
+  },
+  "notYetRegistered": "This device is not yet registered",
+  "@notYetRegistered": {
+    "description": "Message that appears when a device is not registered when adding a device."
+  },
   "couldNotLaunchUrl": "Could not launch.",
   "@couldNotLaunchUrl": {
     "description": "Error message when the url could not be launched."

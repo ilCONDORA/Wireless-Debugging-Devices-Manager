@@ -100,6 +100,14 @@
   "@androidVersionLabel": {
     "description": "Etichetta sulla scheda del dispositivo che mostra la versione di Android."
   },
+  "alreadyRegistered": "Questo dispositivo è già stato registrato!",
+  "@alreadyRegistered": {
+    "description": "Messaggio che appare quando un dispositivo è già registrato quando si va ad aggiunge un dispositivo."
+  },
+  "notYetRegistered": "Questo dispositivo non è ancora registrato",
+  "@notYetRegistered": {
+    "description": "Messaggio che appare quando un dispositivo non è registrato quando si va ad aggiunge un dispositivo."
+  },
   "couldNotLaunchUrl": "Impossibile avviare.",
   "@couldNotLaunchUrl": {
     "description": "Messaggio di errore quando non è possibile avviare l'URL."
