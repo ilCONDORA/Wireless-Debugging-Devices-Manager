@@ -44,6 +44,14 @@
   "@mirrorScreenButton": {
     "description": "Pulsante sulla scheda del dispositivo che permette di replicare lo schermo."
   },
+  "tooltipExpand": "Espandi",
+  "@tooltipExpand": {
+    "description": "Etichetta del bottone che permette di espandere la scheda del dispositivo."
+  },
+  "tooltipCollapse": "Comprimi",
+  "@tooltipCollapse": {
+    "description": "Etichetta del bottone che permette di comprimere la scheda del dispositivo."
+  },
   "completeIpAddressLabel": "Indirizzo IP Completo",
   "@completeIpAddressLabel": {
     "description": "Etichetta sulla scheda del dispositivo che mostra l'indirizzo IP completo."

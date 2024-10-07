@@ -44,6 +44,14 @@
   "@mirrorScreenButton": {
     "description": "Button on the device card that allows you to mirror the screen."
   },
+  "tooltipExpand": "Expand",
+  "@tooltipExpand": {
+    "description": "Label for the button that allows expanding the device card."
+  },
+  "tooltipCollapse": "Collapse",
+  "@tooltipCollapse": {
+    "description": "Label for the button that allows collapsing the device card."
+  },
   "completeIpAddressLabel": "Complete IP Address",
   "@completeIpAddressLabel": {
     "description": "Label on the device card that shows the complete IP address."

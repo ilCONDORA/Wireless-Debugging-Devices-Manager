@@ -164,8 +164,8 @@ class CondorExpandableCard extends StatelessWidget {
                   isExpanded: state is ExpandableDeviceCardExpanded,
                   iconDirection: iconDirection,
                   tooltip: state is ExpandableDeviceCardExpanded
-                      ? 'Reduce'
-                      : 'Expand',
+                      ? condorLocalization.l10n.tooltipCollapse
+                      : condorLocalization.l10n.tooltipExpand,
                   size: 30,
                   color: Colors.blue.shade600,
                 );
