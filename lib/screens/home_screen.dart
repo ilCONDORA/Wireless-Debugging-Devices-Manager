@@ -4,7 +4,8 @@ import 'package:wireless_debugging_devices_manager/bloc/devices_bloc/devices_blo
 import 'package:wireless_debugging_devices_manager/models/device_model.dart';
 import 'package:wireless_debugging_devices_manager/services/condor_localization_service.dart';
 import 'package:wireless_debugging_devices_manager/widgets/condor_buttons_row.dart';
-import 'package:wireless_debugging_devices_manager/widgets/condor_device_card.dart';
+import 'package:wireless_debugging_devices_manager/widgets/condor_expandable_card.dart';
+import 'package:wireless_debugging_devices_manager/widgets/condor_expanded_icon.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -43,27 +44,32 @@ class HomeScreen extends StatelessWidget {
                       return Scrollbar(
                         controller: scroolController,
                         thumbVisibility: true,
-                        child: ListView(
+                        child: SingleChildScrollView(
                           controller: scroolController,
-                          children: [
-                            Padding(
-                              /// this padding is used to make the scrollbar a bit more visible by giving it some space.
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 18,
-                                vertical: 9,
-                              ),
-                              child: Wrap(
-                                alignment: WrapAlignment.spaceEvenly,
-                                spacing: 77,
-                                runSpacing: 77,
-                                children: devices.map((singleDevice) {
-                                  return CondorDeviceCard(
-                                    device: singleDevice,
-                                  );
-                                }).toList(),
-                              ),
+                          child: Padding(
+                            /// this padding is used to make the scrollbar a bit more visible by giving it some space.
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 18,
+                              vertical: 9,
                             ),
-                          ],
+                            child: Wrap(
+                              alignment: WrapAlignment.spaceEvenly,
+                              spacing: 77,
+                              runSpacing: 77,
+                              children: devices.map((singleDevice) {
+                                return CondorExpandableCard(
+                                  singleDevice: singleDevice,
+                                  iconDirection: CondorIconDirection.oblique1,
+                                  paddingOfContent: const EdgeInsets.only(
+                                    top: 12,
+                                    bottom: 0,
+                                    left: 11,
+                                    right: 11,
+                                  ),
+                                );
+                              }).toList(),
+                            ),
+                          ),
                         ),
                       );
                     }
