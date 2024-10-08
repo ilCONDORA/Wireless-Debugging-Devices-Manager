@@ -12,6 +12,10 @@ import 'package:wireless_debugging_devices_manager/screens/home_screen.dart';
 import 'package:wireless_debugging_devices_manager/services/condor_localization_service.dart';
 import 'package:wireless_debugging_devices_manager/services/condor_snackbar_service.dart';
 
+/// The main entry point for the application.
+///
+/// This function initializes the app, sets up Hydrated Bloc storage,
+/// configures the window manager, and runs the app.
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -39,6 +43,9 @@ Future<void> main() async {
   runApp(const MainApp());
 }
 
+/// The root widget of the application.
+///
+/// This widget sets up the BLoC providers and the WindowManagerWrapper.
 class MainApp extends StatelessWidget {
   const MainApp({super.key});
 
@@ -54,30 +61,125 @@ class MainApp extends StatelessWidget {
           create: (context) => DevicesBloc(),
         ),
       ],
-      child: BlocBuilder<AppSettingsBloc, AppSettingsState>(
-        builder: (context, state) {
-          return MaterialApp(
-            title: 'Wireless Debugging Devices Manager',
-            debugShowCheckedModeBanner: false,
-            locale: state.appSettingsModel.locale,
-            supportedLocales: L10n.supportedLocales,
-            localizationsDelegates: L10n.localizationsDelegates,
-            theme: CondorAppTheme.lightTheme,
-            darkTheme: CondorAppTheme.darkTheme,
+      child: const WindowManagerWrapper(),
+    );
+  }
+}
 
-            /// The theme is determined by the current settings in the app's state.
-            themeMode: state.appSettingsModel.themeMode,
-            home: Builder(builder: (context) {
-              /// Initialize the service that manages the SnackBar.
-              condorSnackBar.init(context);
+/// A wrapper widget that manages window-related functionality.
+///
+/// This widget listens for window events and manages the saving and loading
+/// of window size and position.
+class WindowManagerWrapper extends StatefulWidget {
+  const WindowManagerWrapper({super.key});
 
-              /// Initialize the service that manages the localization.
-              condorLocalization.init(context);
-              return const HomeScreen();
-            }),
-          );
-        },
-      ),
+  @override
+  State<WindowManagerWrapper> createState() => _WindowManagerWrapperState();
+}
+
+class _WindowManagerWrapperState extends State<WindowManagerWrapper>
+    with WindowListener {
+  @override
+  void initState() {
+    super.initState();
+    windowManager.addListener(this);
+    _loadSavedWindowSettings();
+  }
+
+  @override
+  void dispose() {
+    windowManager.removeListener(this);
+    super.dispose();
+  }
+
+  /// Saves the current window size and position when the window is resized.
+  @override
+  void onWindowResized() {
+    saveWindowSizeAndPosition();
+  }
+
+  /// Saves the current window size and position when the window is moved.
+  @override
+  void onWindowMoved() {
+    saveWindowSizeAndPosition();
+  }
+
+  /// Saves the current window size and position when the window is maximized.
+  @override
+  void onWindowMaximize() {
+    saveWindowSizeAndPosition();
+  }
+
+  /// Saves the current window size and position to the app settings.
+  ///
+  /// This method retrieves the current window size and position,
+  /// updates the app settings, and dispatches an event to save the changes.
+  Future<void> saveWindowSizeAndPosition() async {
+    Size size = await windowManager.getSize();
+    Offset position = await windowManager.getPosition();
+
+    final appSettingsBloc = context.read<AppSettingsBloc>();
+    final currentSettings = appSettingsBloc.state.appSettingsModel;
+    final updatedSettings = currentSettings.copyWith(
+      windowSize: size,
+      windowPosition: position,
+    );
+
+    appSettingsBloc.add(ChangeAppSettings(appSettingsModel: updatedSettings));
+  }
+
+  /// Loads the saved window settings and applies them to the current window.
+  ///
+  /// This method retrieves the saved window size and position from the app settings
+  /// and sets them for the current window.
+  Future<void> _loadSavedWindowSettings() async {
+    final appSettingsBloc = context.read<AppSettingsBloc>();
+    final savedSettings = appSettingsBloc.state.appSettingsModel;
+
+    await windowManager.setSize(savedSettings.windowSize);
+    await windowManager.setPosition(savedSettings.windowPosition);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return const TrueApp();
+  }
+}
+
+/// The main application widget.
+///
+/// This widget sets up the MaterialApp with the appropriate theme,
+/// localization, and home screen.
+class TrueApp extends StatelessWidget {
+  const TrueApp({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<AppSettingsBloc, AppSettingsState>(
+      builder: (context, state) {
+        return MaterialApp(
+          title: 'Wireless Debugging Devices Manager',
+          debugShowCheckedModeBanner: false,
+          locale: state.appSettingsModel.locale,
+          supportedLocales: L10n.supportedLocales,
+          localizationsDelegates: L10n.localizationsDelegates,
+          theme: CondorAppTheme.lightTheme,
+          darkTheme: CondorAppTheme.darkTheme,
+
+          /// The theme is determined by the current settings in the app's state.
+          themeMode: state.appSettingsModel.themeMode,
+          home: Builder(builder: (context) {
+            /// Initialize the service that manages the SnackBar.
+            condorSnackBar.init(context);
+
+            /// Initialize the service that manages the localization.
+            condorLocalization.init(context);
+            return const HomeScreen();
+          }),
+        );
+      },
     );
   }
 }
