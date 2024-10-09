@@ -20,7 +20,7 @@ jobs:
       upload_url: ${{ steps.create_release.outputs.upload_url }}
     steps:
     # Checkout del repository
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     
     # Estrae la versione dal file pubspec.yaml
     - name: Get version
@@ -59,7 +59,7 @@ jobs:
     
     steps:
     # Checkout del repository
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     
     # Setup di Flutter
     - name: Setup Flutter
