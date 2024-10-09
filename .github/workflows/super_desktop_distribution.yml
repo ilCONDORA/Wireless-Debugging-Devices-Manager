@@ -65,8 +65,8 @@ jobs:
     - name: Setup Flutter
       uses: subosito/flutter-action@v2
       with:
-        flutter-version: 'stable'
-        channel: 'stable'
+        channel: stable
+        flutter-version-file: pubspec.yaml # path to pubspec.yaml
     
     # Ottiene le dipendenze Dart
     - name: Get Dart dependencies
