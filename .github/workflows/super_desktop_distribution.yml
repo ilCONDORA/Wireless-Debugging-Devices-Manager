@@ -3,9 +3,10 @@ name: Flutter Desktop Distribution
 
 # Definisce quando il workflow deve essere eseguito
 on:
+  workflow_dispatch:
   push:
     branches:
-      - master  # Si attiva ad ogni push sul branch master
+      - main  # Si attiva ad ogni push sul branch main
 
 # Definizione dei jobs del workflow
 jobs:
