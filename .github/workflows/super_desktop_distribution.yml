@@ -30,7 +30,7 @@ jobs:
     # Crea una nuova release draft
     - name: Create Release
       id: create_release
-      uses: actions/create-release@v1
+      uses: actions/create-release@v4
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
@@ -129,7 +129,7 @@ jobs:
 
     # Carica i log di errore come artefatti in caso di fallimento
     - name: Upload error logs
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       if: failure()
       with:
         name: error-logs-${{ matrix.output-name }}
