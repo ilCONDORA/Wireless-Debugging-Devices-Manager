@@ -13,6 +13,8 @@ jobs:
   # Job per creare la release
   create-release:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write  # Questo permesso è necessario per creare release
     outputs:
       version: ${{ steps.get_version.outputs.VERSION }}
       upload_url: ${{ steps.create_release.outputs.upload_url }}
@@ -40,6 +42,8 @@ jobs:
   # Job per buildare e rilasciare l'app per ogni piattaforma
   build-and-release:
     needs: create-release
+    permissions:
+      contents: write  # Questo permesso è necessario per caricare asset alla release
     strategy:
       fail-fast: false  # Continua con gli altri job anche se uno fallisce
       matrix:
