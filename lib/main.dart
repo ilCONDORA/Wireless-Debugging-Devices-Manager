@@ -123,12 +123,6 @@ class _WindowManagerWrapperState extends State<WindowManagerWrapper>
     saveWindowSizeAndPosition();
   }
 
-  /// Saves the current window size and position when the window is maximized.
-  @override
-  void onWindowMaximize() {
-    saveWindowSizeAndPosition();
-  }
-
   /// Saves the current window size and position to the app settings.
   ///
   /// This method retrieves the current window size and position,
