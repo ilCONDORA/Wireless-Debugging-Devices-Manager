@@ -17,7 +17,8 @@ class DevicesBloc extends HydratedBloc<DevicesEvent, DevicesState> {
     on<UpdateDeviceIpAddress>(_onUpdateDeviceIpAddress);
     on<UpdateDeviceConnectionStatus>(_onUpdateDeviceConnectionStatus);
     on<RemoveDevice>(_onRemoveDevice);
-    on<DisconnectAllDevices>(_onDisconnectAllDevices); // Nuovo handler
+    on<DisconnectAllDevices>(_onDisconnectAllDevices);
+    on<ReorderDevices>(_onReorderDevices);
   }
 
   /// Handles the AddDevice event by adding a new device to the list.
@@ -82,6 +83,21 @@ class DevicesBloc extends HydratedBloc<DevicesEvent, DevicesState> {
     final updatedDevices = state.devices
         .map((device) => device.copyWith(isConnected: false))
         .toList();
+    emit(DevicesChanged(updatedDevices));
+  }
+
+  /// Handles the ReorderDevices event by updating the device positions in the list.
+  /// Emits a new state with the updated list of devices.
+    void _onReorderDevices(ReorderDevices event, Emitter<DevicesState> emit) {
+    final List<DeviceModel> updatedDevices = List.from(state.devices);
+    final DeviceModel device = updatedDevices.removeAt(event.oldIndex);
+    updatedDevices.insert(event.newIndex, device);
+
+    // Update the ids to reflect the new order
+    for (int i = 0; i < updatedDevices.length; i++) {
+      updatedDevices[i] = updatedDevices[i].copyWith(positionId: i);
+    }
+
     emit(DevicesChanged(updatedDevices));
   }
 

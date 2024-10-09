@@ -21,6 +21,7 @@ final class DevicesInitial extends DevicesState {
   DevicesInitial()
       : super([
           DeviceModel(
+            positionId: 0,
             completeIpAddress: '192.168.1.1:5555',
             customName: 'Example Device',
             serialNumber: 'XJYPL678QWE',

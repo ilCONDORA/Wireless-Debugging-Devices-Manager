@@ -214,9 +214,18 @@ class CondorAddDeviceDialog extends StatelessWidget {
             tcpipPort: correctTcpipPort);
 
         if (context.mounted) {
+          final devicesBloc = context.read<DevicesBloc>();
+          final currentDevices = devicesBloc.state.devices;
+
+          // Determine the new positionId
+          final newPositionId =
+              currentDevices.isEmpty ? 0 : currentDevices.length;
+
+          // Add the new device
           context.read<DevicesBloc>().add(
                 AddDevice(
                   device: DeviceModel(
+                    positionId: newPositionId,
                     completeIpAddress:
                         '${selectedDevice[DevicePropertiesKeys.ipAddress.toString()]}:$correctTcpipPort',
                     customName:

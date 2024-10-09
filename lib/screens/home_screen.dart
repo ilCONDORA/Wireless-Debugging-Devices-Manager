@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:reorderables/reorderables.dart';
 import 'package:wireless_debugging_devices_manager/bloc/devices_bloc/devices_bloc.dart';
 import 'package:wireless_debugging_devices_manager/models/device_model.dart';
 import 'package:wireless_debugging_devices_manager/services/condor_localization_service.dart';
@@ -52,12 +53,28 @@ class HomeScreen extends StatelessWidget {
                               horizontal: 18,
                               vertical: 9,
                             ),
-                            child: Wrap(
+                            child: ReorderableWrap(
                               alignment: WrapAlignment.spaceEvenly,
                               spacing: 77,
                               runSpacing: 77,
+                              onReorder: (int oldIndex, int newIndex) {
+                                context
+                                    .read<DevicesBloc>()
+                                    .add(ReorderDevices(oldIndex, newIndex));
+                              },
+                              onNoReorder: (int index) {
+                                //this callback is optional
+                                debugPrint(
+                                    '${DateTime.now().toString().substring(5, 22)} reorder cancelled. index:$index');
+                              },
+                              onReorderStarted: (int index) {
+                                //this callback is optional
+                                debugPrint(
+                                    '${DateTime.now().toString().substring(5, 22)} reorder started: index:$index');
+                              },
                               children: devices.map((singleDevice) {
                                 return CondorExpandableCard(
+                                  key: ValueKey(singleDevice.positionId),
                                   singleDevice: singleDevice,
                                   iconDirection: CondorIconDirection.oblique1,
                                   paddingOfContent: const EdgeInsets.only(

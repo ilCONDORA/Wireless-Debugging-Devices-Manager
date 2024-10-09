@@ -68,3 +68,15 @@ class RemoveDevice extends DevicesEvent {
 /// This event doesn't require any parameters as it applies a global action to all devices.
 /// When handled, it sets the connection status of all devices to false.
 class DisconnectAllDevices extends DevicesEvent {}
+
+/// Event triggered to reorder devices in the list.
+class ReorderDevices extends DevicesEvent {
+  final int oldIndex;
+  final int newIndex;
+
+  /// Creates a ReorderDevices event with the specified old and new indices.
+  ///
+  /// The [oldIndex] specifies the old index of the device to be reordered.
+  /// The [newIndex] specifies the new index of the device to be reordered.
+  ReorderDevices(this.oldIndex, this.newIndex);
+}

@@ -11,10 +11,12 @@ enum DevicePropertiesKeys {
   // These are the names of the properties for other things.
   ipAddress,
   tcpipPort,
+  positionId,
 }
 
 /// Model for the device.
 class DeviceModel {
+  final int positionId;
   final String completeIpAddress;
   final String customName;
   final String serialNumber;
@@ -25,6 +27,7 @@ class DeviceModel {
 
   /// Constructor for creating a Device instance.
   DeviceModel({
+    required this.positionId,
     required this.completeIpAddress,
     required this.customName,
     required this.serialNumber,
@@ -37,6 +40,7 @@ class DeviceModel {
   /// Create a Device instance from a JSON map.
   factory DeviceModel.fromJson(Map<String, dynamic> json) {
     return DeviceModel(
+      positionId: json[DevicePropertiesKeys.positionId.toString()] as int,
       completeIpAddress:
           json[DevicePropertiesKeys.completeIpAddress.toString()] as String,
       customName: json[DevicePropertiesKeys.customName.toString()] as String,
@@ -54,6 +58,7 @@ class DeviceModel {
   /// Converts a Device instance to a JSON map.
   Map<String, dynamic> toJson() {
     return {
+      DevicePropertiesKeys.positionId.toString(): positionId,
       DevicePropertiesKeys.completeIpAddress.toString(): completeIpAddress,
       DevicePropertiesKeys.customName.toString(): customName,
       DevicePropertiesKeys.serialNumber.toString(): serialNumber,
@@ -68,11 +73,13 @@ class DeviceModel {
   /// If a property is not provided, the current value is retained.
   /// This method is used to create a new instance of DeviceModel with modified properties.
   DeviceModel copyWith({
+    int? positionId,
     String? completeIpAddress,
     String? customName,
     bool? isConnected,
   }) {
     return DeviceModel(
+      positionId: positionId ?? this.positionId,
       completeIpAddress: completeIpAddress ?? this.completeIpAddress,
       customName: customName ?? this.customName,
       serialNumber: serialNumber,
@@ -86,6 +93,7 @@ class DeviceModel {
   @override
   String toString() => '''
 DeviceModel: {
+    ${DevicePropertiesKeys.positionId.toString()}: $positionId,
     ${DevicePropertiesKeys.completeIpAddress.toString()}: $completeIpAddress,
     ${DevicePropertiesKeys.customName.toString()}: $customName,
     ${DevicePropertiesKeys.serialNumber.toString()}: $serialNumber,
