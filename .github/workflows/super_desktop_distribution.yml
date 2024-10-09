@@ -1,0 +1,133 @@
+# Nome del workflow
+name: Flutter Desktop Distribution
+
+# Definisce quando il workflow deve essere eseguito
+on:
+  push:
+    branches:
+      - master  # Si attiva ad ogni push sul branch master
+
+# Definizione dei jobs del workflow
+jobs:
+  # Job per creare la release
+  create-release:
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.get_version.outputs.VERSION }}
+      upload_url: ${{ steps.create_release.outputs.upload_url }}
+    steps:
+    # Checkout del repository
+    - uses: actions/checkout@v3
+    
+    # Estrae la versione dal file pubspec.yaml
+    - name: Get version
+      id: get_version
+      run: echo "VERSION=$(grep 'version:' pubspec.yaml | awk '{print $2}' | tr -d "'")" >> $GITHUB_OUTPUT
+    
+    # Crea una nuova release draft
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: v${{ steps.get_version.outputs.VERSION }}
+        release_name: v${{ steps.get_version.outputs.VERSION }}
+        draft: true
+        prerelease: false
+
+  # Job per buildare e rilasciare l'app per ogni piattaforma
+  build-and-release:
+    needs: create-release
+    strategy:
+      fail-fast: false  # Continua con gli altri job anche se uno fallisce
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        include:
+          - os: ubuntu-latest
+            output-name: linux
+          - os: windows-latest
+            output-name: windows
+          - os: macos-latest
+            output-name: macos
+    runs-on: ${{ matrix.os }}
+    
+    steps:
+    # Checkout del repository
+    - uses: actions/checkout@v3
+    
+    # Setup di Flutter
+    - name: Setup Flutter
+      uses: subosito/flutter-action@v2
+      with:
+        flutter-version: 'stable'
+        channel: 'stable'
+    
+    # Ottiene le dipendenze Dart
+    - name: Get Dart dependencies
+      run: dart pub get
+    
+    # Ottiene le dipendenze Flutter
+    - name: Get Flutter dependencies
+      run: flutter pub get
+    
+    # Genera i file di localizzazione
+    - name: Generate l10n
+      run: flutter gen-l10n
+    
+    # Compila l'app per la piattaforma corrente
+    - name: Build for ${{ matrix.output-name }}
+      run: |
+        flutter config --enable-${{ matrix.output-name }}-desktop
+        flutter build ${{ matrix.output-name }} --release
+      continue-on-error: true  # Continua anche se la build fallisce
+    
+    # Verifica lo stato della build
+    - name: Check build status
+      run: |
+        if [ ! -d "build/${{ matrix.output-name }}" ]; then
+          echo "Build failed for ${{ matrix.output-name }}"
+          exit 1
+        fi
+      shell: bash
+    
+    # Crea il pacchetto per Windows
+    - name: Package for Windows
+      if: matrix.os == 'windows-latest'
+      run: |
+        Compress-Archive -Path build\windows\runner\Release\* -DestinationPath WDDM_v${{ needs.create-release.outputs.version }}_windows.zip
+    
+    # Crea il pacchetto per macOS
+    - name: Package for macOS
+      if: matrix.os == 'macos-latest'
+      run: |
+        ditto -c -k --sequesterRsrc --keepParent build/macos/Build/Products/Release/*.app WDDM_v${{ needs.create-release.outputs.version }}_macos.zip
+    
+    # Crea il pacchetto per Linux
+    - name: Package for Linux
+      if: matrix.os == 'ubuntu-latest'
+      run: |
+        cd build/linux/x64/release/bundle
+        zip -r ../../../../WDDM_v${{ needs.create-release.outputs.version }}_linux.zip *
+        cd -
+    
+    # Carica il pacchetto come asset della release
+    - name: Upload Release Asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ needs.create-release.outputs.upload_url }}
+        asset_path: ./WDDM_v${{ needs.create-release.outputs.version }}_${{ matrix.output-name }}.zip
+        asset_name: WDDM_v${{ needs.create-release.outputs.version }}_${{ matrix.output-name }}.zip
+        asset_content_type: application/zip
+
+    # Carica i log di errore come artefatti in caso di fallimento
+    - name: Upload error logs
+      uses: actions/upload-artifact@v2
+      if: failure()
+      with:
+        name: error-logs-${{ matrix.output-name }}
+        path: |
+          build/**/*.log
+          **/*.log
