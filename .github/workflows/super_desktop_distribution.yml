@@ -67,6 +67,7 @@ jobs:
       with:
         channel: stable
         flutter-version-file: pubspec.yaml # path to pubspec.yaml
+    - run: flutter --version
     
     # Ottiene le dipendenze Dart
     - name: Get Dart dependencies
