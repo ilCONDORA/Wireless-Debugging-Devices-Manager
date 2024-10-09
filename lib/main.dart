@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,6 +14,29 @@ import 'package:wireless_debugging_devices_manager/screens/home_screen.dart';
 import 'package:wireless_debugging_devices_manager/services/condor_localization_service.dart';
 import 'package:wireless_debugging_devices_manager/services/condor_snackbar_service.dart';
 
+Future<Directory> getStorageDirectory() async {
+  if (kIsWeb) {
+    return HydratedStorage
+        .webStorageDirectory; // Web storage which is not used for this software.
+  } else if (kDebugMode) {
+    // Store data in the Documents folder in debug mode.
+    final documentsDir = await getApplicationDocumentsDirectory();
+    final debugFolder = Directory(
+        '${documentsDir.path}/REMEMBER TO DELETE -- DEBUG STORAGE for WDDM by ilCONDORA');
+
+    // Create the folder if it doesn't exist
+    if (!await debugFolder.exists()) {
+      await debugFolder.create();
+    }
+
+    return debugFolder;
+  } else {
+    // Store data in the \AppData\Roaming\ilCONDORA folder in Windows and /.local/share in Linux, idk for MacOS in release.
+    final supportDir = await getApplicationSupportDirectory();
+    return supportDir;
+  }
+}
+
 /// The main entry point for the application.
 ///
 /// This function initializes the app, sets up Hydrated Bloc storage,
@@ -21,12 +46,7 @@ Future<void> main() async {
 
   /// Initialize Hydrated Bloc Storage dynamically.
   HydratedBloc.storage = await HydratedStorage.build(
-    storageDirectory: kIsWeb
-        ? HydratedStorage
-            .webStorageDirectory // Web storage which is not used for this software.
-        : kDebugMode
-            ? await getApplicationDocumentsDirectory() // Store data in the Documents folder in debug mode.
-            : await getApplicationSupportDirectory(), // Store data in the \AppData\Roaming\ilCONDORA folder in Windows and /.local/share in Linux, idk for MacOS.
+    storageDirectory: await getStorageDirectory(),
   );
 
   /// Set the minimum size of the window.
