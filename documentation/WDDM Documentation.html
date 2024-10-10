@@ -1,0 +1,1379 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>WDDM Documentation</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+    margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-default_background {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-uiBlue { background-color: rgba(35, 131, 226, .07); }
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-transparentGray { background-color: rgba(227, 226, 224, 0); }
+.select-value-color-translucentGray { background-color: rgba(0, 0, 0, 0.06); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+.select-value-color-pageGlass { background-color: undefined; }
+.select-value-color-washGlass { background-color: undefined; }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="11be8e21-d05b-80a3-879c-fa00f7779d9c" class="page sans"><header><h1 class="page-title">WDDM Documentation</h1><p class="page-description"></p></header><div class="page-body"><nav id="11be8e21-d05b-801b-bb3e-f55bfb843301" class="block-color-gray table_of_contents"><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#11be8e21-d05b-80fa-9a34-e8348c578570">OVERVIEW</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#11be8e21-d05b-8050-b3ce-e15cc2ceb9cb">Name of the project</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#11be8e21-d05b-8057-92ab-cd7494be4204">General description</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#11be8e21-d05b-80c6-b2ea-c8c5ff0ff330">Technologies used</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#11be8e21-d05b-8095-b562-e0c84d9e74d2">Installation</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#11be8e21-d05b-8010-9e85-c338ee356fcf">Project Architecture</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#11be8e21-d05b-80e7-9e6f-c3fa0dafadc8">Folder and file structure</a></div><div class="table_of_contents-item table_of_contents-indent-1"><a class="table_of_contents-link" href="#11be8e21-d05b-80d1-9406-ceac95ca6355">Persistence Management</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#11be8e21-d05b-80ca-b9bf-e005fd52d580">Features</a></div><div class="table_of_contents-item table_of_contents-indent-0"><a class="table_of_contents-link" href="#11be8e21-d05b-80c9-a333-d88deb2f6806">Detailed explanation of each feature</a></div></nav><h1 id="11be8e21-d05b-80fa-9a34-e8348c578570" class="">OVERVIEW</h1><h2 id="11be8e21-d05b-8050-b3ce-e15cc2ceb9cb" class="">Name of the project</h2><p id="11be8e21-d05b-80ce-85ca-ef9e4d48f2c2" class="">The name of the project is Wireless Debug Devices Manager, WDDM for short.</p><h2 id="11be8e21-d05b-8057-92ab-cd7494be4204" class="">General description</h2><p id="11be8e21-d05b-8073-a042-da67d753ba44" class="">The project is essentially a hub where you can add Android devices and from there connect, disconnect, and mirror the screen using their IP address. The application is in English and Italian, with light and dark themes. There&#x27;s also a button to shut down the PC&#x27;s ADB server.</p><h2 id="11be8e21-d05b-80c6-b2ea-c8c5ff0ff330" class="">Technologies used</h2><p id="11be8e21-d05b-8090-aba2-d2f103a65242" class="">The basic technologies used are Flutter and Dart, along with the following packages:</p><ul id="11be8e21-d05b-80a7-84dc-f69f6a2a75fa" class="bulleted-list"><li style="list-style-type:disc"><a href="https://pub.dev/packages/bloc">bloc</a>, <a href="https://pub.dev/packages/meta">meta</a> e <a href="https://pub.dev/packages/flutter_bloc">flutter_bloc</a>. Basic packages for state management using the BLoC methodology.</li></ul><ul id="11be8e21-d05b-801b-bb2d-e75f3d9209f2" class="bulleted-list"><li style="list-style-type:disc"><a href="https://pub.dev/packages/hydrated_bloc">hydrated_bloc</a> e <a href="https://pub.dev/packages/path_provider">path_provider</a>. Packages for data persistence when the app is closed.</li></ul><ul id="11be8e21-d05b-80f3-aa4f-ffa95062a573" class="bulleted-list"><li style="list-style-type:disc"><a href="https://pub.dev/packages/intl">intl</a> e flutter_localizations. Packages for app internationalization; the flutter_localizations package is already present in the SDK and needs to be called.</li></ul><ul id="11be8e21-d05b-806d-b937-c87796d9cc9a" class="bulleted-list"><li style="list-style-type:disc"><a href="https://pub.dev/packages/window_manager">window_manager</a>. Package for setting the minimum window size and for getting the window size and position, which will be saved thanks to hydrated_bloc.</li></ul><ul id="11be8e21-d05b-80bf-a0b6-dcc076222311" class="bulleted-list"><li style="list-style-type:disc"><a href="https://pub.dev/packages/reorderables">reorderables</a>. Package that allows the user to reorder device cards.</li></ul><ul id="11be8e21-d05b-80a9-9b30-c913270487cf" class="bulleted-list"><li style="list-style-type:disc"><a href="https://pub.dev/packages/url_launcher">url_launcher</a>. Package used to open the browser and redirect to the website where you can donate money to support the developer.</li></ul><p id="11be8e21-d05b-80b4-baa0-c2921a5ac38a" class="">Additionally, two other packages were used to create the app icon and rename the app:</p><ul id="11be8e21-d05b-806e-9924-ddf833c4f29a" class="bulleted-list"><li style="list-style-type:disc"><a href="https://pub.dev/packages/icons_launcher">icons_launcher</a>. Package used for creating app icons.</li></ul><ul id="11be8e21-d05b-8043-aabd-cbe1375c5683" class="bulleted-list"><li style="list-style-type:disc"><a href="https://pub.dev/packages/package_rename">package_rename</a>. Package for renaming the application.</li></ul><h1 id="11be8e21-d05b-8095-b562-e0c84d9e74d2" class="">Installation</h1><p id="11be8e21-d05b-804a-805b-cc0aebd012ef" class=""><br/>To use the application, it&#x27;s mandatory to install and add the ADB application to the PATH; it&#x27;s automatically downloaded when installing Android Studio. Installing and adding <br/><a href="https://github.com/Genymobile/scrcpy">scrcpy</a> to the PATH is optional.<br/>In the release section of GitHub, <br/><a href="https://github.com/ilCONDORA/Wireless-Debugging-Devices-Manager">link to the repo</a>, you can download a .zip file for Windows, macOS, and Linux desktops.</p><h1 id="11be8e21-d05b-8010-9e85-c338ee356fcf" class="">Project Architecture</h1><h2 id="11be8e21-d05b-80e7-9e6f-c3fa0dafadc8" class="">Folder and file structure</h2><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="11be8e21-d05b-809a-ab4c-c26042dd1726" class="code"><code class="language-Plain Text">📂 lib
+├── 📂 blocs
+│   ├── 📂 app_settings
+│   │   ├── 📄 app_settings_bloc.dart
+│   │   ├── 📄 app_settings_event.dart
+│   │   └── 📄 app_settings_state.dart
+│   └── 📂 devices
+│       ├── 📄 devices_bloc.dart
+│       ├── 📄 devices_event.dart
+│       └── 📄 devices_state.dart
+├── 📂 config
+│   └── 📄 app_theme.dart
+├── 📂 cubits
+│   ├── 📂 expandable_device_card
+│   │   ├── 📄 expandable_device_card_cubit.dart
+│   │   └── 📄 expandable_device_card_state.dart
+│   ├── 📂 selected_new_device
+│   │   ├── 📄 selected_new_device_cubit.dart
+│   │   └── 📄 selected_new_device_state.dart
+│   └── 📂 spinning_circle
+│       ├── 📄 spinning_circle_cubit.dart
+│       └── 📄 spinning_circle_state.dart
+├── 📂 l10n
+│   ├── 📄 app_en.arb
+│   ├── 📄 app_it.arb
+│   └── 📄 l10n.dart
+├── 📂 models
+│   ├── 📄 app_settings_model.dart
+│   └── 📄 device_model.dart
+├── 📂 screens
+│   └── 📄 home_screen.dart
+├── 📂 services
+│   ├── 📄 adb_commands.dart
+│   ├── 📄 condor_localization_service.dart
+│   └── 📄 condor_snackbar_service.dart
+├── 📂 widgets
+│   ├── 📄 condor_add_device_dialog.dart
+│   ├── 📄 condor_buttons_row.dart
+│   ├── 📄 condor_dropdown_menu_locale.dart
+│   ├── 📄 condor_expandable_card.dart
+│   ├── 📄 condor_expanded_icon.dart
+│   ├── 📄 condor_switch_theme_mode.dart
+│   ├── 📄 deprecated_condor_device_card.dart
+│   └── 📄 deprecated_condor_snackbar_message.dart
+└── 📄 main.dart</code></pre><h2 id="11be8e21-d05b-80d1-9406-ceac95ca6355" class="">Persistence Management</h2><p id="11be8e21-d05b-80fe-ad8e-f4aab54734e5" class="">As mentioned earlier, persistence comes from the hydrated_bloc package; hydrated_bloc uses Hive as a database to maintain data.<br/>In main.dart, we see how hydrated_bloc is set up, and subsequently, we see how it stores data.<br/></p><p id="11be8e21-d05b-807c-8fed-fd9e544cdd56" class="">main.dart:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="11be8e21-d05b-80c8-9632-fb47252e9053" class="code"><code class="language-Dart">Future&lt;Directory&gt; getStorageDirectory() async {
+  if (kIsWeb) {
+    return HydratedStorage
+        .webStorageDirectory; // Web storage which is not used for this software.
+  } else if (kDebugMode) {
+    // Store data in the Documents folder in debug mode.
+    final documentsDir = await getApplicationDocumentsDirectory();
+    final debugFolder = Directory(
+        &#x27;${documentsDir.path}/REMEMBER TO DELETE -- DEBUG STORAGE for WDDM by ilCONDORA&#x27;);
+
+    // Create the folder if it doesn&#x27;t exist
+    if (!await debugFolder.exists()) {
+      await debugFolder.create();
+    }
+
+    return debugFolder;
+  } else {
+    // Store data in the \AppData\Roaming\ilCONDORA folder in Windows and /.local/share in Linux, idk for MacOS in release.
+    final supportDir = await getApplicationSupportDirectory();
+    return supportDir;
+  }
+}
+
+Future&lt;void&gt; main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  /// Initialize Hydrated Bloc Storage dynamically.
+  HydratedBloc.storage = await HydratedStorage.build(
+    storageDirectory: await getStorageDirectory(),
+  );
+
+  runApp(const MainApp());
+}</code></pre><p id="11be8e21-d05b-80a4-a146-ebff40d4b11b" class="">app_settings_bloc.dart:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="11be8e21-d05b-8039-9b74-e542ef0e6bd4" class="code"><code class="language-Dart">/// Manages the state of the application settings using the BLoC pattern.
+/// Utilizes HydratedBloc to automatically persist and restore the state.
+class AppSettingsBloc extends HydratedBloc&lt;AppSettingsEvent, AppSettingsState&gt; {
+  /// Initializes the bloc with the initial state of the app settings.
+  AppSettingsBloc() : super(AppSettingsInitial()) {
+    // Handles the ChangeAppSettings event and emits a new state with the updated settings model.
+    on&lt;ChangeAppSettings&gt;((event, emit) {
+      emit(AppSettingsChanged(event.appSettingsModel));
+    });
+  }
+
+  /// Converts a JSON object into an instance of [AppSettingsState].
+  ///
+  /// Called by `HydratedBloc` when reopening the app to restore the saved state
+  /// from a persisted instance. If the JSON is valid, it returns the state
+  /// [AppSettingsChanged] with the new settings. If the conversion
+  /// fails (e.g., due to corrupted or invalid data), it returns the initial state
+  /// [AppSettingsInitial], which means there is no valid data
+  /// to restore.
+  @override
+  AppSettingsState? fromJson(Map&lt;String, dynamic&gt; json) {
+    try {
+      final appSettingsModel = AppSettingsModel.fromJson(json);
+      return AppSettingsChanged(appSettingsModel);
+    } catch (_) {
+      return AppSettingsInitial();
+    }
+  }
+
+  /// Converts the current [AppSettingsState] into a JSON object for persistence.
+  ///
+  /// This function is called by `HydratedBloc` to save the current state
+  /// when there are changes. If the state is [AppSettingsChanged], it serializes
+  /// the settings model into JSON and saves it. If the state is the initial state
+  /// [AppSettingsInitial], it returns `null`, which indicates that there is no state
+  /// to persist (e.g., the default state of the app).
+  @override
+  Map&lt;String, dynamic&gt;? toJson(AppSettingsState state) {
+    if (state is AppSettingsChanged) {
+      return state.appSettingsModel.toJson();
+    }
+    return null;
+  }
+}</code></pre><p id="11be8e21-d05b-8089-9a4d-f18658242981" class="">In the methods fromJson and toJson we use the methods fromJson and toJson from app_settings_model.dart:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="11be8e21-d05b-800c-a157-f644a537a639" class="code"><code class="language-Dart">/// Create an AppSettings instance from a JSON map.
+factory AppSettingsModel.fromJson(Map&lt;String, dynamic&gt; json) {
+  return AppSettingsModel(
+    themeMode:
+        ThemeMode.values[json[&#x27;themeMode&#x27;] as int? ?? defaultThemeMode.index],
+    locale: Locale(json[&#x27;locale&#x27;] as String? ?? defaultLocale.languageCode),
+    windowSize: Size(
+      json[&#x27;windowSize&#x27;][&#x27;width&#x27;] as double? ?? defaultWindowSize.width,
+      json[&#x27;windowSize&#x27;][&#x27;height&#x27;] as double? ?? defaultWindowSize.height,
+    ),
+    windowPosition: Offset(
+      json[&#x27;windowPosition&#x27;][&#x27;x&#x27;] as double? ?? defaultWindowPosition.dx,
+      json[&#x27;windowPosition&#x27;][&#x27;y&#x27;] as double? ?? defaultWindowPosition.dy,
+    ),
+  );
+}
+
+/// Converts an AppSettings instance to a JSON map.
+Map&lt;String, dynamic&gt; toJson() {
+  return {
+    &#x27;themeMode&#x27;: themeMode.index,
+    &#x27;locale&#x27;: locale.languageCode,
+    &#x27;windowSize&#x27;: {
+      &#x27;width&#x27;: windowSize.width,
+      &#x27;height&#x27;: windowSize.height,
+    },
+    &#x27;windowPosition&#x27;: {
+      &#x27;x&#x27;: windowPosition.dx,
+      &#x27;y&#x27;: windowPosition.dy,
+    },
+  };
+}</code></pre><h1 id="11be8e21-d05b-80ca-b9bf-e005fd52d580" class="">Features</h1><p id="11be8e21-d05b-80c7-91f9-c0edfcd24035" class="">As mentioned before, the features are:</p><ul id="11be8e21-d05b-807d-abb4-fe12e4731fc0" class="bulleted-list"><li style="list-style-type:disc">Connecting to the device via complete IP address.</li></ul><ul id="11be8e21-d05b-807d-a6c5-e2bdd4c26ae4" class="bulleted-list"><li style="list-style-type:disc">Disconnecting from the device via complete IP address.</li></ul><ul id="11be8e21-d05b-807c-b5b1-cb5e529278bc" class="bulleted-list"><li style="list-style-type:disc">Reassigning the device&#x27;s tcpip port via wired connection using the serial number.</li></ul><ul id="11be8e21-d05b-801d-87cb-fb5bcd1068de" class="bulleted-list"><li style="list-style-type:disc">Mirroring and controlling the device screen using scrcpy installed by the user.</li></ul><ul id="11be8e21-d05b-8052-bb90-d35c054f3f46" class="bulleted-list"><li style="list-style-type:disc">Shutting down the PC&#x27;s ADB server.</li></ul><ul id="11be8e21-d05b-8005-a732-c1ea58662a96" class="bulleted-list"><li style="list-style-type:disc">Adding a device by connecting it to the PC with a cable.</li></ul><ul id="11be8e21-d05b-80a2-a2be-d4b8555487a2" class="bulleted-list"><li style="list-style-type:disc">Expandable and collapsible device card.</li></ul><ul id="11be8e21-d05b-80d7-b18f-c5b6f4aefc2b" class="bulleted-list"><li style="list-style-type:disc">Deleting a device.</li></ul><ul id="11be8e21-d05b-80cf-bdc0-c625d83c5155" class="bulleted-list"><li style="list-style-type:disc">Changing the application theme.</li></ul><ul id="11be8e21-d05b-806f-b33e-ec406c5ad1ba" class="bulleted-list"><li style="list-style-type:disc">Changing the application language, normally available in English and Italian.</li></ul><details open=""><summary style="font-weight:600;font-size:1.875em;line-height:1.3;margin:0">Detailed explanation of each feature</summary><div class="indented"><details open=""><summary style="font-weight:600;font-size:1.5em;line-height:1.3;margin:0">Global Snackbar</summary><div class="indented"><p id="11be8e21-d05b-806e-bca0-ec2d6a5f5d81" class="">There&#x27;s a global snackbar that receives a message and a success state that determines the color of the snackbar.</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="11be8e21-d05b-8075-9a4d-ef20cc4a5f46" class="code"><code class="language-Dart">/// Service to show a SnackBar with a message and a different background color depending on the result [isSuccess].
+class CondorSnackBarService {
+  static final CondorSnackBarService _instance =
+      CondorSnackBarService._internal();
+  factory CondorSnackBarService() =&gt; _instance;
+  CondorSnackBarService._internal();
+
+  late BuildContext _context;
+
+  /// Initialize the service by getting the context so that it&#x27;s passed to the [show] method.
+  void init(BuildContext context) {
+    _context = context;
+  }
+
+  void show({required String message, required bool isSuccess}) {
+    if (!_context.mounted) return;
+
+    /// Close any open snackbar.
+    ScaffoldMessenger.of(_context).clearSnackBars();
+
+    /// Show snackbar with message and with color of success or error.
+    ScaffoldMessenger.of(_context).showSnackBar(
+      SnackBar(
+        content: SelectableText(
+          message,
+        ),
+        backgroundColor: isSuccess ? Colors.green : Colors.red,
+        duration: const Duration(seconds: 6),
+        action: SnackBarAction(
+          label: &#x27;Close&#x27;,
+          onPressed: () {
+            ScaffoldMessenger.of(_context).hideCurrentSnackBar();
+          },
+        ),
+      ),
+    );
+  }
+}
+
+/// Global instance for easy access.
+final condorSnackBar = CondorSnackBarService();</code></pre><p id="11be8e21-d05b-8048-a91c-e15f952a7e3a" class="">In main.dart, we initialize the service:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="11be8e21-d05b-804f-9326-db74a4fab704" class="code"><code class="language-Dart">/// The main application widget.
+///
+/// This widget sets up the MaterialApp with the appropriate theme,
+/// localization, and home screen.
+class TrueApp extends StatelessWidget {
+  const TrueApp({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder&lt;AppSettingsBloc, AppSettingsState&gt;(
+      builder: (context, state) {
+        return MaterialApp(
+          title: &#x27;Wireless Debugging Devices Manager&#x27;,
+          debugShowCheckedModeBanner: false,
+          locale: state.appSettingsModel.locale,
+          supportedLocales: L10n.supportedLocales,
+          localizationsDelegates: L10n.localizationsDelegates,
+          theme: CondorAppTheme.lightTheme,
+          darkTheme: CondorAppTheme.darkTheme,
+
+          /// The theme is determined by the current settings in the app&#x27;s state.
+          themeMode: state.appSettingsModel.themeMode,
+          home: Builder(builder: (context) {
+            /// Initialize the service that manages the SnackBar.
+            condorSnackBar.init(context);
+
+            /// Initialize the service that manages the localization.
+            condorLocalization.init(context);
+            return const HomeScreen();
+          }),
+        );
+      },
+    );
+  }
+}</code></pre></div></details><details open=""><summary style="font-weight:600;font-size:1.5em;line-height:1.3;margin:0">Changing application language</summary><div class="indented"><p id="11be8e21-d05b-8099-8827-c226d9699807" class="">In main.dart, we initialize the service:</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="11be8e21-d05b-8018-b3bb-eae8e5792efc" class="code"><code class="language-Dart">/// The main application widget.
+///
+/// This widget sets up the MaterialApp with the appropriate theme,
+/// localization, and home screen.
+class TrueApp extends StatelessWidget {
+  const TrueApp({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder&lt;AppSettingsBloc, AppSettingsState&gt;(
+      builder: (context, state) {
+        return MaterialApp(
+          title: &#x27;Wireless Debugging Devices Manager&#x27;,
+          debugShowCheckedModeBanner: false,
+          locale: state.appSettingsModel.locale,
+          supportedLocales: L10n.supportedLocales,
+          localizationsDelegates: L10n.localizationsDelegates,
+          theme: CondorAppTheme.lightTheme,
+          darkTheme: CondorAppTheme.darkTheme,
+
+          /// The theme is determined by the current settings in the app&#x27;s state.
+          themeMode: state.appSettingsModel.themeMode,
+          home: Builder(builder: (context) {
+            /// Initialize the service that manages the SnackBar.
+            condorSnackBar.init(context);
+
+            /// Initialize the service that manages the localization.
+            condorLocalization.init(context);
+            return const HomeScreen();
+          }),
+        );
+      },
+    );
+  }
+}</code></pre><p id="11be8e21-d05b-806a-b32d-d2f4bd632223" class="">In the l10n.dart file, we manage the supported Locales and delegates.</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="11be8e21-d05b-808a-a926-ff87203bfd8d" class="code"><code class="language-Dart">class L10n {
+  static final supportedLocales = [
+    const Locale(&#x27;en&#x27;),
+    const Locale(&#x27;it&#x27;),
+  ];
+
+  static const localizationsDelegates = [
+    AppLocalizations.delegate,
+    GlobalMaterialLocalizations.delegate,
+    GlobalWidgetsLocalizations.delegate,
+    GlobalCupertinoLocalizations.delegate,
+  ];
+}</code></pre><p id="11be8e21-d05b-8090-835c-e8735b403735" class="">And we have a file that creates a global instance of the internationalization service.</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="11be8e21-d05b-8025-8690-fe216b4ce678" class="code"><code class="language-Dart">/// Service for localization.
+///
+/// It provides access to the localized strings in the application.
+class CondorLocalizationService {
+  static final CondorLocalizationService _instance = CondorLocalizationService._internal();
+  factory CondorLocalizationService() =&gt; _instance;
+  CondorLocalizationService._internal();
+
+  late BuildContext _context;
+
+  void init(BuildContext context) {
+    _context = context;
+  }
+
+  AppLocalizations get l10n =&gt; AppLocalizations.of(_context)!;
+}
+
+/// Global instance for easy access to the localized strings in the application.
+final condorLocalization = CondorLocalizationService();</code></pre><p id="11be8e21-d05b-80c3-8c5c-e7e59f16dfe3" class="">To change the language, there&#x27;s a dropdown menu in the row of main buttons, and it uses the bloc event call.</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="11be8e21-d05b-8096-9d92-eb728dbd157b" class="code"><code class="language-Dart">/// A widget that displays a dropdown menu for selecting the app&#x27;s locale.
+///
+/// This widget listens to the AppSettingsBloc to get the current locale
+/// and provides options to change it.
+class CondorDropdownMenuLocale extends StatelessWidget {
+  /// Creates a CondorDropdownMenuLocale widget.
+  const CondorDropdownMenuLocale({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder&lt;AppSettingsBloc, AppSettingsState&gt;(
+      builder: (context, state) {
+        /// Determines if the current theme mode is dark.
+        final isDarkMode = state.appSettingsModel.themeMode == ThemeMode.dark;
+        return Container(
+          decoration: BoxDecoration(
+            color: isDarkMode ? Colors.grey.shade300 : Colors.transparent,
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: DropdownButton&lt;Locale&gt;(
+            borderRadius: BorderRadius.circular(8),
+            focusColor: Colors.transparent,
+            value: state.appSettingsModel.locale,
+            items: L10n.supportedLocales.map((iterableLocale) {
+              return DropdownMenuItem(
+                value: iterableLocale,
+                child: Text(
+                  iterableLocale.languageCode.toUpperCase(),
+                ),
+              );
+            }).toList(),
+            onChanged: (newLocale) {
+              /// Updates the app settings by dispatching the ChangeAppSettings event to the BLoC.
+              context.read&lt;AppSettingsBloc&gt;().add(
+                    ChangeAppSettings(
+                      appSettingsModel: state.appSettingsModel.copyWith(
+                        locale: newLocale,
+                      ),
+                    ),
+                  );
+            },
+          ),
+        );
+      },
+    );
+  }
+}
+</code></pre><p id="11be8e21-d05b-800e-8cd1-f40f2a222e03" class="">To use the strings in various files, just put the call to the global instance plus the string registered in the arb in the Text widget: <code>condorLocalization.l10n.&lt;string in arb&gt;</code>.</p></div></details><details open=""><summary style="font-weight:600;font-size:1.5em;line-height:1.3;margin:0">Connecting and Disconnecting device</summary><div class="indented"><p id="11be8e21-d05b-80ed-b72c-c3b40f45d183" class="">In the device card, there are buttons to attempt to connect and disconnect from the device via the complete IP address. The buttons are two StatelessWidget classes, and their constructor requires a device. As a return, we have a BlocProvider and BlocBuilder that use SpinningCircleCubit to show CircularProgressIndicator. The button is pressable or not depending on the device&#x27;s connection state, which is registered.</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="11be8e21-d05b-80d2-96f1-ec1ab9a01269" class="code"><code class="language-Dart">class DisconnectButton extends StatelessWidget {
+  const DisconnectButton({
+    super.key,
+    required this.device,
+  });
+
+  final DeviceModel device;
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      /// SpinningCircleCubit manages the state of the spinning circle.
+      create: (context) =&gt; SpinningCircleCubit(),
+      child: BlocBuilder&lt;SpinningCircleCubit, SpinningCircleState&gt;(
+        builder: (context, state) {
+          return Row(
+            children: [
+              SizedBox(
+                width: 24,
+                height: 24,
+                child: Visibility(
+                  /// Only show the loading indicator if the state is SpinningCircleSpinning.
+                  visible: state is SpinningCircleSpinning,
+                  child: const CircularProgressIndicator(
+                    strokeWidth: 2.5,
+                  ),
+                ),
+              ),
+              const SizedBox(width: 14),
+              ElevatedButton(
+                onPressed: device.isConnected
+                    ? () async {
+                        /// Create a reference to the SpinningCircleCubit so that the context can be accessed easily.
+                        final spinningCircleCubit =
+                            context.read&lt;SpinningCircleCubit&gt;();
+
+                        /// Invoke the startSpinning method, which will emit the SpinningCircleSpinning state.
+                        spinningCircleCubit.startSpinning();
+
+                        await condorAdbCommands
+                            .disconnectFromDevice(
+                                completeIpAddress: device.completeIpAddress)
+                            .then(
+                          (_) {
+                            if (context.mounted) {
+                              context.read&lt;DevicesBloc&gt;().add(
+                                    UpdateDeviceConnectionStatus(
+                                        serialNumber: device.serialNumber,
+                                        isConnected: false),
+                                  );
+                            }
+                          },
+                        );
+
+                        /// Invoke the stopSpinning method, which will emit the SpinningCircleStopped state.
+                        spinningCircleCubit.stopSpinning();
+                      }
+                    : null,
+                child: Text(condorLocalization.l10n.disconnectDeviceButton),
+              ),
+            ],
+          );
+        },
+      ),
+    );
+  }
+}</code></pre><p id="11be8e21-d05b-8000-a27f-ef3ea5bae738" class="">When pressed, the CircularProgressIndicator starts spinning and the disconnectFromDevice function from condorAdbCommands is initiated.</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="11be8e21-d05b-80f2-8ea7-d2531a69484b" class="code"><code class="language-Dart">  /// Method to disconnect from a device based on its IP address.
+  ///
+  /// It doesn&#x27;t return a boolean like the connectToDevice method because it always returns true anyway.
+  /// It shows a snackbar with the result of the command execution.
+  Future&lt;void&gt; disconnectFromDevice({required String completeIpAddress}) async {
+    final List&lt;String&gt; arguments = [&#x27;disconnect&#x27;, completeIpAddress];
+
+    var result = await Process.run(executable, arguments);
+
+    printCommandDetails(commandArguments: arguments, result: result);
+
+    switch (result.exitCode) {
+      case 0:
+        condorSnackBar.show(
+          message: condorLocalization.l10n
+              .disconnectFromDeviceSuccess(completeIpAddress),
+          isSuccess: true,
+        );
+        break;
+      case 1:
+        condorSnackBar.show(
+          message: condorLocalization.l10n
+              .disconnectFromDeviceError(completeIpAddress),
+          isSuccess: false,
+        );
+        break;
+      default:
+        condorSnackBar.show(
+          message: condorLocalization.l10n
+              .disconnectFromDeviceUnknownError(completeIpAddress),
+          isSuccess: false,
+        );
+        break;
+    }
+  }</code></pre><p id="11be8e21-d05b-805e-8041-c381cf76831f" class="">A global snackbar is then displayed with the message and a specific color that depends on the success status. When finished, it proceeds to the .then where it will trigger the function that allows the new connection status to be saved from the devices_bloc.dart file.</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="11be8e21-d05b-803c-9548-dbf333324600" class="code"><code class="language-Dart">  /// Handles the UpdateDeviceConnectionStatus event by updating the connection status of a specific device.
+  /// Emits a new state with the updated device information.
+  void _onUpdateDeviceConnectionStatus(
+      UpdateDeviceConnectionStatus event, Emitter&lt;DevicesState&gt; emit) {
+    final updatedDevices = state.devices.map((device) {
+      if (device.serialNumber == event.serialNumber) {
+        return device.copyWith(isConnected: event.isConnected);
+      }
+      return device;
+    }).toList();
+    emit(DevicesChanged(updatedDevices));
+  }</code></pre></div></details><details open=""><summary style="font-weight:600;font-size:1.5em;line-height:1.3;margin:0">Reassigning tcpip port</summary><div class="indented"><p id="11be8e21-d05b-8060-b22c-ed47b48478bf" class="">In the device card, there&#x27;s a button for reassigning the tcpip port, which must be done with the device connected to the PC via cable. When pressed, a dialog will be displayed.</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="11be8e21-d05b-803b-b6fa-edcb1e581c6f" class="code"><code class="language-Dart">ElevatedButton(
+  onPressed: singleDevice.isConnected
+      ? null
+      : () {
+          _showTcpipDialog(context, singleDevice);
+        },
+  child: Text(condorLocalization.l10n.runTcpipButton),
+),</code></pre><p id="11be8e21-d05b-8013-a45a-f40ec8920559" class="">Pass the context and device information. The port will be extracted from the full IP address; if it doesn&#x27;t exist, the default 5555 will be used.</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="11be8e21-d05b-80d9-bc82-d268fd7475e0" class="code"><code class="language-Dart">/// Shows a dialog for running tcpip command on the device.
+///
+/// This function extracts the current port from the device&#x27;s IP address,
+/// allows the user to edit it, and then runs the tcpip command with the new port.
+Future&lt;void&gt; _showTcpipDialog(
+    BuildContext context, DeviceModel device) async {
+  // Regular expression to extract the port number from the IP address
+  final portRegex = RegExp(r&#x27;:(\d+)$&#x27;);
+
+  // Attempt to match the regex against the device&#x27;s IP address
+  final match = portRegex.firstMatch(device.completeIpAddress);
+
+  // If a match is found, use the captured group (port number), otherwise use &#x27;5555&#x27; as default
+  final initialPort = match != null ? match.group(1) : &#x27;5555&#x27;;
+
+  final controller = TextEditingController(text: initialPort);
+
+  return showDialog&lt;void&gt;(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text(condorLocalization.l10n.runTcpipDialogTitle),
+        content: TextField(
+          controller: controller,
+          decoration: InputDecoration(hintText: initialPort),
+          keyboardType: TextInputType.number,
+        ),
+        actionsAlignment: MainAxisAlignment.spaceEvenly,
+        actions: &lt;Widget&gt;[
+          ElevatedButton(
+            style: const ButtonStyle(
+              backgroundColor: WidgetStatePropertyAll(Colors.red),
+            ),
+            child: Text(condorLocalization.l10n.cancelButton),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+          ElevatedButton(
+            style: const ButtonStyle(
+              backgroundColor: WidgetStatePropertyAll(Colors.green),
+            ),
+            child: Text(condorLocalization.l10n.runTcpipButton),
+            onPressed: () async {
+              final int port = int.tryParse(controller.text) ?? 5555;
+              final isSuccess = await condorAdbCommands.runTcpip(
+                serialNumber: device.serialNumber,
+                tcpipPort: port,
+              );
+              if (isSuccess &amp;&amp; context.mounted) {
+                final newIpAddress = device.completeIpAddress
+                    .replaceFirst(RegExp(r&#x27;:\d+$&#x27;), &#x27;:$port&#x27;);
+                context.read&lt;DevicesBloc&gt;().add(
+                      UpdateDeviceIpAddress(
+                        serialNumber: device.serialNumber,
+                        newCompleteIpAddress: newIpAddress,
+                      ),
+                    );
+              }
+              if (context.mounted) {
+                Navigator.of(context).pop();
+              }
+            },
+          ),
+        ],
+      );
+    },
+  );
+}</code></pre><p id="11be8e21-d05b-80d2-85b7-f1bda56c4233" class="">The runTcpip function from condorAdbCommands is then executed.</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="11be8e21-d05b-808d-a9d3-c85e7ef136e8" class="code"><code class="language-Dart">/// Method to run the &#x27;adb tcpip&#x27; command to open a port for a connection with a device.
+///
+/// The parameters [serialNumber] and [tcpipPort] are required, duh.
+/// It shows a snackbar with the result of the command execution.
+Future&lt;bool&gt; runTcpip(
+    {required String serialNumber, required int tcpipPort}) async {
+  final List&lt;String&gt; arguments = [&#x27;-s&#x27;, serialNumber, &#x27;tcpip&#x27;, &#x27;$tcpipPort&#x27;];
+
+  var result = await Process.run(executable, arguments);
+
+  printCommandDetails(commandArguments: arguments, result: result);
+
+  switch (result.exitCode) {
+    case 0:
+      condorSnackBar.show(
+        message:
+            condorLocalization.l10n.runTcpipSuccess(serialNumber, tcpipPort),
+        isSuccess: true,
+      );
+      return true;
+    case 1:
+      condorSnackBar.show(
+        message: condorLocalization.l10n.runTcpipError(serialNumber),
+        isSuccess: false,
+      );
+      return false;
+    default:
+      condorSnackBar.show(
+        message: condorLocalization.l10n.runTcpipUnknownError(serialNumber),
+        isSuccess: false,
+      );
+      return false;
+  }
+}</code></pre><p id="11be8e21-d05b-801f-9186-cec2093d5009" class="">A global snackbar is then displayed with the message and a specific color that depends on the success status. When finished, it might trigger the function that allows the new tcpip port to be saved.</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="11be8e21-d05b-80fa-826c-ff61fdfb8b41" class="code"><code class="language-Dart">/// Handles the UpdateDeviceIpAddress event by updating the IP address of a specific device.
+/// Emits a new state with the updated device information.
+void _onUpdateDeviceIpAddress(
+    UpdateDeviceIpAddress event, Emitter&lt;DevicesState&gt; emit) {
+  final updatedDevices = state.devices.map((device) {
+    if (device.serialNumber == event.serialNumber) {
+      return device.copyWith(completeIpAddress: event.newCompleteIpAddress);
+    }
+    return device;
+  }).toList();
+  emit(DevicesChanged(updatedDevices));
+}</code></pre></div></details><details open=""><summary style="font-weight:600;font-size:1.5em;line-height:1.3;margin:0">Device screen mirroring</summary><div class="indented"><p id="11be8e21-d05b-807f-9a3f-f9368c0d6fda" class="">In the device card, there&#x27;s a button for mirroring the device screen. When pressed, the scrcpy program will be used to perform mirroring and control of the device.</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="11be8e21-d05b-8060-ba7d-c7cc44ddd48b" class="code"><code class="language-Dart">ElevatedButton(
+  onPressed: singleDevice.isConnected
+      ? () {
+          condorAdbCommands.mirrorScreen(
+              completeIPAddress: singleDevice.completeIpAddress);
+        }
+      : null,
+  child: Text(condorLocalization.l10n.mirrorScreenButton),
+),</code></pre><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="11be8e21-d05b-8058-a94f-d1cdb51666b8" class="code"><code class="language-Dart">/// Method to display screen of a connected device based on its IP address.
+/// Powered by scrcpy.
+Future&lt;void&gt; mirrorScreen({required String completeIPAddress}) async {
+  final List&lt;String&gt; arguments = [&#x27;-s&#x27;, completeIPAddress];
+
+  try {
+    await Process.run(&#x27;scrcpy&#x27;, arguments);
+  } catch (e) {
+    condorSnackBar.show(
+      message: condorLocalization.l10n.mirrorScreenPathError,
+      isSuccess: false,
+    );
+  }
+}</code></pre></div></details><details open=""><summary style="font-weight:600;font-size:1.5em;line-height:1.3;margin:0">Shutting down ADB server</summary><div class="indented"><p id="11be8e21-d05b-805a-8251-dfa4929c34f5" class="">In the row of buttons, there&#x27;s a button to shut down the server.</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="11be8e21-d05b-801b-8dff-c2fb250f5132" class="code"><code class="language-Dart">// Button to kill the ADB server
+ElevatedButton(
+  /// When the user clicks on this button the ADB server is killed and
+  /// subsequently all devices connection statuses are registered as disconnected.
+  onPressed: () =&gt; condorAdbCommands.killServer().then((_) {
+    if (context.mounted) {
+      context.read&lt;DevicesBloc&gt;().add(DisconnectAllDevices());
+    }
+  }),
+  style: ButtonStyle(
+    backgroundColor: WidgetStateProperty.all(Colors.deepOrange),
+  ),
+  child: Text(condorLocalization.l10n.killAdbServerButton),
+),</code></pre><p id="11be8e21-d05b-8039-873c-c36323ebb570" class="">When clicked, a very simple function is executed that runs the <code>adb kill-server</code> command, and then in the .then, the connection status of all devices is updated and set to false.</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="11be8e21-d05b-8082-a219-e3a290ccfbf6" class="code"><code class="language-Dart">/// Handles the DisconnectAllDevices event by setting all devices&#x27; connection status to false.
+/// Emits a new state with all devices disconnected.
+void _onDisconnectAllDevices(
+    DisconnectAllDevices event, Emitter&lt;DevicesState&gt; emit) {
+  final updatedDevices = state.devices
+      .map((device) =&gt; device.copyWith(isConnected: false))
+      .toList();
+  emit(DevicesChanged(updatedDevices));
+}</code></pre></div></details><details open=""><summary style="font-weight:600;font-size:1.5em;line-height:1.3;margin:0">Adding a new device</summary><div class="indented"><p id="11be8e21-d05b-809c-961d-da8fbd6b457c" class="">In the row of buttons, there&#x27;s a button to add a new device</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="11be8e21-d05b-80c2-9983-f264da716211" class="code"><code class="language-Dart">// Button to add a device
+ElevatedButton(
+  onPressed: () async {
+    showDialog(
+      context: context,
+      builder: (context) =&gt; const CondorAddDeviceDialog(),
+    );
+  },
+  style: ButtonStyle(
+    backgroundColor:
+        WidgetStateProperty.all(Colors.lightBlue.shade300),
+  ),
+  child: Text(condorLocalization.l10n.addDeviceButton),
+),</code></pre><p id="11be8e21-d05b-8074-b7fc-e0347dc7ba78" class="">Since the code is very long, I&#x27;ll explain it in words.<br/>Clicking the button will open a dialog that will present the list of devices connected to the PC via cable. The following data will be taken from the device: IP, serial number, model, manufacturer, and Android version. Each device in the list indicates whether it&#x27;s already present in the registered devices or not. Once the device to be added is selected, press the continue button, then enter the name to apply to the device and the tcpip port.<br/></p></div></details><details open=""><summary style="font-weight:600;font-size:1.5em;line-height:1.3;margin:0">Expandable and collapsible device card</summary><div class="indented"><p id="11be8e21-d05b-8045-928b-c2871fc776a4" class="">Devices are represented by expandable and collapsible cards. This is also very long, so I&#x27;ll explain it in words.<br/>We use the ExpandableDeviceCardCubit to manage the card&#x27;s state and use AnimatedCrossFade to manage the view of different children. The main idea was to use AnimatedSize, but AnimatedSize has a bug that has existed for more than 6 years. The bug consists of the lack of rendering of the animation in size reduction, meaning that the reduction animation exists and works in the background, but the user sees an instant effect instead of the working animation.<br/>Anyway, AnimatedCrossFade will animate the show of different children, firstChild and secondChild, and the change occurs using the cubit as follows:<br/></p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="11be8e21-d05b-8042-a8bd-e4faa6dad901" class="code"><code class="language-Dart">crossFadeState: stateOfExpandableCard
+        is ExpandableDeviceCardExpanded
+    ? CrossFadeState.showSecond
+    : CrossFadeState.showFirst,</code></pre><p id="11be8e21-d05b-801a-bca6-f549ad58ff37" class="">This way, when you click the button to expand the card, it will adapt with the animation.</p></div></details><details open=""><summary style="font-weight:600;font-size:1.5em;line-height:1.3;margin:0">Deleting a device</summary><div class="indented"><p id="11be8e21-d05b-8005-9288-f88de562662f" class="">This button is present when you enlarge the device card and is available when the device is not connected.</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="11be8e21-d05b-804e-b071-cadddc378d76" class="code"><code class="language-Dart">IconButton(
+  onPressed: singleDevice.isConnected
+      ? null
+      : () {
+          context.read&lt;DevicesBloc&gt;().add(
+              RemoveDevice(serialNumber: singleDevice.serialNumber));
+        },
+  icon: Icon(
+    Icons.delete,
+    color: singleDevice.isConnected ? Colors.grey : Colors.red.shade600,
+    size: 44,
+  ),
+),</code></pre><p id="11be8e21-d05b-8075-b3f6-f61196d723ec" class="">The function in device_bloc.dart will be used to remove the device according to its serial number.</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="11be8e21-d05b-8060-a4c6-e06eb7162769" class="code"><code class="language-Dart">/// Handles the RemoveDevice event by removing a specific device from the list.
+/// Emits a new state with the updated list of devices.
+void _onRemoveDevice(RemoveDevice event, Emitter&lt;DevicesState&gt; emit) {
+  final updatedDevices = state.devices
+      .where((device) =&gt; device.serialNumber != event.serialNumber)
+      .toList();
+  emit(DevicesChanged(updatedDevices));
+}</code></pre></div></details><details open=""><summary style="font-weight:600;font-size:1.5em;line-height:1.3;margin:0">Changing application theme</summary><div class="indented"><p id="11be8e21-d05b-80af-ac84-fd4210f5e9ab" class="">In the row of main buttons, there&#x27;s a switch that allows changing the application theme.</p><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerPolicy="no-referrer"></script><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" integrity="sha512-tN7Ec6zAFaVSG3TpNAKtk4DOHNpSwKHxxrsiw4GHKESGPs5njn/0sMCUMl2svV4wo4BK/rCP7juYz+zx+l6oeQ==" crossorigin="anonymous" referrerPolicy="no-referrer"/><pre id="11be8e21-d05b-806a-bff6-eaa4ac612493" class="code"><code class="language-Dart">/// CondorSwitchThemeMode is a stateless widget that allows users to toggle between light and dark modes.
+/// It listens to the AppSettingsBloc to check the current theme mode and updates the UI accordingly.
+class CondorSwitchThemeMode extends StatelessWidget {
+  const CondorSwitchThemeMode({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder&lt;AppSettingsBloc, AppSettingsState&gt;(
+      builder: (context, state) {
+        /// Determines if the current theme mode is dark.
+        final isDarkMode = state.appSettingsModel.themeMode == ThemeMode.dark;
+        return Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(
+              size: 30,
+              isDarkMode ? Icons.dark_mode : Icons.light_mode,
+              color: isDarkMode ? Colors.grey.shade300 : Colors.orange.shade400,
+            ),
+            const SizedBox(width: 8),
+            Text(
+              isDarkMode ? &#x27;Dark Mode Enabled&#x27; : &#x27;Light Mode Enabled&#x27;,
+              style: TextStyle(
+                color: isDarkMode ? Colors.white : Colors.black,
+              ),
+            ),
+            const SizedBox(width: 8),
+
+            /// Switch widget that allows the user to toggle between light and dark modes.
+            Switch(
+              value: isDarkMode,
+              onChanged: (bool value) {
+                /// Updates the app settings by dispatching the ChangeAppSettings event to the BLoC.
+                context.read&lt;AppSettingsBloc&gt;().add(
+                      ChangeAppSettings(
+                        appSettingsModel: state.appSettingsModel.copyWith(
+                          themeMode: value ? ThemeMode.dark : ThemeMode.light,
+                        ),
+                      ),
+                    );
+              },
+            )
+          ],
+        );
+      },
+    );
+  }
+}</code></pre><p id="11be8e21-d05b-80ac-b394-e634668f3998" class="">The icon and text of the switch are dynamic according to the theme, and when we activate the switch, we call the function in the bloc.</p></div></details></div></details></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
