@@ -1,33 +1,33 @@
-# Nome del workflow
+# Workflow name
 name: Flutter Desktop Distribution
 
-# Definisce quando il workflow deve essere eseguito
+# Define when the workflow should run
 on:
-  workflow_dispatch:
+  workflow_dispatch:  # Allows manual triggering of the workflow
   push:
     branches:
-      - main  # Si attiva ad ogni push sul branch main
+      - main  # Triggers on every push to the main branch
 
-# Definizione dei jobs del workflow
+# Definition of workflow jobs
 jobs:
-  # Job per creare la release
+  # Job to create a new release
   create-release:
     runs-on: ubuntu-latest
     permissions:
-      contents: write  # Questo permesso è necessario per creare release
+      contents: write  # This permission is necessary to create releases
     outputs:
       version: ${{ steps.get_version.outputs.VERSION }}
       upload_url: ${{ steps.create_release.outputs.upload_url }}
     steps:
-    # Checkout del repository
+    # Checkout the repository
     - uses: actions/checkout@v4
     
-    # Estrae la versione dal file pubspec.yaml
+    # Extract the version from pubspec.yaml file
     - name: Get version
       id: get_version
       run: echo "VERSION=$(grep 'version:' pubspec.yaml | awk '{print $2}' | tr -d "'")" >> $GITHUB_OUTPUT
     
-    # Crea una nuova release draft
+    # Create a new draft release
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
@@ -39,9 +39,9 @@ jobs:
         draft: true
         prerelease: false
 
-  # Job per buildare e rilasciare l'app per ogni piattaforma
+  # Job to build and release the app for each platform
   build-and-release:
-    needs: create-release
+    needs: create-release  # This job depends on the create-release job
     permissions:
       contents: write
     strategy:
@@ -60,30 +60,35 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     
+    # Set up Flutter environment
     - name: Setup Flutter
       uses: subosito/flutter-action@v2
       with:
         flutter-version: '3.24.3'
         channel: 'stable'
-    - run: flutter --version
     
+    # Install necessary dependencies for Linux build
     - name: Install Linux dependencies
       if: matrix.os == 'ubuntu-latest'
       run: |
         sudo apt-get update
         sudo apt-get install -y ninja-build libgtk-3-dev
     
+    # Get Flutter project dependencies
     - name: Get dependencies
       run: flutter pub get
     
+    # Generate localization files
     - name: Generate l10n
       run: flutter gen-l10n
     
+    # Build the app for the current platform
     - name: Build for ${{ matrix.output-name }}
       run: |
         flutter config --enable-${{ matrix.output-name }}-desktop
         flutter build ${{ matrix.output-name }} --release
     
+    # Verify that the build output exists for Linux
     - name: Check build output (Linux)
       if: matrix.os == 'ubuntu-latest'
       run: |
@@ -92,6 +97,7 @@ jobs:
           exit 1
         fi
     
+    # Verify that the build output exists for Windows
     - name: Check build output (Windows)
       if: matrix.os == 'windows-latest'
       run: |
@@ -100,6 +106,7 @@ jobs:
           exit 1
         }
     
+    # Package the Linux build into a zip file
     - name: Package for Linux
       if: matrix.os == 'ubuntu-latest'
       run: |
@@ -107,16 +114,19 @@ jobs:
         zip -r ../../../../../WDDM_v${{ needs.create-release.outputs.version }}_linux.zip *
         cd -
     
+    # Package the Windows build into a zip file
     - name: Package for Windows
       if: matrix.os == 'windows-latest'
       run: |
         Compress-Archive -Path build\windows\x64\runner\Release\* -DestinationPath WDDM_v${{ needs.create-release.outputs.version }}_windows.zip
     
+    # Package the macOS build into a zip file
     - name: Package for macOS
       if: matrix.os == 'macos-latest'
       run: |
         ditto -c -k --sequesterRsrc --keepParent build/macos/Build/Products/Release/*.app WDDM_v${{ needs.create-release.outputs.version }}_macos.zip
     
+    # Upload the packaged build as a release asset
     - name: Upload Release Asset
       uses: actions/upload-release-asset@v1
       env:
@@ -127,6 +137,7 @@ jobs:
         asset_name: WDDM_v${{ needs.create-release.outputs.version }}_${{ matrix.output-name }}.zip
         asset_content_type: application/zip
 
+    # Upload error logs as artifacts if the job fails
     - name: Upload error logs
       uses: actions/upload-artifact@v4
       if: failure()
