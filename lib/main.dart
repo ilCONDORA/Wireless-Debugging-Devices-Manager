@@ -6,8 +6,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:window_manager/window_manager.dart';
-import 'package:wireless_debugging_devices_manager/bloc/app_settings_bloc/app_settings_bloc.dart';
-import 'package:wireless_debugging_devices_manager/bloc/devices_bloc/devices_bloc.dart';
+import 'package:wireless_debugging_devices_manager/blocs/app_settings/app_settings_bloc.dart';
+import 'package:wireless_debugging_devices_manager/blocs/devices/devices_bloc.dart';
 import 'package:wireless_debugging_devices_manager/config/app_theme.dart';
 import 'package:wireless_debugging_devices_manager/l10n/l10n.dart';
 import 'package:wireless_debugging_devices_manager/screens/home_screen.dart';
@@ -131,14 +131,15 @@ class _WindowManagerWrapperState extends State<WindowManagerWrapper>
     Size size = await windowManager.getSize();
     Offset position = await windowManager.getPosition();
 
-    final appSettingsBloc = context.read<AppSettingsBloc>();
-    final currentSettings = appSettingsBloc.state.appSettingsModel;
-    final updatedSettings = currentSettings.copyWith(
-      windowSize: size,
-      windowPosition: position,
-    );
-
-    appSettingsBloc.add(ChangeAppSettings(appSettingsModel: updatedSettings));
+    if (mounted) {
+      final appSettingsBloc = context.read<AppSettingsBloc>();
+      final currentSettings = appSettingsBloc.state.appSettingsModel;
+      final updatedSettings = currentSettings.copyWith(
+        windowSize: size,
+        windowPosition: position,
+      );
+      appSettingsBloc.add(ChangeAppSettings(appSettingsModel: updatedSettings));
+    }
   }
 
   /// Loads the saved window settings and applies them to the current window.

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:wireless_debugging_devices_manager/bloc/devices_bloc/devices_bloc.dart';
+import 'package:wireless_debugging_devices_manager/blocs/devices/devices_bloc.dart';
 import 'package:wireless_debugging_devices_manager/models/device_model.dart';
 import 'package:wireless_debugging_devices_manager/services/adb_commands.dart';
 import 'package:wireless_debugging_devices_manager/services/condor_localization_service.dart';
-import 'package:wireless_debugging_devices_manager/cubit/selected_new_device_cubit/selected_new_device_cubit.dart';
+import 'package:wireless_debugging_devices_manager/cubits/selected_new_device/selected_new_device_cubit.dart';
 
 /// A dialog that allows the user to select and add a new device.
 class CondorAddDeviceDialog extends StatelessWidget {
@@ -250,6 +250,7 @@ class CondorAddDeviceDialog extends StatelessWidget {
   }
 }
 
+/// Custom name and TCP/IP port dialog.
 class CustomNamePortDialog extends StatelessWidget {
   const CustomNamePortDialog({
     super.key,
@@ -258,7 +259,7 @@ class CustomNamePortDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final TextEditingController customNameController = TextEditingController();
-    final TextEditingController tcpipPortController = TextEditingController();
+    final TextEditingController tcpipPortController = TextEditingController(text: '5555');
 
     return AlertDialog(
       title: Text(condorLocalization.l10n.titleDialogAddCustomNameTcpipPort),

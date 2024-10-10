@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:reorderables/reorderables.dart';
-import 'package:wireless_debugging_devices_manager/bloc/devices_bloc/devices_bloc.dart';
+import 'package:wireless_debugging_devices_manager/blocs/devices/devices_bloc.dart';
 import 'package:wireless_debugging_devices_manager/models/device_model.dart';
 import 'package:wireless_debugging_devices_manager/services/condor_localization_service.dart';
 import 'package:wireless_debugging_devices_manager/widgets/condor_buttons_row.dart';
 import 'package:wireless_debugging_devices_manager/widgets/condor_expandable_card.dart';
 import 'package:wireless_debugging_devices_manager/widgets/condor_expanded_icon.dart';
 
+/// The widget that displays the main screen of the application.
+///
+/// This widget displays a row of buttons and reorderable list of cards for devices.
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 

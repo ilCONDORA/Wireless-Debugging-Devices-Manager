@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:wireless_debugging_devices_manager/bloc/app_settings_bloc/app_settings_bloc.dart';
+import 'package:wireless_debugging_devices_manager/blocs/app_settings/app_settings_bloc.dart';
 
 /// CondorSwitchThemeMode is a stateless widget that allows users to toggle between light and dark modes.
 /// It listens to the AppSettingsBloc to check the current theme mode and updates the UI accordingly.

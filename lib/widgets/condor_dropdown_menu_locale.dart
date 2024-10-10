@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:wireless_debugging_devices_manager/bloc/app_settings_bloc/app_settings_bloc.dart';
+import 'package:wireless_debugging_devices_manager/blocs/app_settings/app_settings_bloc.dart';
 import 'package:wireless_debugging_devices_manager/l10n/l10n.dart';
 
 /// A widget that displays a dropdown menu for selecting the app's locale.

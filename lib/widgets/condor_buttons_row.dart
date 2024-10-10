@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:wireless_debugging_devices_manager/bloc/app_settings_bloc/app_settings_bloc.dart';
-import 'package:wireless_debugging_devices_manager/bloc/devices_bloc/devices_bloc.dart';
+import 'package:wireless_debugging_devices_manager/blocs/app_settings/app_settings_bloc.dart';
+import 'package:wireless_debugging_devices_manager/blocs/devices/devices_bloc.dart';
 import 'package:wireless_debugging_devices_manager/services/adb_commands.dart';
 import 'package:wireless_debugging_devices_manager/services/condor_localization_service.dart';
 import 'package:wireless_debugging_devices_manager/services/condor_snackbar_service.dart';
