@@ -43,9 +43,9 @@ jobs:
   build-and-release:
     needs: create-release
     permissions:
-      contents: write  # Questo permesso è necessario per caricare asset alla release
+      contents: write
     strategy:
-      fail-fast: false  # Continua con gli altri job anche se uno fallisce
+      fail-fast: false
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
         include:
@@ -58,65 +58,58 @@ jobs:
     runs-on: ${{ matrix.os }}
     
     steps:
-    # Checkout del repository
     - uses: actions/checkout@v4
     
-    # Setup di Flutter
     - name: Setup Flutter
       uses: subosito/flutter-action@v2
       with:
-        flutter-version: '3.24.3'  # Specifica una versione fissa di Flutter
+        flutter-version: '3.24.3'
         channel: 'stable'
     
-    # Ottiene le dipendenze Dart
-    - name: Get Dart dependencies
-      run: dart pub get
-    
-    # Ottiene le dipendenze Flutter
-    - name: Get Flutter dependencies
+    - name: Get dependencies
       run: flutter pub get
     
-    # Genera i file di localizzazione
     - name: Generate l10n
       run: flutter gen-l10n
     
-    # Compila l'app per la piattaforma corrente
     - name: Build for ${{ matrix.output-name }}
       run: |
         flutter config --enable-${{ matrix.output-name }}-desktop
         flutter build ${{ matrix.output-name }} --release
-      continue-on-error: true  # Continua anche se la build fallisce
     
-    # Verifica lo stato della build
-    - name: Check build status
+    - name: Check build output (Linux)
+      if: matrix.os == 'ubuntu-latest'
       run: |
-        if [ ! -d "build/${{ matrix.output-name }}" ]; then
-          echo "Build failed for ${{ matrix.output-name }}"
+        if [ ! -d "build/linux/x64/release/bundle" ]; then
+          echo "Linux build output not found"
           exit 1
         fi
-      shell: bash
     
-    # Crea il pacchetto per Windows
+    - name: Check build output (Windows)
+      if: matrix.os == 'windows-latest'
+      run: |
+        if (!(Test-Path "build\windows\x64\runner\Release")) {
+          Write-Error "Windows build output not found"
+          exit 1
+        }
+    
+    - name: Package for Linux
+      if: matrix.os == 'ubuntu-latest'
+      run: |
+        cd build/linux/x64/release/bundle
+        zip -r ../../../../../WDDM_v${{ needs.create-release.outputs.version }}_linux.zip *
+        cd -
+    
     - name: Package for Windows
       if: matrix.os == 'windows-latest'
       run: |
-        Compress-Archive -Path build\windows\runner\Release\* -DestinationPath WDDM_v${{ needs.create-release.outputs.version }}_windows.zip
+        Compress-Archive -Path build\windows\x64\runner\Release\* -DestinationPath WDDM_v${{ needs.create-release.outputs.version }}_windows.zip
     
-    # Crea il pacchetto per macOS
     - name: Package for macOS
       if: matrix.os == 'macos-latest'
       run: |
         ditto -c -k --sequesterRsrc --keepParent build/macos/Build/Products/Release/*.app WDDM_v${{ needs.create-release.outputs.version }}_macos.zip
     
-    # Crea il pacchetto per Linux
-    - name: Package for Linux
-      if: matrix.os == 'ubuntu-latest'
-      run: |
-        cd build/linux/x64/release/bundle
-        zip -r ../../../../WDDM_v${{ needs.create-release.outputs.version }}_linux.zip *
-        cd -
-    
-    # Carica il pacchetto come asset della release
     - name: Upload Release Asset
       uses: actions/upload-release-asset@v1
       env:
@@ -127,7 +120,6 @@ jobs:
         asset_name: WDDM_v${{ needs.create-release.outputs.version }}_${{ matrix.output-name }}.zip
         asset_content_type: application/zip
 
-    # Carica i log di errore come artefatti in caso di fallimento
     - name: Upload error logs
       uses: actions/upload-artifact@v4
       if: failure()
