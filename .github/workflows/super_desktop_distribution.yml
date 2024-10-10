@@ -63,8 +63,15 @@ jobs:
     - name: Setup Flutter
       uses: subosito/flutter-action@v2
       with:
-        flutter-version: '3.24.3'
+        flutter-version: '3.13.9'
         channel: 'stable'
+    - run: flutter --version
+    
+    - name: Install Linux dependencies
+      if: matrix.os == 'ubuntu-latest'
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y ninja-build libgtk-3-dev
     
     - name: Get dependencies
       run: flutter pub get
