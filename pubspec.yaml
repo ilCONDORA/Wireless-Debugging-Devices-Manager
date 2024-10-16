@@ -1,7 +1,7 @@
 name: wireless_debugging_devices_manager
 description: "Software to manage the wireless connection to android devices by using adb commands."
 publish_to: "none"
-version: 1.4.2
+version: 1.4.3
 
 # if window_manager or path_provider or anything else gives problems run dart pub cache clean and flutter clean after that run dart pub get, flutter pub get and flutter gen-l10n.
 # It took me 3 hours to figure this out.

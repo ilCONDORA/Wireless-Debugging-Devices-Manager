@@ -11,7 +11,7 @@ class AppSettingsModel {
   static const ThemeMode defaultThemeMode = ThemeMode.light;
 
   /// Sets the default value for the application locale.
-  static const Locale defaultLocale = Locale('en');
+  static const Locale defaultLocale = Locale('en', 'US');
 
   /// Sets the default value for the application window size.
   static const Size defaultWindowSize = Size(876, 654);
@@ -32,7 +32,10 @@ class AppSettingsModel {
     return AppSettingsModel(
       themeMode:
           ThemeMode.values[json['themeMode'] as int? ?? defaultThemeMode.index],
-      locale: Locale(json['locale'] as String? ?? defaultLocale.languageCode),
+      locale: Locale(
+        json['languageCode'] as String? ?? defaultLocale.languageCode,
+        json['countryCode'] as String? ?? defaultLocale.countryCode,
+      ),
       windowSize: Size(
         json['windowSize']['width'] as double? ?? defaultWindowSize.width,
         json['windowSize']['height'] as double? ?? defaultWindowSize.height,
@@ -48,7 +51,8 @@ class AppSettingsModel {
   Map<String, dynamic> toJson() {
     return {
       'themeMode': themeMode.index,
-      'locale': locale.languageCode,
+      'languageCode': locale.languageCode,
+      'countryCode': locale.countryCode,
       'windowSize': {
         'width': windowSize.width,
         'height': windowSize.height,

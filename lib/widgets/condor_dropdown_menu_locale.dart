@@ -30,7 +30,7 @@ class CondorDropdownMenuLocale extends StatelessWidget {
               return DropdownMenuItem(
                 value: iterableLocale,
                 child: Text(
-                  iterableLocale.languageCode.toUpperCase(),
+                  "${iterableLocale.languageCode} - ${iterableLocale.countryCode}",
                 ),
               );
             }).toList(),
