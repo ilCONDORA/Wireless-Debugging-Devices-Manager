@@ -13,8 +13,8 @@ class AppSettingsModel {
   /// Sets the default value for the application locale.
   static const Locale defaultLocale = Locale('en', 'US');
 
-  /// Sets the default value for the application window size.
-  static const Size defaultWindowSize = Size(876, 654);
+  /// Sets the default/minimum value for the application window size.
+  static const Size defaultWindowSize = Size(876, 718);
 
   /// Sets the default value for the application window position.
   static const Offset defaultWindowPosition = Offset(0, 0);

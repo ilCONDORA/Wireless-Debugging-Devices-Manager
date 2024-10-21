@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:wireless_debugging_devices_manager/blocs/app_settings/app_settings_bloc.dart';
 import 'package:wireless_debugging_devices_manager/blocs/devices/devices_bloc.dart';
+import 'package:wireless_debugging_devices_manager/screens/info_screen.dart';
 import 'package:wireless_debugging_devices_manager/services/adb_commands.dart';
 import 'package:wireless_debugging_devices_manager/services/condor_localization_service.dart';
 import 'package:wireless_debugging_devices_manager/services/condor_snackbar_service.dart';
@@ -60,9 +61,7 @@ class CondorButtonsRow extends StatelessWidget {
                 ),
                 // Button to show info page
                 ElevatedButton(
-                  onPressed: () => condorSnackBar.show(
-                      message: "This page will be done later",
-                      isSuccess: false),
+                  onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => const InfoScreen())),
                   style: ButtonStyle(
                     backgroundColor: WidgetStateProperty.all(Colors.lime),
                   ),

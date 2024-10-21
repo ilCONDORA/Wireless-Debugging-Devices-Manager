@@ -10,6 +10,7 @@ import 'package:wireless_debugging_devices_manager/blocs/app_settings/app_settin
 import 'package:wireless_debugging_devices_manager/blocs/devices/devices_bloc.dart';
 import 'package:wireless_debugging_devices_manager/config/app_theme.dart';
 import 'package:wireless_debugging_devices_manager/l10n/l10n.dart';
+import 'package:wireless_debugging_devices_manager/models/app_settings_model.dart';
 import 'package:wireless_debugging_devices_manager/screens/home_screen.dart';
 import 'package:wireless_debugging_devices_manager/services/condor_localization_service.dart';
 import 'package:wireless_debugging_devices_manager/services/condor_snackbar_service.dart';
@@ -19,10 +20,10 @@ Future<Directory> getStorageDirectory() async {
     return HydratedStorage
         .webStorageDirectory; // Web storage which is not used for this software.
   } else if (kDebugMode) {
-    // Store data in the Documents folder in debug mode.
-    final documentsDir = await getApplicationDocumentsDirectory();
+    // Store data in the project folder in debug mode.
+    final projectDir = Directory.current;
     final debugFolder = Directory(
-        '${documentsDir.path}/REMEMBER TO DELETE -- DEBUG STORAGE for WDDM by ilCONDORA');
+        '${projectDir.path}/REMEMBER TO DELETE -- DEBUG STORAGE for WDDM by ilCONDORA');
 
     // Create the folder if it doesn't exist
     if (!await debugFolder.exists()) {
@@ -52,7 +53,7 @@ Future<void> main() async {
   /// Set the minimum size of the window.
   await windowManager.ensureInitialized();
   WindowOptions windowOptions = const WindowOptions(
-    minimumSize: Size(876, 654),
+    minimumSize: AppSettingsModel.defaultWindowSize,
   );
   windowManager.waitUntilReadyToShow(windowOptions, () async {
     await windowManager.show();

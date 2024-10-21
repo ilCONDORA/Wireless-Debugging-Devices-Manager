@@ -41,3 +41,6 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Custom debug folder
+/REMEMBER TO DELETE -- DEBUG STORAGE */
